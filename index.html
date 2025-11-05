@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Find and book the best hotels in Duluth, Minnesota. Top-rated Canal Park hotels, budget-friendly options, and family accommodations. Book with confidence through our trusted partners.">
-    <meta name="keywords" content="hotels in Duluth MN, Canal Park hotels, best hotels Duluth Minnesota, Duluth accommodations, Lake Superior hotels, downtown Duluth hotels">
+    <meta name="description" content="Discover Duluth's best restaurants, local favorites, and scenic dining in Duluth, Minnesota. Find top-rated eateries with lake views and authentic North Shore cuisine.">
+    <meta name="keywords" content="restaurants Duluth MN, Duluth dining, Canal Park restaurants, Lake Superior dining, Duluth food guide, best restaurants Duluth">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="DuluthStay.com - Best Hotels in Duluth, Minnesota">
-    <meta property="og:description" content="Find and book the best hotels in Duluth, Minnesota. Top-rated Canal Park hotels, budget-friendly options, and family accommodations.">
+    <meta property="og:title" content="DuluthGuide - Discover Duluth, Minnesota">
+    <meta property="og:description" content="Find top-rated eateries, local favorites, and scenic dining in Duluth, Minnesota.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://duluthstay.com">
+    <meta property="og:url" content="https://duluthguide.com">
     
-    <title>DuluthStay.com - Find and Book the Best Hotels in Duluth, Minnesota</title>
+    <title>DuluthGuide - Discover Duluth, Minnesota</title>
     
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Booking.com affiliate integration -->
-    <script type="text/javascript" src="//www.booking.com/affiliate/widget.js"></script>
+    <!-- <script type="text/javascript" src="https://www.booking.com/affiliate/widget.js"></script> -->
 </head>
 <body>
     <!-- Header -->
@@ -27,14 +27,55 @@
         <nav class="nav">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <h1><a href="/">DuluthStay.com</a></h1>
+                    <h1><a href="/">YourDuluthGuide</a></h1>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="#hotels">Hotels</a></li>
-                    <li><a href="#neighborhoods">Neighborhoods</a></li>
-                    <li><a href="travel-guide.html">Travel Guide</a></li>
-                    <li><a href="#attractions">Attractions</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li class="nav-item-dropdown">
+                        <a href="#explore" title="Attractions, trails, neighborhoods, and sights">Explore</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#attractions">Attractions</a></li>
+                            <li><a href="#parks-trails">Parks & Trails</a></li>
+                            <li><a href="#neighborhoods">Neighborhoods</a></li>
+                            <li><a href="#lake-superior">Lake Superior</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="restaurants.html" title="Restaurants, cafés, breweries, and local favorites">Eat & Drink</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="restaurants.html">Top Restaurants</a></li>
+                            <li><a href="restaurants.html?cuisine=coffee">Cafés & Coffee</a></li>
+                            <li><a href="restaurants.html?cuisine=brewery">Breweries & Bars</a></li>
+                            <li><a href="restaurants.html?cuisine=breakfast">Breakfast & Brunch</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#stay" title="Hotels, cabins, and vacation rentals">Stay</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#hotels">Hotels</a></li>
+                            <li><a href="#cabins-lodges">Cabins & Lodges</a></li>
+                            <li><a href="#vacation-rentals">Vacation Rentals</a></li>
+                            <li><a href="#pet-friendly">Pet-Friendly</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#events" title="Festivals, concerts, and seasonal activities">Events</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#this-weekend">This Weekend</a></li>
+                            <li><a href="#festivals">Festivals</a></li>
+                            <li><a href="#live-music">Live Music</a></li>
+                            <li><a href="#seasonal-highlights">Seasonal Highlights</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#plan" title="Itineraries, maps, and travel tips">Plan</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#itineraries">Itineraries</a></li>
+                            <li><a href="#maps-parking">Maps & Parking</a></li>
+                            <li><a href="#transportation">Transportation</a></li>
+                            <li><a href="#travel-tips">Travel Tips</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></a></li>
                 </ul>
                 <div class="hamburger">
                     <span></span>
@@ -52,158 +93,228 @@
         </div>
         <div class="hero-container">
             <div class="hero-content">
-                <h1 class="hero-title">Duluth, Minnesota</h1>
-                <p class="hero-subheadline">Discover top-rated stays in <a href="#canal-park" class="neighborhood-link">Canal Park</a>, <a href="#downtown" class="neighborhood-link">Downtown</a> & <a href="#duluth-heights" class="neighborhood-link">Duluth Heights</a></p>
+                <h1 class="hero-title">Discover Duluth, Minnesota</h1>
+                <p class="hero-subheadline">Your all-in-one guide to the best restaurants, hotels, attractions, and things to do on Lake Superior's North Shore.</p>
                 
-                <!-- Enhanced Search Widget -->
+                <!-- Restaurant Search Widget -->
                 <div class="search-widget">
-                    <div class="search-form">
-                        <div class="search-field date-field" data-field="checkin">
-                            <div class="field-content">
-                                <label>Check In</label>
-                                <div class="date-display" id="checkin-display">Sun, Oct 12</div>
-                                <input type="date" id="checkin-date" class="date-input-visible" min="">
-                            </div>
-                        </div>
-                        <div class="search-field date-field" data-field="checkout">
-                            <div class="field-content">
-                                <label>Check Out</label>
-                                <div class="date-display" id="checkout-display">Mon, Oct 13</div>
-                                <input type="date" id="checkout-date" class="date-input-visible" min="">
-                            </div>
-                        </div>
-                        <div class="search-field" id="guests-field">
-                            <div class="field-content">
-                                <label>Rooms/Guests</label>
-                                <div class="date-display" style="white-space: nowrap;">1 Room, 2 Guests</div>
-                            </div>
-                        </div>
-                        <button class="search-btn">Search</button>
+                    <div class="restaurant-search">
+                        <input type="text" placeholder="Search Duluth restaurants, hotels, or attractions" aria-label="Search restaurants">
+                        <button class="restaurant-search-btn" type="button" aria-label="Search">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </button>
                     </div>
-                </div>
-                
-                
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-number">50+ <span class="stat-label">Hotels</span></div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat">
-                        <div class="stat-number">4.5<span class="stat-star">★</span> <span class="stat-label">Average Rating</span></div>
-                    </div>
-                </div>
-                <div class="hero-affiliate">
-                    <span class="affiliate-text">Awin</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Duluth Highlights Section -->
-    <section class="duluth-highlights">
+    <!-- Featured Restaurants Section -->
+    <section class="featured-stays" id="restaurants">
         <div class="container">
-            <h2>Why Choose Duluth?</h2>
-            <div class="highlights-carousel-container">
-                <div class="highlights-wrapper">
-                    <div class="highlights-track" id="highlights-track">
-                        <div class="highlight-card">
-                            <img src="lakeview.jpg" alt="Lake Superior Views" loading="lazy">
-                            <h3>Lake Superior Views</h3>
-                            <p>Experience breathtaking lakefront accommodations with panoramic views of Lake Superior.</p>
+            <div class="section-header">
+                <h2>Featured Restaurants in Duluth</h2>
+                <p class="section-subtext">Handpicked eateries with the best lake views and authentic North Shore cuisine.</p>
+            </div>
+            <div class="stays-grid">
+                <article class="stay-card reveal">
+                    <div class="stay-image">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&h=800&fit=crop&auto=format&q=60" alt="Lakeview Restaurant - Fresh Burger" loading="lazy">
+                    </div>
+                    <div class="stay-body">
+                        <div class="stay-top">
+                            <h3 class="stay-title">Lakeview Bistro</h3>
+                            <span class="stay-tag">Canal Park</span>
                         </div>
-                        <div class="highlight-card">
-                            <img src="canalpark.jpg" alt="Historic Neighborhoods - Canal Park" loading="lazy">
-                            <h3>Historic Neighborhoods</h3>
-                            <p>Explore Duluth's rich history and vibrant neighborhoods filled with culture and art.</p>
+                        <div class="stay-meta">
+                            <div class="stay-rating">
+                                <span class="star-rating">★★★★★</span>
+                                <span class="restaurant-category">4.6 ★ American</span>
+                            </div>
                         </div>
-                        <div class="highlight-card">
-                            <img src="naturalbeauty.jpg" alt="Natural Beauty" loading="lazy">
-                            <h3>Natural Beauty</h3>
-                            <p>Discover Duluth's beautiful parks and nature trails surrounded by pristine wilderness.</p>
-                        </div>
-                        <div class="highlight-card">
-                            <img src="outdooract.png" alt="Outdoor Adventures" loading="lazy">
-                            <h3>Outdoor Adventures</h3>
-                            <p>Enjoy hiking, biking, and water sports in Duluth's diverse outdoor playground.</p>
-                        </div>
-                        <div class="highlight-card">
-                            <a href="dining.html" style="text-decoration: none; color: inherit;">
-                                <img src="vabene.jpg" alt="Local Dining Experiences - Va Bene" loading="lazy">
-                                <h3>Local Dining Experiences</h3>
-                                <p>Savor fresh seafood, craft beers, and the best of Duluth's culinary scene.</p>
-                            </a>
-                        </div>
-                        <div class="highlight-card">
-                            <img src="duluthfamily.jpg" alt="Family Fun" loading="lazy">
-                            <h3>Family Fun</h3>
-                            <p>Join family-friendly events, festivals, and attractions for all ages.</p>
+                        <div class="stay-actions">
+                            <a class="btn-rust" href="#">View Restaurant</a>
                         </div>
                     </div>
-                </div>
-                <div class="highlights-controls">
-                    <button class="highlights-btn prev-highlights-btn" id="prev-highlights-btn" aria-label="Previous">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <button class="highlights-btn next-highlights-btn" id="next-highlights-btn" aria-label="Next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-                </div>
-            </div>
-            
-            <!-- Second Carousel -->
-            <div class="second-carousel-container">
-                <div class="second-carousel-wrapper">
-                    <div class="second-carousel-track" id="second-carousel-track">
-                        <div class="second-highlight-card">
-                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop" alt="Lake Superior Views" loading="lazy">
-                            <h3>Lake Superior Views</h3>
-                            <p>Experience breathtaking lakefront accommodations with panoramic views of Lake Superior.</p>
+                </article>
+                <article class="stay-card reveal">
+                    <div class="stay-image">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&h=800&fit=crop&auto=format&q=60" alt="Fresh Salad Bowl" loading="lazy">
+                    </div>
+                    <div class="stay-body">
+                        <div class="stay-top">
+                            <h3 class="stay-title">Harbor Greens</h3>
+                            <span class="stay-tag">Downtown</span>
                         </div>
-                        <div class="second-highlight-card">
-                            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&h=400&fit=crop" alt="Natural Beauty" loading="lazy">
-                            <h3>Natural Beauty</h3>
-                            <p>Discover Duluth's beautiful parks and nature trails surrounded by pristine wilderness.</p>
+                        <div class="stay-meta">
+                            <div class="stay-rating">
+                                <span class="star-rating">★★★★★</span>
+                                <span class="restaurant-category">4.7 ★ Healthy</span>
+                            </div>
                         </div>
-                        <div class="second-highlight-card">
-                            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=400&fit=crop" alt="Outdoor Adventures" loading="lazy">
-                            <h3>Outdoor Adventures</h3>
-                            <p>Enjoy hiking, biking, and water sports in Duluth's diverse outdoor playground.</p>
-                        </div>
-                        <div class="second-highlight-card">
-                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&h=400&fit=crop" alt="Historic Neighborhoods" loading="lazy">
-                            <h3>Historic Neighborhoods</h3>
-                            <p>Explore Duluth's rich history and vibrant neighborhoods filled with culture and art.</p>
-                        </div>
-                        <div class="second-highlight-card">
-                            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&h=400&fit=crop" alt="Local Dining Experiences" loading="lazy">
-                            <h3>Local Dining Experiences</h3>
-                            <p>Savor fresh seafood, craft beers, and the best of Duluth's culinary scene.</p>
-                        </div>
-                        <div class="second-highlight-card">
-                            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&h=400&fit=crop" alt="Family Fun & Festivals" loading="lazy">
-                            <h3>Family Fun & Festivals</h3>
-                            <p>Join family-friendly events, festivals, and attractions for all ages.</p>
+                        <div class="stay-actions">
+                            <a class="btn-rust" href="#">View Restaurant</a>
                         </div>
                     </div>
+                </article>
+                <article class="stay-card reveal">
+                    <div class="stay-image">
+                        <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=1200&h=800&fit=crop&auto=format&q=60" alt="Fresh Waffle Breakfast" loading="lazy">
+                    </div>
+                    <div class="stay-body">
+                        <div class="stay-top">
+                            <h3 class="stay-title">Lakewalk Café</h3>
+                            <span class="stay-tag">Lakewalk</span>
+                        </div>
+                        <div class="stay-meta">
+                            <div class="stay-rating">
+                                <span class="star-rating">★★★★★</span>
+                                <span class="restaurant-category">4.5 ★ Breakfast</span>
+                            </div>
+                        </div>
+                        <div class="stay-actions">
+                            <a class="btn-rust" href="#">View Restaurant</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="stay-card reveal">
+                    <div class="stay-image">
+                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1200&h=800&fit=crop&auto=format&q=60" alt="Coffee and Pastries" loading="lazy">
+                    </div>
+                    <div class="stay-body">
+                        <div class="stay-top">
+                            <h3 class="stay-title">Superior Coffee Co.</h3>
+                            <span class="stay-tag">Canal Park</span>
+                        </div>
+                        <div class="stay-meta">
+                            <div class="stay-rating">
+                                <span class="star-rating">★★★★★</span>
+                                <span class="restaurant-category">4.8 ★ Coffee</span>
+                            </div>
+                        </div>
+                        <div class="stay-actions">
+                            <a class="btn-rust" href="#">View Restaurant</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="section-cta">
+                <a class="btn-rust btn-large" href="restaurants.html">View All Restaurants →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Explore Duluth Section -->
+    <section class="explore-duluth" id="explore">
+        <div class="container">
+            <div class="section-header">
+                <h2>Explore Duluth Like a Local</h2>
+                <p class="section-subtext">Find restaurants, trails, and attractions just minutes from your stay.</p>
+            </div>
+            <div class="explore-grid">
+                <article class="explore-card reveal">
+                    <div class="explore-icon" aria-hidden="true">🍽️</div>
+                    <h3>Best Restaurants</h3>
+                    <p>Tastiest dining spots in town</p>
+                    <a href="#" class="btn-link">View Guides →</a>
+                </article>
+                <article class="explore-card reveal">
+                    <div class="explore-icon" aria-hidden="true">🥾</div>
+                    <h3>Outdoor Adventures</h3>
+                    <p>Hiking, paddling, and more</p>
+                    <a href="#" class="btn-link">View Guides →</a>
+                </article>
+                <article class="explore-card reveal">
+                    <div class="explore-icon" aria-hidden="true">🏙️</div>
+                    <h3>Neighborhood Guides</h3>
+                    <p>Explore different areas of Duluth</p>
+                    <a href="#" class="btn-link">View Guides →</a>
+                </article>
+            </div>
+        </div>
+        <div class="wave-divider" aria-hidden="true"></div>
+    </section>
+
+    <!-- Why Book Section -->
+    <section class="why-book" id="why-book">
+        <div class="container">
+            <div class="section-header small">
+                <h2>Why Use DuluthGuide?</h2>
+            </div>
+            <div class="trust-grid">
+                <div class="trust-card reveal">
+                    <div class="trust-icon" aria-hidden="true">✅</div>
+                    <h3>Verified Local Eateries</h3>
+                    <p>Every restaurant listed is trusted and reviewed.</p>
                 </div>
-                <div class="second-carousel-controls">
-                    <button class="second-carousel-btn prev-second-btn" id="prev-second-btn" aria-label="Previous">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <button class="second-carousel-btn next-second-btn" id="next-second-btn" aria-label="Next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
+                <div class="trust-card reveal">
+                    <div class="trust-icon" aria-hidden="true">💰</div>
+                    <h3>Local Insights</h3>
+                    <p>Find authentic dining experiences loved by Duluth locals.</p>
                 </div>
+                <div class="trust-card reveal">
+                    <div class="trust-icon" aria-hidden="true">📍</div>
+                    <h3>Real Duluth Insights</h3>
+                    <p>Articles and tips written by locals and AI.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- This Season in Duluth -->
+    <section class="seasonal" id="seasonal">
+        <div class="container">
+            <div class="section-header">
+                <h2>This Season in Duluth</h2>
+            </div>
+            <div class="season-grid">
+                <article class="season-card reveal">
+                    <div class="season-image">
+                        <img src="aerial-lift-bridge.jpg" alt="Top Winter Festivals and Light Displays" loading="lazy">
+                    </div>
+                    <div class="season-body">
+                        <h3>Top Winter Festivals and Light Displays</h3>
+                        <p>From Bentleyville to cozy markets, plan a festive winter weekend along the lake.</p>
+                        <a class="btn-rust" href="#">Read More</a>
+                    </div>
+                </article>
+                <article class="season-card reveal">
+                    <div class="season-image">
+                        <img src="natureduluth.jpg" alt="Best Lakewalk Cafes for Summer Mornings" loading="lazy">
+                    </div>
+                    <div class="season-body">
+                        <h3>Best Lakewalk Cafes for Summer Mornings</h3>
+                        <p>Wake up with the waves—grab coffee and breakfast near your stay.</p>
+                        <a class="btn-rust" href="#">Read More</a>
+                    </div>
+                </article>
+                <article class="season-card reveal">
+                    <div class="season-image">
+                        <img src="waterfall.jpg" alt="Fall Color Drives and Hidden Trails" loading="lazy">
+                    </div>
+                    <div class="season-body">
+                        <h3>Fall Color Drives and Hidden Trails</h3>
+                        <p>Leaf peeping routes and quiet hikes within minutes of Canal Park.</p>
+                        <a class="btn-rust" href="#">Read More</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Email Capture / CTA -->
+    <section class="email-cta" id="subscribe">
+        <div class="container">
+            <div class="email-cta-inner reveal">
+                <h2>Get Duluth restaurant tips & dining guides straight to your inbox.</h2>
+                <form class="email-form" onsubmit="return false;">
+                    <input type="email" placeholder="Your email address" aria-label="Email" required>
+                    <button class="btn-rust" type="submit">Subscribe</button>
+                </form>
+                <p class="hint">No spam — just helpful Duluth updates.</p>
             </div>
         </div>
     </section>
@@ -213,74 +324,33 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>DuluthStay.com</h3>
-                    <p>Your trusted source for finding and booking the best hotels in Duluth, Minnesota.</p>
+                    <h3>DuluthGuide</h3>
+                    <p>Your calm, trustworthy guide to Duluth restaurants and local travel.</p>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#hotels">Hotels</a></li>
-                        <li><a href="#neighborhoods">Neighborhoods</a></li>
-                        <li><a href="#attractions">Attractions</a></li>
+                        <li><a href="#featured">Hotels</a></li>
+                        <li><a href="#explore">Guides</a></li>
+                        <li><a href="#why-book">About</a></li>
+                        <li><a href="#subscribe">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Hotel Categories</h4>
-                    <ul>
-                        <li><a href="#top-rated">Top Rated</a></li>
-                        <li><a href="#budget">Budget Friendly</a></li>
-                        <li><a href="#family">Family Friendly</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>Questions about Duluth hotels?</p>
-                    <p>We're here to help you find the perfect stay.</p>
+                    <h4>Follow</h4>
+                    <div class="socials">
+                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="TikTok">TT</a>
+                        <a href="#" aria-label="YouTube Shorts">YT</a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 DuluthStay.com. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+                <p>© 2025 DuluthGuide · All Rights Reserved</p>
+                <p>This site contains affiliate links that may earn a commission at no cost to you.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Guests Dropdown -->
-    <div class="guests-modal" id="guests-modal">
-        <div class="guests-dropdown-content">
-            <div class="guests-header">Select guests and rooms</div>
-            <div class="guests-option">
-                <span class="guests-label">Adults</span>
-                <div class="guests-counter">
-                    <button class="guests-btn" id="adults-minus">-</button>
-                    <span class="guests-value" id="adults-count">2</span>
-                    <button class="guests-btn" id="adults-plus">+</button>
-                </div>
-            </div>
-            <div class="guests-option">
-                <span class="guests-label">Children</span>
-                <div class="guests-counter">
-                    <button class="guests-btn" id="children-minus">-</button>
-                    <span class="guests-value" id="children-count">0</span>
-                    <button class="guests-btn" id="children-plus">+</button>
-                </div>
-            </div>
-            <div class="guests-option">
-                <span class="guests-label">Rooms</span>
-                <div class="guests-counter">
-                    <button class="guests-btn" id="rooms-minus">-</button>
-                    <span class="guests-value" id="rooms-count">1</span>
-                    <button class="guests-btn" id="rooms-plus">+</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </button>
 
     <script src="script.js"></script>
 </body>

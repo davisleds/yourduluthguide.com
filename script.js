@@ -1,5 +1,129 @@
 // DuluthStay.com - Interactive Functionality
+
+// Scroll to top on page load/refresh and remove hash from URL
+function scrollToTopOnRefresh() {
+    // Remove hash from URL if present
+    if (window.location.hash) {
+        window.history.replaceState(null, null, window.location.pathname + window.location.search);
+    }
+    // Force scroll to top using multiple methods
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo(0, 0);
+    // Also try scrolling the document element
+    if (document.documentElement) {
+        document.documentElement.scrollTop = 0;
+        document.documentElement.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
+    if (document.body) {
+        document.body.scrollTop = 0;
+    }
+}
+
+// Handle immediate scroll on refresh
+scrollToTopOnRefresh();
+
+// Also handle on load with a small delay to override browser hash scrolling
+window.addEventListener('load', function() {
+    requestAnimationFrame(function() {
+        scrollToTopOnRefresh();
+        requestAnimationFrame(function() {
+            scrollToTopOnRefresh();
+        });
+    });
+});
+
+// Also handle on DOMContentLoaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        scrollToTopOnRefresh();
+        requestAnimationFrame(function() {
+            scrollToTopOnRefresh();
+        });
+    });
+} else {
+    scrollToTopOnRefresh();
+    requestAnimationFrame(function() {
+        scrollToTopOnRefresh();
+    });
+}
+
+// Remove hash immediately on page load to prevent browser from scrolling to it
+if (window.location.hash) {
+    window.history.replaceState(null, null, window.location.pathname + window.location.search);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // Restaurant search functionality
+    const restaurantSearchInput = document.querySelector('.restaurant-search input');
+    const restaurantSearchBtn = document.querySelector('.restaurant-search-btn');
+    
+    // Cuisine category mapping (same as restaurants.html)
+    const cuisineCategories = {
+        'pizza': { name: 'Pizza', slug: 'pizza', keywords: ['pizza', 'italian pizza', 'neapolitan'] },
+        'burger': { name: 'Burgers', slug: 'burger', keywords: ['burger', 'burgers', 'hamburger'] },
+        'thai': { name: 'Thai', slug: 'thai', keywords: ['thai', 'thai food'] },
+        'italian': { name: 'Italian', slug: 'italian', keywords: ['italian', 'pasta', 'italy'] },
+        'mexican': { name: 'Mexican', slug: 'mexican', keywords: ['mexican', 'taco', 'tacos', 'burrito', 'mexico'] },
+        'chinese': { name: 'Chinese', slug: 'chinese', keywords: ['chinese', 'china'] },
+        'japanese': { name: 'Japanese', slug: 'japanese', keywords: ['japanese', 'sushi', 'hibachi', 'japan'] },
+        'indian': { name: 'Indian', slug: 'indian', keywords: ['indian', 'india', 'curry'] },
+        'vietnamese': { name: 'Vietnamese', slug: 'vietnamese', keywords: ['vietnamese', 'pho', 'vietnam'] },
+        'seafood': { name: 'Seafood', slug: 'seafood', keywords: ['seafood', 'fish', 'lobster', 'crab'] },
+        'bbq': { name: 'BBQ', slug: 'bbq', keywords: ['bbq', 'barbecue', 'barbeque', 'smokehouse'] },
+        'breakfast': { name: 'Breakfast', slug: 'breakfast', keywords: ['breakfast', 'brunch', 'pancake', 'waffle'] },
+        'coffee': { name: 'Coffee', slug: 'coffee', keywords: ['coffee', 'cafe', 'café', 'espresso'] },
+        'ice cream': { name: 'Ice Cream', slug: 'ice-cream', keywords: ['ice cream', 'gelato', 'frozen yogurt'] },
+        'sports bar': { name: 'Sports Bar', slug: 'sports-bar', keywords: ['sports bar', 'sportsbar', 'bar', 'pub'] },
+        'brewery': { name: 'Brewery', slug: 'brewery', keywords: ['brewery', 'brew', 'beer', 'brewhouse'] },
+        'steakhouse': { name: 'Steakhouse', slug: 'steakhouse', keywords: ['steakhouse', 'steak', 'steaks'] },
+        'fine dining': { name: 'Fine Dining', slug: 'fine-dining', keywords: ['fine dining', 'upscale', 'elegant'] }
+    };
+    
+    function detectCuisineCategory(searchTerm) {
+        const term = searchTerm.toLowerCase().trim();
+        for (const key in cuisineCategories) {
+            const category = cuisineCategories[key];
+            for (let i = 0; i < category.keywords.length; i++) {
+                if (term === category.keywords[i] || term.indexOf(category.keywords[i]) !== -1) {
+                    return category;
+                }
+            }
+        }
+        return null;
+    }
+    
+    if (restaurantSearchInput && restaurantSearchBtn) {
+        function handleRestaurantSearch() {
+            const searchTerm = restaurantSearchInput.value.trim();
+            if (searchTerm) {
+                // Check if it's a cuisine category for SEO-optimized URL
+                const category = detectCuisineCategory(searchTerm);
+                if (category) {
+                    // Redirect to SEO-optimized cuisine page
+                    window.location.href = `restaurants.html?cuisine=${category.slug}`;
+                } else {
+                    // Redirect to restaurants page with search term
+                    window.location.href = `restaurants.html?search=${encodeURIComponent(searchTerm)}`;
+                }
+            } else {
+                // If no search term, just go to restaurants page
+                window.location.href = 'restaurants.html';
+            }
+        }
+        
+        restaurantSearchBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            handleRestaurantSearch();
+        });
+        
+        restaurantSearchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleRestaurantSearch();
+            }
+        });
+    }
     
     // Set initial dates for the date inputs
     const checkinDate = document.getElementById('checkin-date');
@@ -251,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             left: 59% !important;
                             transform: translate(-50%, -50%) !important;
                             background: white !important;
-                            border: 2px solid #1e40af !important;
+                            border: 2px solid #1E3A5F !important;
                             border-radius: 12px !important;
                             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2) !important;
                             width: 300px !important;
@@ -262,27 +386,27 @@ document.addEventListener('DOMContentLoaded', function() {
                         ">
                             <div style="font-size: 1rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem; text-align: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.75rem;">Select guests and rooms</div>
                             <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #f1f5f9;">
-                                <span style="font-weight: 600; color: #374151;">Adults</span>
+                                <span style="font-weight: 600; color: #333333;">Adults</span>
                                 <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <button id="adults-minus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1e40af; background: white; color: #1e40af; cursor: pointer; font-weight: bold;">-</button>
+                                    <button id="adults-minus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1E3A5F; background: white; color: #1E3A5F; cursor: pointer; font-weight: bold;">-</button>
                                     <span id="adults-count" style="min-width: 20px; text-align: center; font-weight: 600;">2</span>
-                                    <button id="adults-plus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1e40af; background: #1e40af; color: white; cursor: pointer; font-weight: bold;">+</button>
+                                    <button id="adults-plus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1E3A5F; background: #1E3A5F; color: white; cursor: pointer; font-weight: bold;">+</button>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #f1f5f9;">
-                                <span style="font-weight: 600; color: #374151;">Children</span>
+                                <span style="font-weight: 600; color: #333333;">Children</span>
                                 <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <button id="children-minus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1e40af; background: white; color: #1e40af; cursor: pointer; font-weight: bold;">-</button>
+                                    <button id="children-minus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1E3A5F; background: white; color: #1E3A5F; cursor: pointer; font-weight: bold;">-</button>
                                     <span id="children-count" style="min-width: 20px; text-align: center; font-weight: 600;">0</span>
-                                    <button id="children-plus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1e40af; background: #1e40af; color: white; cursor: pointer; font-weight: bold;">+</button>
+                                    <button id="children-plus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1E3A5F; background: #1E3A5F; color: white; cursor: pointer; font-weight: bold;">+</button>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
-                                <span style="font-weight: 600; color: #374151;">Rooms</span>
+                                <span style="font-weight: 600; color: #333333;">Rooms</span>
                                 <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <button id="rooms-minus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1e40af; background: white; color: #1e40af; cursor: pointer; font-weight: bold;">-</button>
+                                    <button id="rooms-minus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1E3A5F; background: white; color: #1E3A5F; cursor: pointer; font-weight: bold;">-</button>
                                     <span id="rooms-count" style="min-width: 20px; text-align: center; font-weight: 600;">1</span>
-                                    <button id="rooms-plus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1e40af; background: #1e40af; color: white; cursor: pointer; font-weight: bold;">+</button>
+                                    <button id="rooms-plus" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #1E3A5F; background: #1E3A5F; color: white; cursor: pointer; font-weight: bold;">+</button>
                                 </div>
                             </div>
                         </div>
@@ -643,7 +767,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p>Starting from <strong>${hotel.price}/night</strong></p>
                     <div style="margin: 2rem 0;">
                         <button onclick="window.open('https://www.booking.com', '_blank')" style="
-                            background: #2563eb;
+                            background: #B26444;
                             color: white;
                             padding: 1rem 2rem;
                             border: none;
@@ -687,7 +811,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h4>Search Hotels in Duluth</h4>
                     <p>Booking.com search widget would be integrated here</p>
                     <button onclick="window.open('https://www.booking.com/city/us/duluth.html', '_blank')" style="
-                        background: #2563eb;
+                        background: #B26444;
                         color: white;
                         padding: 0.75rem 1.5rem;
                         border: none;
@@ -731,10 +855,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add any scroll-based functionality here
             const header = document.querySelector('.header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.background = 'var(--color-navy)';
                 header.style.backdropFilter = 'blur(10px)';
             } else {
-                header.style.background = '#fff';
+                header.style.background = 'var(--color-navy)';
                 header.style.backdropFilter = 'none';
             }
         }, 10);
@@ -768,7 +892,23 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Event tracked:', eventName, eventData);
     }
     
-    // Highlights Carousel functionality
+    // Reveal-on-scroll animations
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && revealEls.length) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealEls.forEach(el => revealObserver.observe(el));
+    } else {
+        revealEls.forEach(el => el.classList.add('visible'));
+    }
+
+    // Highlights Carousel functionality (guarded)
     class HighlightsCarousel {
         constructor() {
             this.track = document.getElementById('highlights-track');
@@ -1044,7 +1184,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.currentIndex = 0;
             this.totalCards = this.cards.length;
             this.autoPlayInterval = null;
-            this.autoPlayDelay = 4000; // 4 seconds
+            this.autoPlayDelay = 3000; // match first carousel
             this.isTransitioning = false;
             
             console.log('Second carousel elements found:', {
@@ -1218,7 +1358,7 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoPlay() {
             this.stopAutoPlay();
             this.autoPlayInterval = setInterval(() => {
-                this.prevCard();
+                this.nextCard();
             }, this.autoPlayDelay);
         }
         
@@ -1231,14 +1371,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Initialize highlights carousel when DOM is loaded
-    console.log('Initializing highlights carousel...');
-    const carousel = new HighlightsCarousel();
-    console.log('Carousel initialized:', carousel);
+    const highlightsTrack = document.getElementById('highlights-track');
+    if (highlightsTrack) {
+        console.log('Initializing highlights carousel...');
+        const carousel = new HighlightsCarousel();
+        console.log('Carousel initialized:', carousel);
+    }
     
     // Initialize second carousel
-    console.log('Initializing second carousel...');
-    const secondCarousel = new SecondCarousel();
-    console.log('Second carousel initialized:', secondCarousel);
+    const secondTrack = document.getElementById('second-carousel-track');
+    if (secondTrack) {
+        console.log('Initializing second carousel...');
+        const secondCarousel = new SecondCarousel();
+        console.log('Second carousel initialized:', secondCarousel);
+    }
     
     // Track hotel clicks
     bookButtons.forEach(button => {
@@ -1365,7 +1511,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleMissingElements() {
         const requiredElements = [
             '.hero-title',
-            '.hotels-grid',
             '.footer'
         ];
         
@@ -1379,7 +1524,7 @@ document.addEventListener('DOMContentLoaded', function() {
     handleMissingElements();
     
     // Console welcome message
-    console.log('%cWelcome to DuluthStay.com! 🏨', 'color: #2563eb; font-size: 16px; font-weight: bold;');
+    console.log('%cWelcome to DuluthStay.com! 🏨', 'color: #1E3A5F; font-size: 16px; font-weight: bold;');
     console.log('Find the best hotels in Duluth, Minnesota');
 });
 

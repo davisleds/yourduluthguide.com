@@ -14,28 +14,231 @@
     
     <style>
         .dining-page {
-            padding: 120px 0 80px;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 100px 0 60px;
+            background: #f5f5f5;
         }
         
         .dining-header {
-            text-align: center;
-            margin-bottom: 4rem;
+            text-align: left;
+            margin-bottom: 2rem;
+            padding: 0 20px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .dining-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 1rem;
-            line-height: 1.1;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
         }
         
         .dining-subtitle {
-            font-size: 1.2rem;
-            color: #64748b;
-            max-width: 600px;
+            font-size: 1rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Restaurant of the Month Section */
+        .restaurant-of-month {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .restaurant-of-month::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        
+        .month-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .month-restaurant {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 0 3px rgba(245, 158, 11, 0.2);
+            display: flex;
+            max-width: 1000px;
             margin: 0 auto;
+            min-height: 200px;
+            position: relative;
+            z-index: 2;
+            border: 2px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .month-images {
+            width: 300px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        
+        .month-image-large {
+            width: 100%;
+            height: 50%;
+            object-fit: cover;
+        }
+        
+        .month-image-large:not(:last-child) {
+            border-bottom: 2px solid white;
+        }
+        
+        .month-content {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .month-restaurant-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .month-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .month-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.9rem;
+            color: #059669;
+            background: #f0fdf4;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #bbf7d0;
+        }
+        
+        .month-rating .stars {
+            color: #f59e0b;
+        }
+        
+        .month-price {
+            background: #f0f9ff;
+            color: #0369a1;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid #bae6fd;
+            font-size: 0.9rem;
+        }
+        
+        .month-cuisine {
+            background: #fef3c7;
+            color: #7c2d12;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid #fed7aa;
+            font-size: 0.9rem;
+        }
+        
+        .month-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+        
+        .month-highlights {
+            margin-bottom: 1rem;
+        }
+        
+        
+        .month-highlights h4 {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .month-highlights ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .month-highlights li {
+            padding: 0.25rem 0;
+            color: #666;
+            position: relative;
+            padding-left: 1.25rem;
+            font-size: 0.9rem;
+        }
+        
+        .month-highlights li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #f59e0b;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .month-hours {
+            background: #f8f9fa;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border-left: 3px solid #f59e0b;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .month-hours strong {
+            color: #333;
+        }
+        
+        
+        @media (max-width: 768px) {
+            .month-restaurant {
+                flex-direction: column;
+            }
+            
+            .month-images {
+                width: 100%;
+                height: 300px;
+            }
+            
+            .month-image-large {
+                width: 100%;
+                height: 50%;
+            }
+            
+            .month-content {
+                padding: 1.25rem;
+            }
+            
         }
         
         .dining-content {
@@ -44,13 +247,13 @@
             padding: 0 20px;
         }
         
-        .restaurant-section {
+        .restaurant-list {
             background: white;
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(30, 64, 175, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 1000px;
+            margin: 0 auto;
         }
         
         .restaurant-section h2 {
@@ -62,50 +265,145 @@
             padding-bottom: 0.5rem;
         }
         
-        .restaurant-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
+        .restaurant-item {
+            display: flex;
+            padding: 0;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            min-height: 300px;
         }
         
-        .restaurant-card {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.3s ease;
+        .restaurant-item:last-child {
+            border-bottom: none;
         }
         
-        .restaurant-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        .restaurant-item:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1);
         }
         
-        .restaurant-card h3 {
-            color: #1e40af;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        
+        .restaurant-item:hover .restaurant-name {
+            color: #f59e0b;
         }
         
-        .restaurant-card .cuisine {
-            color: #059669;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+        
+        
+        .restaurant-image {
+            width: 400px;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
         }
         
-        .restaurant-card .price-range {
-            color: #64748b;
-            font-size: 0.9rem;
+        /* Content side */
+        .restaurant-info {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+        }
+        
+        /* Alternate layout for even-numbered restaurants */
+        .restaurant-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+            padding: 20px;
+        }
+        
+        .pagination button {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .pagination button:hover {
+            background: #f5f5f5;
+        }
+        
+        .pagination button.active {
+            background: #f59e0b;
+            color: white;
+            border-color: #f59e0b;
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .restaurant-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .restaurant-header {
+            display: flex;
+            align-items: center;
             margin-bottom: 1rem;
         }
         
-        .restaurant-card p {
-            color: #64748b;
-            line-height: 1.6;
-            margin-bottom: 1rem;
+        .restaurant-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0 0 0.5rem 0;
+            line-height: 1.3;
+        }
+        
+        .restaurant-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        
+        .stars {
+            color: #ff6b35;
+            font-size: 0.9rem;
+        }
+        
+        .price-range {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .cuisine {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .restaurant-description {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 0;
         }
         
         .restaurant-card .highlights {
@@ -168,6 +466,275 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #ff6b35;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 30px;
+            border-radius: 12px 12px 0 0;
+            position: relative;
+        }
+
+        .modal-number {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .modal-header h2 {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+            padding-left: 60px;
+        }
+
+        .modal-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 60px;
+        }
+
+        .modal-rating .stars {
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        .modal-rating span:last-child {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-details {
+            display: grid;
+            gap: 30px;
+        }
+
+        .modal-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .meta-item strong {
+            color: #333;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-item span {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .modal-description h3,
+        .modal-features h3,
+        .modal-hours h3 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .modal-description p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .modal-features ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .modal-features li {
+            padding: 10px 15px;
+            background: #f0f9ff;
+            border-left: 4px solid #ff6b35;
+            border-radius: 4px;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .modal-features li:before {
+            content: "✓ ";
+            color: #ff6b35;
+            font-weight: bold;
+        }
+
+        .modal-hours {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 30px;
+        }
+
+        .hours-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .today-hours {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .expand-icon {
+            cursor: pointer;
+            color: #ff6b35;
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .expand-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .full-hours {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .hours-list div {
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .hours-list div:last-child {
+            border-bottom: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+            
+            .modal-header {
+                padding: 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.8rem;
+                padding-left: 50px;
+            }
+            
+            .modal-number {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-meta {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -201,60 +768,363 @@
             <p class="dining-subtitle">Savor fresh seafood, craft beers, and the best of Duluth's culinary scene along the shores of Lake Superior</p>
         </div>
         
-        <div class="dining-content">
-            <div class="restaurant-section">
-                <h2>Top Restaurants in Duluth</h2>
-                <p>Discover the best dining experiences Duluth has to offer, from casual cafes to upscale restaurants.</p>
-                
-                <div class="restaurant-grid">
-                    <div class="restaurant-card">
-                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop" alt="Duluth Grill" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
-                        <h3>Duluth Grill</h3>
-                        <div class="cuisine">Farm-to-Table • Local</div>
-                        <div class="price-range">$$ • Moderate</div>
-                        <p>Popular local restaurant known for fresh, locally-sourced ingredients and creative comfort food. Great atmosphere for families and food enthusiasts.</p>
+        <!-- Restaurant of the Month Section -->
+        <div class="restaurant-of-month">
+            <div class="container">
+                <h2 class="month-title">Restaurant of the Month</h2>
+                <div class="month-restaurant">
+                    <div class="month-images">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop" alt="Duluth Grill - Restaurant of the Month" class="month-image-large">
+                        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop" alt="Duluth Grill Interior" class="month-image-large">
                     </div>
-                    
-                    <div class="restaurant-card">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop" alt="Alto Pino" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
-                        <h3>Alto Pino</h3>
-                        <div class="cuisine">Italian • Upscale</div>
-                        <div class="price-range">$$$ • Upscale</div>
-                        <p>Upscale Italian restaurant offering authentic cuisine with a modern twist. Perfect for special occasions and romantic dinners.</p>
-                    </div>
-                    
-                    <div class="restaurant-card">
-                        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop" alt="Va Bene" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
-                        <h3>Va Bene</h3>
-                        <div class="cuisine">Italian • Cozy</div>
-                        <div class="price-range">$$ • Moderate</div>
-                        <p>Cozy Italian cafe featuring wood-fired pizzas, fresh pasta, and authentic Italian flavors. Family-friendly atmosphere with open kitchen.</p>
-                    </div>
-                    
-                    <div class="restaurant-card">
-                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop" alt="Northern Waters Smokehaus" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
-                        <h3>Northern Waters Smokehaus</h3>
-                        <div class="cuisine">Smoked Fish • Local</div>
-                        <div class="price-range">$ • Budget-Friendly</div>
-                        <p>Local favorite specializing in smoked fish and sandwiches. Known for Lake Superior whitefish and artisanal smoked meats.</p>
-                    </div>
-                    
-                    <div class="restaurant-card">
-                        <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop" alt="Fitger's Brewhouse" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
-                        <h3>Fitger's Brewhouse Brewery and Grille</h3>
-                        <div class="cuisine">Brewery • Historic</div>
-                        <div class="price-range">$$$ • Upscale</div>
-                        <p>Historic brewery in a beautifully restored building with craft beers, fine dining, and Lake Superior views. Perfect for special occasions.</p>
-                    </div>
-                    
-                    <div class="restaurant-card">
-                        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop" alt="OMC Smokehouse" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
-                        <h3>OMC Smokehouse</h3>
-                        <div class="cuisine">BBQ • Smokehouse</div>
-                        <div class="price-range">$$ • Moderate</div>
-                        <p>Authentic barbecue smokehouse featuring slow-smoked meats, traditional sides, and craft cocktails. Great for meat lovers and BBQ enthusiasts.</p>
+                    <div class="month-content">
+                        <h3 class="month-restaurant-name">Duluth Grill</h3>
+                        <div class="month-meta">
+                            <div class="month-rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.7 (6,624 reviews)</span>
+                            </div>
+                            <div class="month-price">$$</div>
+                            <div class="month-cuisine">Farm-to-Table • Local</div>
+                        </div>
+                        <p class="month-description">A beloved local gem known for fresh, locally-sourced ingredients and creative comfort food.</p>
+                        <div class="month-highlights">
+                            <h4>Why We Love It:</h4>
+                            <ul>
+                                <li>Fresh, locally-sourced ingredients</li>
+                                <li>Creative comfort food dishes</li>
+                                <li>Family-friendly atmosphere</li>
+                            </ul>
+                        </div>
+                        <div class="month-hours">
+                            <strong>Hours:</strong> Monday - Sunday: 7:00 AM - 3:00 PM
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        
+        <div class="dining-content">
+            <div class="restaurant-list">
+                <div class="restaurant-item" onclick="openRestaurant('Duluth Grill', 1, '4.7', '6,624', '$$', 'Farm-to-Table • Local', 'Popular local restaurant known for fresh, locally-sourced ingredients and creative comfort food. Great atmosphere for families and food enthusiasts.', 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop" alt="Duluth Grill" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Duluth Grill</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.7 (6,624 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">Farm-to-Table • Local</div>
+                        </div>
+                        <p class="restaurant-description">Popular local restaurant known for fresh, locally-sourced ingredients and creative comfort food. Great atmosphere for families and food enthusiasts.</p>
+                    </div>
+                </div>
+                    
+                <div class="restaurant-item" onclick="openRestaurant('Alto Pino', 2, '4.6', '2,618', '$$$', 'Italian • Upscale', 'Upscale Italian restaurant offering authentic cuisine with a modern twist. Perfect for special occasions and romantic dinners.', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop" alt="Alto Pino" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Alto Pino</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.6 (2,618 reviews)</span>
+                            </div>
+                            <div class="price-range">$$$</div>
+                            <div class="cuisine">Italian • Upscale</div>
+                        </div>
+                        <p class="restaurant-description">Upscale Italian restaurant offering authentic cuisine with a modern twist. Perfect for special occasions and romantic dinners.</p>
+                    </div>
+                </div>
+                    
+                <div class="restaurant-item" onclick="openRestaurant('Va Bene', 3, '4.6', '2,618', '$$', 'Italian • Casual', 'Cozy Italian cafe featuring wood-fired pizzas, fresh pasta, and authentic Italian flavors. Family-friendly atmosphere with open kitchen.', 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop" alt="Va Bene" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Va Bene</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.6 (2,618 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">Italian • Casual</div>
+                        </div>
+                        <p class="restaurant-description">Cozy Italian cafe featuring wood-fired pizzas, fresh pasta, and authentic Italian flavors. Family-friendly atmosphere with open kitchen.</p>
+                    </div>
+                </div>
+                    
+                <div class="restaurant-item" onclick="openRestaurant('Northern Waters Smokehaus', 4, '4.8', '1,234', '$$', 'Smokehouse • Local', 'Local favorite specializing in smoked fish and sandwiches. Known for Lake Superior whitefish and artisanal smoked meats.', 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop" alt="Northern Waters Smokehaus" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Northern Waters Smokehaus</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.8 (1,234 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">Smokehouse • Local</div>
+                        </div>
+                        <p class="restaurant-description">Local favorite specializing in smoked fish and sandwiches. Known for Lake Superior whitefish and artisanal smoked meats.</p>
+                    </div>
+                </div>
+                    
+                <div class="restaurant-item" onclick="openRestaurant('Fitger\'s Brewhouse', 5, '4.5', '3,456', '$$', 'Brewery • American', 'Historic brewery in a beautifully restored building with craft beers, fine dining, and Lake Superior views. Perfect for special occasions.', 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop" alt="Fitger's Brewhouse" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Fitger's Brewhouse</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.5 (3,456 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">Brewery • American</div>
+                        </div>
+                        <p class="restaurant-description">Historic brewery in a beautifully restored building with craft beers, fine dining, and Lake Superior views. Perfect for special occasions.</p>
+                    </div>
+                </div>
+                    
+                <div class="restaurant-item" onclick="openRestaurant('OMC Smokehouse', 6, '4.7', '1,890', '$$', 'BBQ • Smokehouse', 'Authentic barbecue smokehouse featuring slow-smoked meats, traditional sides, and craft cocktails. Great for meat lovers and BBQ enthusiasts.', 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop" alt="OMC Smokehouse" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">OMC Smokehouse</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.7 (1,890 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">BBQ • Smokehouse</div>
+                        </div>
+                        <p class="restaurant-description">Authentic barbecue smokehouse featuring slow-smoked meats, traditional sides, and craft cocktails. Great for meat lovers and BBQ enthusiasts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open restaurant page
+        function openRestaurant(name, number, rating, reviews, price, cuisine, description, image) {
+            console.log('Opening restaurant:', name);
+            
+            // Pass restaurant data via URL parameters
+            const params = new URLSearchParams({
+                name: name,
+                number: number,
+                rating: rating,
+                reviews: reviews,
+                price: price,
+                cuisine: cuisine,
+                description: description,
+                image: image
+            });
+            
+            console.log('Navigating to:', `restaurant-template.html?${params.toString()}`);
+            window.open(`restaurant-template.html?${params.toString()}`, '_blank');
+        }
+
+        // Hours toggle functionality
+        function toggleHours(element) {
+            const fullHours = element.nextElementSibling;
+            const expandIcon = element.querySelector('.expand-icon');
+            
+            if (fullHours.style.display === 'none' || fullHours.style.display === '') {
+                fullHours.style.display = 'block';
+                expandIcon.textContent = '▲';
+                element.classList.add('expanded');
+            } else {
+                fullHours.style.display = 'none';
+                expandIcon.textContent = '▼';
+                element.classList.remove('expanded');
+            }
+        }
+    </script>
+</body>
+</html>
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop" alt="Alto Pino" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Alto Pino</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.6 (2,618 reviews)</span>
+                            </div>
+                            <div class="price-range">$$$</div>
+                            <div class="cuisine">Italian • Upscale</div>
+                        </div>
+                        <p class="restaurant-description">Upscale Italian restaurant offering authentic cuisine with a modern twist. Perfect for special occasions and romantic dinners.</p>
+                    </div>
+                </div>
+                    
+                <div class="restaurant-item">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop" alt="Va Bene" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Va Bene</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.6 (2,618 reviews)</span>
+                            </div>
+                            <div class="price-range">$$$</div>
+                            <div class="cuisine">Italian • Cozy</div>
+                        </div>
+                        <p class="restaurant-description">Cozy Italian cafe featuring wood-fired pizzas, fresh pasta, and authentic Italian flavors. Family-friendly atmosphere with open kitchen.</p>
+                    </div>
+                </div>
+                
+                <div class="restaurant-item">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop" alt="Northern Waters Smokehaus" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Northern Waters Smokehaus</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.7 (1,734 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">Smoked Fish • Local</div>
+                        </div>
+                        <p class="restaurant-description">Local favorite specializing in smoked fish and sandwiches. Known for Lake Superior whitefish and artisanal smoked meats.</p>
+                    </div>
+                </div>
+                
+                <div class="restaurant-item">
+                    <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop" alt="Fitger's Brewhouse" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Fitger's Brewhouse Brewery and Grille</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★☆</span>
+                                <span>4.5 (1,161 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">Brewery • Historic</div>
+                        </div>
+                        <p class="restaurant-description">Historic brewery in a beautifully restored building with craft beers, fine dining, and Lake Superior views. Perfect for special occasions.</p>
+                    </div>
+                </div>
+                
+                <div class="restaurant-item">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop" alt="OMC Smokehouse" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">OMC Smokehouse</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.6 (4,013 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">BBQ • Smokehouse</div>
+                        </div>
+                        <p class="restaurant-description">Authentic barbecue smokehouse featuring slow-smoked meats, traditional sides, and craft cocktails. Great for meat lovers and BBQ enthusiasts.</p>
+                    </div>
+                </div>
+                
+                <div class="restaurant-item">
+                    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop" alt="Black Woods Bar & Grill" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Black Woods Bar & Grill</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★☆</span>
+                                <span>4.3 (1,892 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">American • Bar & Grill</div>
+                        </div>
+                        <p class="restaurant-description">Popular local bar and grill known for hearty American fare, craft beers, and a welcoming atmosphere. Great for casual dining and sports viewing.</p>
+                    </div>
+                </div>
+                
+                <div class="restaurant-item">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop" alt="Lake Avenue Restaurant" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Lake Avenue Restaurant</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>4.4 (1,456 reviews)</span>
+                            </div>
+                            <div class="price-range">$$$</div>
+                            <div class="cuisine">Fine Dining • Lake Views</div>
+                        </div>
+                        <p class="restaurant-description">Upscale restaurant with stunning Lake Superior views, featuring fresh seafood and contemporary American cuisine. Perfect for special occasions.</p>
+                    </div>
+                </div>
+                
+                <div class="restaurant-item">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop" alt="Canal Park Brewing Company" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">Canal Park Brewing Company</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★☆</span>
+                                <span>4.2 (2,134 reviews)</span>
+                            </div>
+                            <div class="price-range">$$</div>
+                            <div class="cuisine">Brewery • Pub Food</div>
+                        </div>
+                        <p class="restaurant-description">Local brewery and restaurant featuring house-brewed beers, pub-style food, and a lively atmosphere. Great for groups and casual dining.</p>
+                    </div>
+                </div>
+                
+                <div class="restaurant-item">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop" alt="The Boat Club Restaurant" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">The Boat Club Restaurant</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★☆</span>
+                                <span>4.1 (1,678 reviews)</span>
+                            </div>
+                            <div class="price-range">$$$</div>
+                            <div class="cuisine">Seafood • Waterfront</div>
+                        </div>
+                        <p class="restaurant-description">Waterfront restaurant specializing in fresh Lake Superior fish and seafood. Features panoramic harbor views and elegant dining atmosphere.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <button onclick="changePage(1)" class="active">1</button>
+                <button onclick="changePage(2)">2</button>
+                <button onclick="changePage(3)">3</button>
+                <button onclick="changePage(4)">4</button>
+                <button onclick="changePage(5)">5</button>
             </div>
         </div>
     </section>
@@ -295,6 +1165,352 @@
         </div>
     </footer>
 
+    <!-- Restaurant Modal -->
+    <div id="restaurantModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <div class="modal-number" id="modalNumber"></div>
+                <h2 id="modalName"></h2>
+                <div class="modal-rating">
+                    <span class="stars">★★★★★</span>
+                    <span id="modalRating"></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="" loading="lazy">
+                </div>
+                <div class="modal-details">
+                    <div class="modal-meta">
+                        <div class="meta-item">
+                            <strong>Price Range:</strong> <span id="modalPrice"></span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Cuisine:</strong> <span id="modalCuisine"></span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Reviews:</strong> <span id="modalReviews"></span>
+                        </div>
+                    </div>
+                    <div class="modal-description">
+                        <h3>About This Restaurant</h3>
+                        <p id="modalDescription"></p>
+                    </div>
+                    <div class="modal-features">
+                        <h3>What to Expect</h3>
+                        <ul id="modalFeatures"></ul>
+                    </div>
+                    <div class="modal-hours">
+                        <h3>Hours</h3>
+                        <div class="hours-info">
+                            <span class="today-hours">Today: 11:00 AM – 10:00 PM</span>
+                            <span class="expand-icon" onclick="toggleModalHours()">▼</span>
+                        </div>
+                        <div class="full-hours" style="display: none;">
+                            <div class="hours-list">
+                                <div>Monday: 11:00 AM – 10:00 PM</div>
+                                <div>Tuesday: 11:00 AM – 10:00 PM</div>
+                                <div>Wednesday: 11:00 AM – 10:00 PM</div>
+                                <div>Thursday: 11:00 AM – 10:00 PM</div>
+                                <div>Friday: 11:00 AM – 11:00 PM</div>
+                                <div>Saturday: 10:00 AM – 11:00 PM</div>
+                                <div>Sunday: 10:00 AM – 9:00 PM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script>
+        // Restaurant data for different pages - Based on TripAdvisor Top Restaurants
+        const restaurantData = {
+            1: [
+                {name: "Northern Waters Smokehaus", rating: "4.7", reviews: "1,234", price: "$$", cuisine: "Smoked Fish • Deli", description: "TripAdvisor's #1 restaurant in Duluth. Renowned for its smoked fish and deli sandwiches, offering a unique taste of the North Shore with Lake Superior whitefish.", image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop"},
+                {name: "Duluth Grill", rating: "4.6", reviews: "2,456", price: "$$", cuisine: "Farm-to-Table • American", description: "TripAdvisor's #2 restaurant. A local favorite serving American classics with a focus on organic and locally sourced ingredients. Family-friendly atmosphere.", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop"},
+                {name: "Va Bene", rating: "4.5", reviews: "1,789", price: "$$$", cuisine: "Italian • Lake Views", description: "TripAdvisor's #3 restaurant. Italian cuisine with stunning views of Lake Superior, known for its fresh pasta and seafood dishes in an elegant setting.", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop"},
+                {name: "OMC Smokehouse", rating: "4.4", reviews: "2,123", price: "$$", cuisine: "BBQ • Smokehouse", description: "TripAdvisor's #4 restaurant. Offers a modern take on barbecue with a variety of smoked meats and hearty sides in a rustic ambiance.", image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop"},
+                {name: "Canal Park Brewing Company", rating: "4.3", reviews: "1,567", price: "$$", cuisine: "Brewery • Pub Food", description: "TripAdvisor's #5 restaurant. Combines craft beers with a menu of pub favorites, all in a lakeside setting with great atmosphere.", image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop"},
+                {name: "Lake Avenue Restaurant & Bar", rating: "4.4", reviews: "1,234", price: "$$$", cuisine: "Contemporary American", description: "TripAdvisor's #6 restaurant. Known for its innovative dishes that highlight local ingredients, set in a contemporary space with lake views.", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop"},
+                {name: "Bellisio's Italian Restaurant & Wine Bar", rating: "4.5", reviews: "1,456", price: "$$$", cuisine: "Italian • Wine Bar", description: "TripAdvisor's #7 restaurant. Features an extensive wine list paired with classic Italian dishes in an elegant atmosphere.", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop"},
+                {name: "Fitger's Brewhouse Brewery and Grille", rating: "4.2", reviews: "2,345", price: "$$", cuisine: "Historic Brewery", description: "TripAdvisor's #8 restaurant. Historic brewery offering handcrafted beers and a menu of American fare in a beautifully restored building.", image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop"},
+                {name: "New Scenic Café", rating: "4.6", reviews: "1,123", price: "$$$", cuisine: "Eclectic • Local", description: "TripAdvisor's #9 restaurant. Eclectic menu with a focus on fresh, local ingredients and creative presentations in a charming setting.", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop"},
+                {name: "Uncle Loui's Cafe", rating: "4.3", reviews: "1,789", price: "$", cuisine: "Breakfast • Lunch", description: "TripAdvisor's #10 restaurant. Popular for hearty breakfast and lunch options with generous portions and friendly service in a cozy atmosphere.", image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop"}
+            ],
+            2: [
+                {name: "Vitta Pizza", rating: "4.4", reviews: "1,234", price: "$$", cuisine: "Neapolitan Pizza", description: "TripAdvisor's #11 restaurant. Neapolitan-style pizzas cooked in a wood-fired oven with fresh, authentic ingredients and traditional techniques.", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop"},
+                {name: "At Sara's Table Chester Creek Café", rating: "4.5", reviews: "1,567", price: "$$$", cuisine: "Farm-to-Table • Global", description: "TripAdvisor's #12 restaurant. Farm-to-table dining with a variety of global cuisines, focusing on fresh, local ingredients and creative presentations.", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop"},
+                {name: "Black Woods Grill & Bar", rating: "4.2", reviews: "2,345", price: "$$", cuisine: "American • Lodge Style", description: "TripAdvisor's #13 restaurant. American cuisine in a cozy, lodge-like setting with hearty portions and a welcoming atmosphere.", image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop"},
+                {name: "Pickwick Restaurant", rating: "4.3", reviews: "1,789", price: "$$$", cuisine: "Steakhouse • Historic", description: "TripAdvisor's #14 restaurant. Historic establishment known for its steaks and lake views in a beautifully restored downtown building.", image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop"},
+                {name: "Grandma's Saloon & Grill", rating: "4.1", reviews: "3,456", price: "$$", cuisine: "American • Maritime", description: "TripAdvisor's #15 restaurant. Casual dining with a diverse menu and maritime decor in the heart of Canal Park.", image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop"},
+                {name: "Zeitgeist Restaurant & Bar", rating: "4.4", reviews: "1,123", price: "$$$", cuisine: "Contemporary American", description: "TripAdvisor's #16 restaurant. Contemporary American dishes in an artsy atmosphere with creative presentations and local ingredients.", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop"},
+                {name: "Duluth Coffee Company", rating: "4.3", reviews: "1,456", price: "$", cuisine: "Coffee • Cafe", description: "TripAdvisor's #18 restaurant. Specialty coffee roaster with a cozy café atmosphere, perfect for meetings or casual coffee breaks.", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop"},
+                {name: "Love Creamery", rating: "4.5", reviews: "1,234", price: "$", cuisine: "Ice Cream • Artisanal", description: "TripAdvisor's #19 restaurant. Handcrafted ice cream with unique flavors made from scratch using local ingredients and creative combinations.", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop"},
+                {name: "PortLand Malt Shoppe", rating: "4.2", reviews: "1,789", price: "$", cuisine: "Ice Cream • Seasonal", description: "TripAdvisor's #20 restaurant. Seasonal spot for malts and ice cream treats with a nostalgic atmosphere and classic American desserts.", image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop"},
+                {name: "PhoHolic Taste of Vietnam", rating: "4.4", reviews: "1,567", price: "$", cuisine: "Vietnamese • Authentic", description: "TripAdvisor's #21 restaurant. Authentic Vietnamese cuisine, including pho and banh mi, with traditional flavors and fresh ingredients.", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop"}
+            ],
+            3: [
+                {name: "Positively 3rd Street Bakery", rating: "4.4", reviews: "1,234", price: "$", cuisine: "Bakery • Organic", description: "TripAdvisor's #22 restaurant. Bakery known for its organic and whole-grain products with fresh, healthy options and artisanal breads.", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop"},
+                {name: "King of Creams", rating: "4.3", reviews: "1,567", price: "$", cuisine: "Ice Cream • Local", description: "TripAdvisor's #23 restaurant. Ice cream parlor offering a variety of flavors with creative combinations and local favorites.", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop"},
+                {name: "Big Daddy's Burgers", rating: "4.2", reviews: "2,345", price: "$$", cuisine: "Burgers • American", description: "TripAdvisor's #24 restaurant. Classic American burgers in a casual setting with generous portions and creative toppings.", image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop"},
+                {name: "Coney Island Deluxe", rating: "4.1", reviews: "1,789", price: "$", cuisine: "Diner • Hot Dogs", description: "TripAdvisor's #25 restaurant. Diner-style restaurant famous for its coney dogs and classic American comfort food in a nostalgic setting.", image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop"},
+                {name: "The Outback Steakhouse", rating: "4.2", reviews: "2,345", price: "$$$", cuisine: "Steakhouse • Australian", description: "TripAdvisor's #26 restaurant. Australian-themed steakhouse known for quality steaks, ribs, and seafood. Popular for special occasions and business dinners.", image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop"},
+                {name: "The Texas Roadhouse", rating: "4.3", reviews: "3,456", price: "$$", cuisine: "Steakhouse • American", description: "TripAdvisor's #27 restaurant. Lively steakhouse featuring hand-cut steaks, fall-off-the-bone ribs, and made-from-scratch sides. Known for its energetic atmosphere.", image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop"},
+                {name: "The Buffalo Wild Wings", rating: "4.1", reviews: "2,789", price: "$$", cuisine: "Sports Bar • Wings", description: "TripAdvisor's #28 restaurant. Sports bar and restaurant specializing in wings, burgers, and beer. Perfect for watching games and enjoying casual dining.", image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop"},
+                {name: "The Chipotle Mexican Grill", rating: "4.4", reviews: "1,567", price: "$", cuisine: "Mexican • Fast Casual", description: "TripAdvisor's #29 restaurant. Fast-casual Mexican restaurant offering burritos, bowls, and tacos with fresh ingredients. Popular for quick, healthy meals.", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop"},
+                {name: "The Panera Bread", rating: "4.3", reviews: "2,345", price: "$$", cuisine: "Bakery • Cafe", description: "TripAdvisor's #30 restaurant. Bakery-cafe chain offering fresh bread, soups, salads, and sandwiches. Known for healthy options and comfortable atmosphere.", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop"}
+            ]
+        };
+
+        function changePage(pageNumber) {
+            console.log('Changing to page:', pageNumber);
+            alert('changePage called for page: ' + pageNumber);
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.pagination button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+            
+            // Load restaurants for the selected page
+            const restaurants = restaurantData[pageNumber] || restaurantData[1];
+            const restaurantList = document.querySelector('.restaurant-list');
+            
+            console.log('Loading restaurants:', restaurants.length);
+            console.log('Restaurant list element:', restaurantList);
+            alert('Found ' + restaurants.length + ' restaurants');
+            alert('Restaurant list element: ' + (restaurantList ? 'found' : 'not found'));
+            
+            // Clear current restaurants
+            restaurantList.innerHTML = '';
+            
+            // Add new restaurants with sequential numbering
+            restaurants.forEach((restaurant, index) => {
+                const restaurantNumber = (pageNumber - 1) * 10 + index + 1;
+                console.log(`Creating restaurant ${restaurantNumber}: ${restaurant.name}`);
+                
+                const restaurantItem = document.createElement('div');
+                restaurantItem.className = 'restaurant-item';
+                restaurantItem.setAttribute('data-restaurant', JSON.stringify(restaurant));
+                restaurantItem.setAttribute('data-number', restaurantNumber);
+                restaurantItem.innerHTML = `
+                    <img src="${restaurant.image}" alt="${restaurant.name}" loading="lazy" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <div class="restaurant-header">
+                            <h3 class="restaurant-name">${restaurant.name}</h3>
+                        </div>
+                        <div class="restaurant-meta">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>${restaurant.rating} (${restaurant.reviews} reviews)</span>
+                            </div>
+                            <div class="price-range">${restaurant.price}</div>
+                            <div class="cuisine">${restaurant.cuisine}</div>
+                        </div>
+                        <p class="restaurant-description">${restaurant.description}</p>
+                    </div>
+                `;
+                
+                // Add click handler to the entire card
+                restaurantItem.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Restaurant clicked:', restaurant.name);
+                    alert('Restaurant clicked: ' + restaurant.name);
+                    openRestaurant(restaurant.name, restaurantNumber, restaurant.rating, restaurant.reviews, restaurant.price, restaurant.cuisine, restaurant.description, restaurant.image);
+                });
+                
+                // Also add a visual indicator that it's clickable
+                restaurantItem.style.cursor = 'pointer';
+                restaurantItem.title = 'Click to view details';
+                
+                // Make sure all child elements don't block clicks
+                const allElements = restaurantItem.querySelectorAll('*');
+                allElements.forEach(element => {
+                    element.style.pointerEvents = 'none';
+                });
+                
+                // Debug: Log that click handler was attached
+                console.log('Click handler attached to:', restaurant.name);
+                
+                restaurantList.appendChild(restaurantItem);
+            });
+        }
+
+        // Modal functionality
+        function openRestaurantModal(restaurant, restaurantNumber) {
+            const modal = document.getElementById('restaurantModal');
+            
+            if (!modal) {
+                return;
+            }
+            
+            // Populate modal with restaurant data
+            document.getElementById('modalNumber').textContent = restaurantNumber;
+            document.getElementById('modalName').textContent = restaurant.name;
+            document.getElementById('modalRating').textContent = `${restaurant.rating} (${restaurant.reviews} reviews)`;
+            document.getElementById('modalImage').src = restaurant.image;
+            document.getElementById('modalImage').alt = restaurant.name;
+            document.getElementById('modalPrice').textContent = restaurant.price;
+            document.getElementById('modalCuisine').textContent = restaurant.cuisine;
+            document.getElementById('modalReviews').textContent = restaurant.reviews;
+            document.getElementById('modalDescription').textContent = restaurant.description;
+            
+            // Generate features based on restaurant type
+            const features = generateRestaurantFeatures(restaurant);
+            const featuresList = document.getElementById('modalFeatures');
+            featuresList.innerHTML = '';
+            features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+            
+            // Show modal
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function generateRestaurantFeatures(restaurant) {
+            const features = [];
+            
+            // Base features for all restaurants
+            features.push('Friendly service');
+            features.push('Clean atmosphere');
+            
+            // Cuisine-specific features
+            if (restaurant.cuisine.includes('Italian')) {
+                features.push('Authentic Italian recipes');
+                features.push('Fresh pasta made daily');
+                features.push('Extensive wine selection');
+            } else if (restaurant.cuisine.includes('BBQ') || restaurant.cuisine.includes('Smokehouse')) {
+                features.push('Slow-smoked meats');
+                features.push('House-made sauces');
+                features.push('Traditional sides');
+            } else if (restaurant.cuisine.includes('Brewery')) {
+                features.push('Craft beer selection');
+                features.push('Brewery tours available');
+                features.push('Pub-style atmosphere');
+            } else if (restaurant.cuisine.includes('Farm-to-Table')) {
+                features.push('Locally sourced ingredients');
+                features.push('Seasonal menu changes');
+                features.push('Sustainable practices');
+            } else if (restaurant.cuisine.includes('Fine Dining')) {
+                features.push('Upscale atmosphere');
+                features.push('Chef\'s specials');
+                features.push('Wine pairings available');
+            } else if (restaurant.cuisine.includes('Ice Cream')) {
+                features.push('Handcrafted flavors');
+                features.push('Local ingredients');
+                features.push('Seasonal specials');
+            } else {
+                features.push('Quality ingredients');
+                features.push('Great value');
+            }
+            
+            // Price-based features
+            if (restaurant.price === '$$$') {
+                features.push('Upscale dining experience');
+                features.push('Perfect for special occasions');
+            } else if (restaurant.price === '$$') {
+                features.push('Great value for money');
+                features.push('Family-friendly');
+            } else {
+                features.push('Affordable prices');
+                features.push('Quick service');
+            }
+            
+            return features.slice(0, 6); // Limit to 6 features
+        }
+
+        function toggleModalHours() {
+            const fullHours = document.querySelector('.modal .full-hours');
+            const expandIcon = document.querySelector('.modal .expand-icon');
+            
+            if (fullHours.style.display === 'none' || fullHours.style.display === '') {
+                fullHours.style.display = 'block';
+                expandIcon.style.transform = 'rotate(180deg)';
+            } else {
+                fullHours.style.display = 'none';
+                expandIcon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+
+
+
+        // Function to open restaurant page
+        function openRestaurant(name, number, rating, reviews, price, cuisine, description, image) {
+            console.log('Opening restaurant:', name);
+            alert('openRestaurant function called for: ' + name);
+            
+            // Pass restaurant data via URL parameters
+            const params = new URLSearchParams({
+                name: name,
+                number: number,
+                rating: rating,
+                reviews: reviews,
+                price: price,
+                cuisine: cuisine,
+                description: description,
+                image: image
+            });
+            
+            console.log('Navigating to:', `restaurant-template.html?${params.toString()}`);
+            alert('About to open: restaurant-template.html?${params.toString()}');
+            window.open(`restaurant-template.html?${params.toString()}`, '_blank');
+        }
+        
+        // Test function to verify click functionality
+        function testRestaurantClick() {
+            console.log('Testing restaurant click functionality...');
+            openRestaurant('Test Restaurant', 1, '4.5', '100', '$$', 'Test Cuisine', 'Test description', 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop');
+        }
+
+        // Close modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded - Initializing restaurants');
+            alert('DOM Content Loaded - About to load restaurants');
+            
+            // Test if JavaScript is working
+            alert('JavaScript is working!');
+            
+            // Load the first page of restaurants on page load
+            changePage(1);
+            
+            const modal = document.getElementById('restaurantModal');
+            const closeBtn = document.querySelector('.close');
+            
+            
+            // Close modal when clicking X
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top 10 best restaurants near Duluth, Minnesota. Discover the highest-rated dining experiences with reviews, ratings, and photos.">
+    <meta name="keywords" content="best restaurants Duluth MN, top restaurants Duluth, highest rated restaurants Duluth, Duluth dining guide">
+    <title>Top 10 Best Restaurants Near Duluth Minnesota | YourDuluthGuide</title>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Maps API - Add your API key here: https://developers.google.com/maps/documentation/javascript/get-api-key -->
+    <!-- For production, replace YOUR_API_KEY with your actual Google Maps API key -->
+    <!-- If you don't have an API key, the map will use a Google Maps-like fallback -->
+    <script>
+        // Try to load Google Maps API, fallback to Leaflet if it fails
+        var useGoogleMaps = true;
+        var googleMapsKey = 'YOUR_API_KEY'; // Replace with your Google Maps API key
+        
+        if (googleMapsKey === 'YOUR_API_KEY') {
+            // Use Leaflet with Google Maps-like tiles as fallback
+            useGoogleMaps = false;
+            document.write('<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>');
+            document.write('<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><\/script>');
+        } else {
+            document.write('<script src="https://maps.googleapis.com/maps/api/js?key=' + googleMapsKey + '&callback=initGoogleMap" async defer><\/script>');
+        }
+    </script>
+    
+    <style>
+        .restaurants-page {
+            padding: 120px 0 60px;
+            background: var(--color-fog-white);
+            min-height: 100vh;
+        }
+        
+        .restaurants-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 20px;
+        }
+        
+        .restaurants-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-navy);
+            margin-bottom: 1rem;
+        }
+        
+        .restaurants-header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 20px;
+        }
+        
+        .restaurant-search-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .restaurant-search-bar {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            width: 100%;
+            flex: 1;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .restaurant-search-bar:focus {
+            outline: none;
+            border-color: var(--color-navy);
+            box-shadow: 0 0 0 3px rgba(0, 41, 107, 0.1);
+        }
+        
+        .restaurant-search-btn {
+            background: var(--color-navy);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .restaurant-search-btn:hover {
+            background: var(--color-copper);
+        }
+        
+        .restaurant-search-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .restaurants-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        
+        .restaurants-list {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .restaurant-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+            transition: box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            margin-bottom: 1.5rem;
+            min-height: 200px;
+        }
+        
+        .restaurant-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        
+        .restaurant-card-image {
+            width: 240px;
+            min-width: 240px;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .restaurant-card-body {
+            padding: 1.25rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .restaurant-card-number {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-navy);
+            margin-right: 0.5rem;
+        }
+        
+        .restaurant-card-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-navy);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+        }
+        
+        .restaurant-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .restaurant-card-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        
+        .restaurant-card-rating .stars {
+            color: #f97316;
+            font-size: 1rem;
+        }
+        
+        .restaurant-card-price {
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .restaurant-card-location-info {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .restaurant-card-cuisine {
+            background: #f1f5f9;
+            color: var(--color-navy);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .restaurant-card-description {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+            flex: 1;
+        }
+        
+        .restaurant-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+        
+        .map-container {
+            width: 400px;
+            min-width: 400px;
+            position: sticky;
+            top: 20px;
+            height: calc(100vh - 40px);
+            max-height: 800px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            border-radius: 12px;
+        }
+        
+        /* Google Maps styling */
+        .gm-style {
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        .gm-style .gm-style-iw-c {
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .gm-style .gm-style-iw-d {
+            overflow: hidden !important;
+        }
+        
+        .gm-style .gm-style-iw-t::after {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .gm-style .gm-style-iw-tc {
+            margin-top: -1px;
+        }
+        
+        /* Custom marker styling */
+        .gm-style-iw {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #64748b;
+        }
+        
+        .no-results h3 {
+            font-size: 1.5rem;
+            color: var(--color-navy);
+            margin-bottom: 0.5rem;
+        }
+        
+        .results-count {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        
+        .results-count strong {
+            color: var(--color-navy);
+        }
+        
+        .pagination-container {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .pagination-btn {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-navy);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--color-navy);
+            color: white;
+            border-color: var(--color-navy);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-numbers {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+        }
+        
+        .page-number {
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            color: var(--color-navy);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        .page-number:hover {
+            background: var(--color-lake-mist);
+            border-color: var(--color-navy);
+        }
+        
+        .page-number.active {
+            background: var(--color-navy);
+            color: white;
+            border-color: var(--color-navy);
+        }
+        
+        @media (max-width: 768px) {
+            .restaurants-header h1 {
+                font-size: 2rem;
+            }
+            
+            .restaurants-container {
+                flex-direction: column;
+            }
+            
+            .map-container {
+                width: 100%;
+                min-width: 100%;
+                height: 400px;
+                position: relative;
+            }
+            
+            .restaurant-card {
+                flex-direction: column;
+            }
+            
+            .restaurant-card-image {
+                width: 100%;
+                min-width: 100%;
+                height: 200px;
+            }
+            
+            .pagination {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-numbers {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="index.html">YourDuluthGuide</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="restaurants.html">All Restaurants</a></li>
+                    <li><a href="dining.html">Dining</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Restaurants Page Content -->
+    <section class="restaurants-page">
+        <div class="restaurants-header">
+            <h1>Top 10 Best Restaurants Near Duluth Minnesota</h1>
+            <p>Discover the highest-rated dining experiences with reviews, ratings, and photos from over 100 local restaurants</p>
+        </div>
+        
+        <div class="search-container">
+            <div class="restaurant-search-wrapper">
+                <input 
+                    type="text" 
+                    id="restaurantSearch" 
+                    class="restaurant-search-bar" 
+                    placeholder="Search restaurants by name, cuisine, or location..."
+                    autocomplete="off"
+                >
+                <button class="restaurant-search-btn" type="button" aria-label="Search" id="searchButton">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="restaurants-container">
+            <div class="restaurants-list">
+                <div id="resultsCount" class="results-count"></div>
+                <div id="restaurantsGrid" class="restaurants-list">
+                    <!-- Restaurants will be loaded here -->
+                </div>
+                <div id="noResults" class="no-results" style="display: none;">
+                    <h3>No restaurants found</h3>
+                    <p>Try adjusting your search terms or browse all restaurants below.</p>
+                </div>
+                
+                <!-- Pagination Controls -->
+                <div id="pagination" class="pagination-container" style="display: none;">
+                    <div class="pagination">
+                        <button id="prevPage" class="pagination-btn" disabled>Previous</button>
+                        <div id="pageNumbers" class="page-numbers"></div>
+                        <button id="nextPage" class="pagination-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map Container -->
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DuluthGuide</h3>
+                    <p>Your calm, trustworthy guide to Duluth restaurants and local travel.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="restaurants.html">All Restaurants</a></li>
+                        <li><a href="dining.html">Dining</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 DuluthGuide · All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="restaurants-data.js"></script>
+    <script>
+        // Pagination state
+        var currentPage = 1;
+        var restaurantsPerPage = 10;
+        var allFilteredRestaurants = [];
+        
+        // Map instance
+        var map = null;
+        var markers = [];
+        var googleMarkers = [];
+        
+        // Location coordinates for different areas in Duluth
+        var locationCoordinates = {
+            'Downtown': { lat: 46.7867, lng: -92.1005 },
+            'Canal Park': { lat: 46.7756, lng: -92.0919 },
+            'Miller Hill': { lat: 46.8131, lng: -92.1831 },
+            'Chester Creek': { lat: 46.8006, lng: -92.0831 },
+            'Central Entrance': { lat: 46.8067, lng: -92.1333 },
+            'London Road': { lat: 46.7933, lng: -92.0917 },
+            'East Duluth': { lat: 46.7917, lng: -92.0667 },
+            'West Duluth': { lat: 46.7750, lng: -92.1333 },
+            'West Central Entrance': { lat: 46.8083, lng: -92.1500 },
+            'North Shore': { lat: 46.8167, lng: -92.0833 }
+        };
+        
+        // Get coordinates for a restaurant based on location
+        function getRestaurantCoordinates(restaurant) {
+            var baseLocation = locationCoordinates[restaurant.location] || locationCoordinates['Downtown'];
+            // Add slight random offset to avoid markers overlapping exactly
+            var offset = (Math.random() - 0.5) * 0.01;
+            return {
+                lat: baseLocation.lat + offset,
+                lng: baseLocation.lng + offset
+            };
+        }
+        
+        // Sort restaurants by rating (highest first)
+        function sortRestaurantsByRating(restaurants) {
+            return restaurants.slice().sort(function(a, b) {
+                var ratingA = parseFloat(a.rating) || 0;
+                var ratingB = parseFloat(b.rating) || 0;
+                // If ratings are equal, sort by number of reviews (higher reviews first)
+                if (ratingB === ratingA) {
+                    var reviewsA = parseInt(a.reviews.replace(/,/g, '')) || 0;
+                    var reviewsB = parseInt(b.reviews.replace(/,/g, '')) || 0;
+                    return reviewsB - reviewsA;
+                }
+                return ratingB - ratingA;
+            });
+        }
+        
+        // Render restaurants for current page
+        function renderRestaurants() {
+            var grid = document.getElementById('restaurantsGrid');
+            var noResults = document.getElementById('noResults');
+            var resultsCount = document.getElementById('resultsCount');
+            var pagination = document.getElementById('pagination');
+            
+            if (!grid) return;
+            
+            if (allFilteredRestaurants.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                resultsCount.textContent = '';
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            // Calculate pagination
+            var totalPages = Math.ceil(allFilteredRestaurants.length / restaurantsPerPage);
+            var startIndex = (currentPage - 1) * restaurantsPerPage;
+            var endIndex = startIndex + restaurantsPerPage;
+            var pageRestaurants = allFilteredRestaurants.slice(startIndex, endIndex);
+            
+            // Update results count
+            var showingStart = startIndex + 1;
+            var showingEnd = Math.min(endIndex, allFilteredRestaurants.length);
+            resultsCount.innerHTML = 'Showing <strong>' + showingStart + '-' + showingEnd + '</strong> of <strong>' + allFilteredRestaurants.length + '</strong> restaurants';
+            
+            grid.style.display = 'block';
+            noResults.style.display = 'none';
+            
+            function escapeHtml(text) {
+                var div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            
+            // Render restaurant cards
+            grid.innerHTML = pageRestaurants.map(function(restaurant, index) {
+                var name = escapeHtml(restaurant.name);
+                var cuisine = escapeHtml(restaurant.cuisine);
+                var description = escapeHtml(restaurant.description);
+                var location = escapeHtml(restaurant.location);
+                var restaurantNumber = startIndex + index + 1;
+                
+                // Split cuisine into tags
+                var cuisineTags = cuisine.split(' • ').map(function(tag) {
+                    return '<span class="restaurant-card-cuisine">' + escapeHtml(tag.trim()) + '</span>';
+                }).join('');
+                
+                // Generate star rating display
+                var ratingNum = parseFloat(restaurant.rating) || 0;
+                var fullStars = Math.floor(ratingNum);
+                var hasHalfStar = (ratingNum % 1) >= 0.5;
+                var emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                var starsHtml = '★'.repeat(fullStars) + (hasHalfStar ? '½' : '') + '☆'.repeat(emptyStars);
+                // Replace with actual star characters
+                starsHtml = '★★★★★'.substring(0, fullStars) + (hasHalfStar ? '½' : '') + '☆'.repeat(emptyStars);
+                
+                return '<div class="restaurant-card" onclick="openRestaurant(\'' +
+                    name.replace(/'/g, "\\'") + '\',' +
+                    restaurantNumber + ',\'' +
+                    restaurant.rating + '\',\'' +
+                    restaurant.reviews + '\',\'' +
+                    restaurant.price + '\',\'' +
+                    cuisine.replace(/'/g, "\\'") + '\',\'' +
+                    description.replace(/'/g, "\\'") + '\',\'' +
+                    restaurant.image + '\')">' +
+                    '<img src="' + restaurant.image + '" alt="' + name + '" class="restaurant-card-image" loading="lazy">' +
+                    '<div class="restaurant-card-body">' +
+                    '<h3 class="restaurant-card-name"><span class="restaurant-card-number">' + restaurantNumber + '.</span>' + name + '</h3>' +
+                    '<div class="restaurant-card-meta">' +
+                    '<div class="restaurant-card-rating"><span class="stars">★★★★★</span><span>' + restaurant.rating + ' (' + restaurant.reviews + ' reviews)</span></div>' +
+                    '</div>' +
+                    '<div class="restaurant-card-location-info">' + location + ' • ' + restaurant.price + '</div>' +
+                    '<p class="restaurant-card-description">' + description + '</p>' +
+                    '<div class="restaurant-card-tags">' + cuisineTags + '</div>' +
+                    '</div></div>';
+            }).join('');
+            
+            // Update map with restaurant locations (only current page)
+            updateMap(pageRestaurants, startIndex);
+            
+            // Update pagination controls
+            updatePagination(totalPages);
+        }
+        
+        // Update pagination controls
+        function updatePagination(totalPages) {
+            var pagination = document.getElementById('pagination');
+            var prevBtn = document.getElementById('prevPage');
+            var nextBtn = document.getElementById('nextPage');
+            var pageNumbers = document.getElementById('pageNumbers');
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            
+            // Update prev/next buttons
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+            
+            // Generate page number buttons
+            pageNumbers.innerHTML = '';
+            var maxVisiblePages = 7;
+            var startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            var endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            
+            // Adjust start if we're near the end
+            if (endPage - startPage < maxVisiblePages - 1) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+            
+            // Show first page if not visible
+            if (startPage > 1) {
+                var firstBtn = document.createElement('button');
+                firstBtn.className = 'page-number';
+                firstBtn.textContent = '1';
+                firstBtn.onclick = function() { goToPage(1); };
+                pageNumbers.appendChild(firstBtn);
+                
+                if (startPage > 2) {
+                    var ellipsis = document.createElement('span');
+                    ellipsis.textContent = '...';
+                    ellipsis.style.padding = '0 0.5rem';
+                    pageNumbers.appendChild(ellipsis);
+                }
+            }
+            
+            // Show page numbers
+            for (var i = startPage; i <= endPage; i++) {
+                var pageBtn = document.createElement('button');
+                pageBtn.className = 'page-number' + (i === currentPage ? ' active' : '');
+                pageBtn.textContent = i;
+                pageBtn.onclick = function(page) {
+                    return function() { goToPage(page); };
+                }(i);
+                pageNumbers.appendChild(pageBtn);
+            }
+            
+            // Show last page if not visible
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    var ellipsis = document.createElement('span');
+                    ellipsis.textContent = '...';
+                    ellipsis.style.padding = '0 0.5rem';
+                    pageNumbers.appendChild(ellipsis);
+                }
+                
+                var lastBtn = document.createElement('button');
+                lastBtn.className = 'page-number';
+                lastBtn.textContent = totalPages;
+                lastBtn.onclick = function() { goToPage(totalPages); };
+                pageNumbers.appendChild(lastBtn);
+            }
+        }
+        
+        // Go to specific page
+        function goToPage(page) {
+            var totalPages = Math.ceil(allFilteredRestaurants.length / restaurantsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderRestaurants();
+            // Scroll to top of results
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Cuisine category mapping for SEO
+        var cuisineCategories = {
+            'pizza': { name: 'Pizza', plural: 'Pizza Restaurants', keywords: ['pizza', 'italian pizza', 'neapolitan'] },
+            'burger': { name: 'Burgers', plural: 'Burger Restaurants', keywords: ['burger', 'burgers', 'hamburger'] },
+            'thai': { name: 'Thai', plural: 'Thai Restaurants', keywords: ['thai', 'thai food'] },
+            'italian': { name: 'Italian', plural: 'Italian Restaurants', keywords: ['italian', 'pasta', 'italy'] },
+            'mexican': { name: 'Mexican', plural: 'Mexican Restaurants', keywords: ['mexican', 'taco', 'tacos', 'burrito', 'mexico'] },
+            'chinese': { name: 'Chinese', plural: 'Chinese Restaurants', keywords: ['chinese', 'china'] },
+            'japanese': { name: 'Japanese', plural: 'Japanese Restaurants', keywords: ['japanese', 'sushi', 'hibachi', 'japan'] },
+            'indian': { name: 'Indian', plural: 'Indian Restaurants', keywords: ['indian', 'india', 'curry'] },
+            'vietnamese': { name: 'Vietnamese', plural: 'Vietnamese Restaurants', keywords: ['vietnamese', 'pho', 'vietnam'] },
+            'seafood': { name: 'Seafood', plural: 'Seafood Restaurants', keywords: ['seafood', 'fish', 'lobster', 'crab'] },
+            'bbq': { name: 'BBQ', plural: 'BBQ Restaurants', keywords: ['bbq', 'barbecue', 'barbeque', 'smokehouse'] },
+            'breakfast': { name: 'Breakfast', plural: 'Breakfast Restaurants', keywords: ['breakfast', 'brunch', 'pancake', 'waffle'] },
+            'coffee': { name: 'Coffee', plural: 'Coffee Shops', keywords: ['coffee', 'cafe', 'café', 'espresso'] },
+            'ice cream': { name: 'Ice Cream', plural: 'Ice Cream Shops', keywords: ['ice cream', 'gelato', 'frozen yogurt'] },
+            'sports bar': { name: 'Sports Bar', plural: 'Sports Bars', keywords: ['sports bar', 'sportsbar', 'bar', 'pub'] },
+            'brewery': { name: 'Brewery', plural: 'Breweries', keywords: ['brewery', 'brew', 'beer', 'brewhouse'] },
+            'steakhouse': { name: 'Steakhouse', plural: 'Steakhouses', keywords: ['steakhouse', 'steak', 'steaks'] },
+            'fine dining': { name: 'Fine Dining', plural: 'Fine Dining Restaurants', keywords: ['fine dining', 'upscale', 'elegant'] }
+        };
+        
+        // Detect cuisine category from search term
+        function detectCuisineCategory(searchTerm) {
+            var term = searchTerm.toLowerCase().trim();
+            
+            for (var key in cuisineCategories) {
+                var category = cuisineCategories[key];
+                for (var i = 0; i < category.keywords.length; i++) {
+                    if (term === category.keywords[i] || term.indexOf(category.keywords[i]) !== -1) {
+                        return category;
+                    }
+                }
+            }
+            
+            return null;
+        }
+        
+        // Update page title and meta for SEO
+        function updatePageSEO(category, searchTerm) {
+            var pageTitle = '';
+            var pageDescription = '';
+            var headerTitle = '';
+            var headerDescription = '';
+            
+            if (category) {
+                // SEO-optimized category page (only for food-related categories)
+                pageTitle = 'Top 10 Best ' + category.plural + ' in Duluth Minnesota | YourDuluthGuide';
+                pageDescription = 'Discover the top rated ' + category.plural.toLowerCase() + ' in Duluth, Minnesota. Find the best ' + category.name.toLowerCase() + ' restaurants with reviews, ratings, and photos.';
+                headerTitle = 'Top 10 Best ' + category.plural + ' in Duluth Minnesota';
+                headerDescription = 'Discover the highest-rated ' + category.plural.toLowerCase() + ' with reviews, ratings, and photos';
+                
+                // Update URL
+                var cuisineSlug = category.name.toLowerCase().replace(/\s+/g, '-');
+                if (window.history && window.history.pushState) {
+                    var newUrl = window.location.pathname + '?cuisine=' + encodeURIComponent(cuisineSlug);
+                    window.history.pushState({ path: newUrl }, '', newUrl);
+                }
+            } else if (searchTerm) {
+                // Generic search results - keep default title, don't change header
+                pageTitle = 'Restaurants in Duluth Minnesota | Search Results | YourDuluthGuide';
+                pageDescription = 'Search results for restaurants in Duluth, Minnesota. Browse top-rated dining options with reviews and ratings.';
+                // Keep default header for non-food searches
+                headerTitle = 'All Restaurants in Duluth';
+                headerDescription = 'Search results for "' + searchTerm + '" - Discover over 100 restaurants, cafes, and dining experiences throughout Duluth, Minnesota';
+            } else {
+                // Default page
+                pageTitle = 'Top 10 Best Restaurants Near Duluth Minnesota | YourDuluthGuide';
+                pageDescription = 'Top 10 best restaurants near Duluth, Minnesota. Discover the highest-rated dining experiences with reviews, ratings, and photos.';
+                headerTitle = 'Top 10 Best Restaurants Near Duluth Minnesota';
+                headerDescription = 'Discover the highest-rated dining experiences with reviews, ratings, and photos from over 100 local restaurants';
+            }
+            
+            // Update document title and meta
+            document.title = pageTitle;
+            var metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.setAttribute('content', pageDescription);
+            }
+            
+            // Update header
+            var headerH1 = document.querySelector('.restaurants-header h1');
+            var headerP = document.querySelector('.restaurants-header p');
+            if (headerH1) headerH1.textContent = headerTitle;
+            if (headerP) headerP.textContent = headerDescription;
+        }
+        
+        // Search function
+        function doSearch() {
+            var searchInput = document.getElementById('restaurantSearch');
+            var searchTerm = searchInput ? searchInput.value.trim() : '';
+            
+            if (typeof allRestaurants === 'undefined') {
+                var grid = document.getElementById('restaurantsGrid');
+                if (grid) {
+                    grid.innerHTML = '<div class="no-results"><h3>Error: Restaurant data not loaded</h3><p>Please refresh the page.</p></div>';
+                }
+                return;
+            }
+            
+            // Reset to page 1 when searching
+            currentPage = 1;
+            
+            // Detect cuisine category
+            var category = detectCuisineCategory(searchTerm);
+            
+            // Update SEO elements
+            updatePageSEO(category, searchTerm);
+            
+            // Filter restaurants
+            if (!searchTerm) {
+                allFilteredRestaurants = allRestaurants.slice();
+            } else {
+                var term = searchTerm.toLowerCase();
+                
+                if (category) {
+                    // Filter by cuisine category
+                    allFilteredRestaurants = allRestaurants.filter(function(restaurant) {
+                        var cuisineLower = restaurant.cuisine.toLowerCase();
+                        var nameLower = restaurant.name.toLowerCase();
+                        var descLower = restaurant.description.toLowerCase();
+                        
+                        // Check if restaurant matches category
+                        var matchesCategory = false;
+                        for (var i = 0; i < category.keywords.length; i++) {
+                            if (cuisineLower.indexOf(category.keywords[i]) !== -1 ||
+                                nameLower.indexOf(category.keywords[i]) !== -1 ||
+                                descLower.indexOf(category.keywords[i]) !== -1) {
+                                matchesCategory = true;
+                                break;
+                            }
+                        }
+                        return matchesCategory;
+                    });
+                } else {
+                    // Regular search
+                    allFilteredRestaurants = allRestaurants.filter(function(restaurant) {
+                        var nameMatch = restaurant.name.toLowerCase().indexOf(term) !== -1;
+                        var cuisineMatch = restaurant.cuisine.toLowerCase().indexOf(term) !== -1;
+                        var locationMatch = restaurant.location.toLowerCase().indexOf(term) !== -1;
+                        var descMatch = restaurant.description.toLowerCase().indexOf(term) !== -1;
+                        return nameMatch || cuisineMatch || locationMatch || descMatch;
+                    });
+                }
+            }
+            
+            // Sort by rating (highest first)
+            allFilteredRestaurants = sortRestaurantsByRating(allFilteredRestaurants);
+            
+            // Render results
+            renderRestaurants();
+        }
+        
+        // Global callback for Google Maps API
+        window.initGoogleMap = function() {
+            if (typeof allRestaurants !== 'undefined') {
+                initMap();
+            } else {
+                // Wait for restaurant data to load
+                setTimeout(initGoogleMap, 100);
+            }
+        };
+        
+        // Initialize map (Google Maps or Leaflet fallback)
+        function initMap() {
+            var mapContainer = document.getElementById('map');
+            if (!mapContainer) {
+                console.error('Map container not found');
+                return;
+            }
+            
+            // Check if map already initialized
+            if (map) {
+                return;
+            }
+            
+            // Try Google Maps first
+            if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
+                initGoogleMaps(mapContainer);
+            } else if (typeof L !== 'undefined') {
+                // Fallback to Leaflet with Google Maps-like styling
+                initLeafletMap(mapContainer);
+            } else {
+                console.error('No map library available');
+                // Retry after a delay
+                setTimeout(initMap, 500);
+            }
+        }
+        
+        // Initialize Google Maps
+        function initGoogleMaps(mapContainer) {
+            // Initialize Google Map centered on Duluth
+            map = new google.maps.Map(mapContainer, {
+                center: { lat: 46.7867, lng: -92.1005 },
+                zoom: 13,
+                styles: [
+                    {
+                        "featureType": "all",
+                        "elementType": "geometry",
+                        "stylers": [{"color": "#f5f5f5"}]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{"color": "#616161"}]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [{"color": "#f5f5f5"}]
+                    },
+                    {
+                        "featureType": "administrative.land_parcel",
+                        "elementType": "labels",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "all",
+                        "stylers": [{"color": "#ffffff"}]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "all",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "all",
+                        "stylers": [
+                            {"saturation": -100},
+                            {"lightness": 45}
+                        ]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "all",
+                        "stylers": [{"visibility": "simplified"}]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "labels.icon",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "transit",
+                        "elementType": "all",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "all",
+                        "stylers": [
+                            {"color": "#b3d9ff"},
+                            {"visibility": "on"}
+                        ]
+                    }
+                ],
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: true,
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_CENTER
+                }
+            });
+        }
+        
+        // Initialize Leaflet map with Google Maps-like styling (fallback)
+        function initLeafletMap(mapContainer) {
+            // Initialize Leaflet map centered on Duluth
+            map = L.map(mapContainer).setView([46.7867, -92.1005], 13);
+            
+            // Use Google Maps-like tile style
+            L.tileLayer('https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                subdomains: ['0', '1', '2', '3'],
+                attribution: 'Map data &copy; Google',
+                maxZoom: 20
+            }).addTo(map);
+        }
+        
+        // Update map with restaurant locations
+        function updateMap(restaurants, startIndex) {
+            if (!map) {
+                initMap();
+                if (!map) return;
+            }
+            
+            // Use provided startIndex or calculate from current page
+            if (startIndex === undefined) {
+                startIndex = (currentPage - 1) * restaurantsPerPage;
+            }
+            
+            if (restaurants.length === 0) {
+                // Clear markers
+                if (typeof google !== 'undefined' && google.maps) {
+                    googleMarkers.forEach(function(marker) {
+                        marker.setMap(null);
+                    });
+                    googleMarkers = [];
+                } else if (typeof L !== 'undefined') {
+                    markers.forEach(function(marker) {
+                        map.removeLayer(marker);
+                    });
+                    markers = [];
+                }
+                return;
+            }
+            
+            // Check if using Google Maps or Leaflet
+            if (typeof google !== 'undefined' && google.maps && map instanceof google.maps.Map) {
+                updateGoogleMap(restaurants, startIndex);
+            } else if (typeof L !== 'undefined' && map instanceof L.Map) {
+                updateLeafletMap(restaurants, startIndex);
+            }
+        }
+        
+        // Update Google Maps with markers
+        function updateGoogleMap(restaurants, startIndex) {
+            // Clear existing markers
+            googleMarkers.forEach(function(marker) {
+                marker.setMap(null);
+            });
+            googleMarkers = [];
+            
+            var bounds = new google.maps.LatLngBounds();
+            
+            restaurants.forEach(function(restaurant, index) {
+                var coords = getRestaurantCoordinates(restaurant);
+                var position = new google.maps.LatLng(coords.lat, coords.lng);
+                bounds.extend(position);
+                
+                var markerNumber = startIndex + index + 1;
+                
+                var markerIcon = {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 15,
+                    fillColor: '#d32f2f',
+                    fillOpacity: 1,
+                    strokeColor: '#ffffff',
+                    strokeWeight: 3,
+                    labelOrigin: new google.maps.Point(0, 0)
+                };
+                
+                var marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    icon: markerIcon,
+                    label: {
+                        text: markerNumber.toString(),
+                        color: '#ffffff',
+                        fontSize: '13px',
+                        fontWeight: 'bold'
+                    },
+                    title: restaurant.name
+                });
+                
+                var infoWindow = new google.maps.InfoWindow({
+                    content: '<div style="min-width: 200px; padding: 4px;">' +
+                        '<strong style="font-size: 1.1rem; color: #1e3a5f; display: block; margin-bottom: 6px;">' + 
+                        restaurant.name + '</strong>' +
+                        '<div style="color: #64748b; font-size: 0.9rem; margin-bottom: 4px;">' +
+                        '<span style="color: #f97316; font-weight: 600;">' + restaurant.rating + ' ⭐</span> (' + restaurant.reviews + ' reviews)' +
+                        '</div>' +
+                        '<div style="color: #64748b; font-size: 0.85rem;">' +
+                        '📍 ' + restaurant.location + ' • ' + restaurant.price +
+                        '</div>' +
+                        '</div>'
+                });
+                
+                marker.addListener('click', function() {
+                    infoWindow.open(map, marker);
+                });
+                
+                googleMarkers.push(marker);
+            });
+            
+            if (googleMarkers.length > 0) {
+                map.fitBounds(bounds, { padding: 40 });
+                google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+                    if (map.getZoom() > 15) {
+                        map.setZoom(15);
+                    }
+                });
+            }
+        }
+        
+        // Update Leaflet map with markers (fallback)
+        function updateLeafletMap(restaurants, startIndex) {
+            // Clear existing markers
+            markers.forEach(function(marker) {
+                map.removeLayer(marker);
+            });
+            markers = [];
+            
+            var bounds = [];
+            
+            restaurants.forEach(function(restaurant, index) {
+                var coords = getRestaurantCoordinates(restaurant);
+                bounds.push([coords.lat, coords.lng]);
+                
+                var markerNumber = startIndex + index + 1;
+                
+                var customIcon = L.divIcon({
+                    className: 'custom-marker',
+                    html: '<div style="background-color: #d32f2f; color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.4);">' + markerNumber + '</div>',
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 16]
+                });
+                
+                var marker = L.marker([coords.lat, coords.lng], { icon: customIcon })
+                    .addTo(map)
+                    .bindPopup(
+                        '<div style="min-width: 200px;">' +
+                        '<strong style="font-size: 1.1rem; color: #1e3a5f; display: block; margin-bottom: 6px;">' + restaurant.name + '</strong>' +
+                        '<div style="color: #64748b; font-size: 0.9rem; margin-bottom: 4px;">' +
+                        '<span style="color: #f97316; font-weight: 600;">' + restaurant.rating + ' ⭐</span> (' + restaurant.reviews + ' reviews)' +
+                        '</div>' +
+                        '<div style="color: #64748b; font-size: 0.85rem;">' +
+                        '📍 ' + restaurant.location + ' • ' + restaurant.price +
+                        '</div>' +
+                        '</div>'
+                    );
+                
+                markers.push(marker);
+            });
+            
+            if (bounds.length > 0) {
+                map.fitBounds(bounds, { padding: [40, 40] });
+            }
+        }
+        
+        // Make doSearch globally accessible
+        window.doSearch = doSearch;
+        
+        // Restaurant detail page function
+        window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image) {
+            var params = new URLSearchParams();
+            params.set('name', name);
+            params.set('number', number);
+            params.set('rating', rating);
+            params.set('reviews', reviews);
+            params.set('price', price);
+            params.set('cuisine', cuisine);
+            params.set('description', description);
+            params.set('image', image);
+            window.location.href = 'restaurant-template.html?' + params.toString();
+        };
+        
+        // Initialize page when DOM is ready
+        function initRestaurantsPage() {
+            var searchInput = document.getElementById('restaurantSearch');
+            var searchButton = document.getElementById('searchButton');
+            var prevBtn = document.getElementById('prevPage');
+            var nextBtn = document.getElementById('nextPage');
+            
+            if (!searchInput) {
+                console.error('Search input not found');
+                return;
+            }
+            
+            // Check if data is loaded
+            if (typeof allRestaurants === 'undefined') {
+                setTimeout(initRestaurantsPage, 100);
+                return;
+            }
+            
+            // Initialize map
+            initMap();
+            
+            // Set up search input event listeners - only search on Enter
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    doSearch();
+                }
+            });
+            
+            // Set up search button
+            if (searchButton) {
+                searchButton.addEventListener('click', doSearch);
+            }
+            
+            // Set up pagination buttons
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    goToPage(currentPage - 1);
+                });
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    goToPage(currentPage + 1);
+                });
+            }
+            
+            // Check for URL parameters
+            var urlParams = new URLSearchParams(window.location.search);
+            var searchParam = urlParams.get('search');
+            var cuisineParam = urlParams.get('cuisine');
+            
+            if (searchParam) {
+                searchInput.value = searchParam;
+                doSearch();
+            } else if (cuisineParam) {
+                // Handle cuisine category from URL
+                var categoryKey = cuisineParam.replace(/-/g, ' ');
+                for (var key in cuisineCategories) {
+                    var category = cuisineCategories[key];
+                    if (category.name.toLowerCase() === categoryKey || category.plural.toLowerCase() === categoryKey) {
+                        searchInput.value = category.keywords[0];
+                        doSearch();
+                        return;
+                    }
+                }
+                // Fallback
+                searchInput.value = cuisineParam.replace(/-/g, ' ');
+                doSearch();
+            } else {
+                // Initial render - show all restaurants sorted by rating
+                doSearch();
+            }
+        }
+        
+        // Start initialization when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initRestaurantsPage);
+        } else {
+            initRestaurantsPage();
+        }
+    </script>
+</body>
+</html>
