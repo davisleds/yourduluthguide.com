@@ -112,15 +112,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        restaurantSearchBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            handleRestaurantSearch();
-        });
+    restaurantSearchBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const term = restaurantSearchInput.value.trim();
+        if (term.length === 0) {
+            restaurantSearchInput.focus();
+            return;
+        }
+        handleRestaurantSearch();
+    });
         
         restaurantSearchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
+        if (e.key === 'Enter') {
                 e.preventDefault();
-                handleRestaurantSearch();
+            const term = restaurantSearchInput.value.trim();
+            if (term.length === 0) {
+                restaurantSearchInput.focus();
+                return;
+            }
+            handleRestaurantSearch();
             }
         });
     }

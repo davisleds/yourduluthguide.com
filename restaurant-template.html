@@ -3,7 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Details - Duluth Hotels</title>
+    <title>Restaurant Details - YourDuluthGuide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        var restaurantGoogleMapsKey = 'YOUR_API_KEY';
+        var restaurantUseGoogleMaps = true;
+        var restaurantLeafletRequested = false;
+        var restaurantLeafletCssLoaded = false;
+        var restaurantMapLibraryLoaded = false;
+
+        function loadRestaurantGoogleMapsScript() {
+            if (restaurantGoogleMapsKey === 'YOUR_API_KEY') {
+                restaurantUseGoogleMaps = false;
+                loadRestaurantLeafletAssets();
+                return;
+            }
+
+            var script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=' + restaurantGoogleMapsKey + '&callback=initRestaurantGoogleMap';
+            script.async = true;
+            script.defer = true;
+            script.onerror = function() {
+                restaurantUseGoogleMaps = false;
+                loadRestaurantLeafletAssets();
+            };
+            document.head.appendChild(script);
+        }
+
+        function injectRestaurantLeafletScript(fallback) {
+            var scriptId = fallback ? 'restaurant-leaflet-script-fallback' : 'restaurant-leaflet-script';
+            if (document.getElementById(scriptId)) return;
+
+            var leafletScript = document.createElement('script');
+            leafletScript.id = scriptId;
+            leafletScript.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+            leafletScript.async = true;
+            leafletScript.onload = function() {
+                restaurantMapLibraryLoaded = true;
+            };
+            leafletScript.onerror = function() {
+                if (!fallback) {
+                    injectRestaurantLeafletScript(true);
+                }
+            };
+            document.head.appendChild(leafletScript);
+        }
+
+        function loadRestaurantLeafletAssets() {
+            if (restaurantLeafletRequested) return;
+            restaurantLeafletRequested = true;
+
+            var leafletCss = document.createElement('link');
+            leafletCss.rel = 'stylesheet';
+            leafletCss.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+            leafletCss.onload = function() {
+                restaurantLeafletCssLoaded = true;
+                injectRestaurantLeafletScript(false);
+            };
+            leafletCss.onerror = function() {
+                injectRestaurantLeafletScript(false);
+            };
+            document.head.appendChild(leafletCss);
+
+            setTimeout(function() {
+                if (!restaurantLeafletCssLoaded) {
+                    injectRestaurantLeafletScript(false);
+                }
+            }, 500);
+        }
+
+        if (restaurantGoogleMapsKey && restaurantGoogleMapsKey !== 'YOUR_API_KEY') {
+            loadRestaurantGoogleMapsScript();
+        } else {
+            loadRestaurantLeafletAssets();
+        }
+    </script>
     <style>
         * {
             margin: 0;
@@ -12,21 +89,25 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: #333;
             background: #f8f9fa;
         }
 
         .header {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            background: #00296B;
             color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1.25rem 0;
+            box-shadow: 0 4px 20px rgba(0, 41, 107, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
@@ -34,7 +115,7 @@
             align-items: center;
         }
 
-        .nav-logo {
+        .nav-logo h1 {
             font-size: 1.5rem;
             font-weight: 700;
         }
@@ -45,171 +126,689 @@
         }
 
         .back-button {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            padding: 0.625rem 1.5rem;
+            border-radius: 8px;
             text-decoration: none;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .back-button:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .restaurant-page {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .restaurant-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 3px solid #f59e0b;
-        }
-
-        .restaurant-number {
-            display: inline-block;
-            background: #f59e0b;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        /* Photo Banner Section */
+        .photo-banner {
+            position: relative;
+            width: 100%;
+            height: 500px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin: 0 auto 1rem;
+            overflow: hidden;
+            background: #000;
         }
 
-        .restaurant-title {
+        .photo-panel {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-panel:hover img {
+            transform: scale(1.05);
+        }
+
+        .restaurant-info-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent);
+            padding: 2rem;
+            color: white;
+            z-index: 10;
+        }
+
+        .restaurant-name {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #333;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .restaurant-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
             margin-bottom: 1rem;
         }
 
-        .restaurant-rating {
+        .rating-stars {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 0.5rem;
-            font-size: 1.1rem;
-            color: #666;
         }
 
         .stars {
-            color: #ffd700;
-            font-size: 1.2rem;
+            color: #ff6b35;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
+        .rating-text {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .claimed-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .price-range {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .cuisine-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .cuisine-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .hours-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hours-text {
+            font-size: 0.95rem;
+        }
+
+        .see-hours-btn {
+            background: var(--color-copper);
+            color: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(196, 124, 72, 0.25);
+        }
+
+        .see-hours-btn:hover {
+            background: #a8643b;
+            box-shadow: 0 6px 16px rgba(168, 100, 59, 0.3);
+        }
+
+        .update-info {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.25rem;
+        }
+
+        .see-all-photos-btn {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--color-copper);
+            color: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            z-index: 20;
+            box-shadow: 0 6px 18px rgba(196, 124, 72, 0.28);
+        }
+
+        .see-all-photos-btn:hover {
+            background: #a8643b;
+            box-shadow: 0 10px 22px rgba(168, 100, 59, 0.32);
+        }
+
+        /* Content Section */
         .restaurant-content {
-            display: grid;
-            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
         }
 
         .content-section {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 8px;
-            border-left: 4px solid #f59e0b;
+            background: white;
+            padding: 3.5rem;
+            border-radius: 0;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .content-subsection {
+            margin-top: 3rem;
         }
 
         .content-section h3 {
-            color: #333;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            color: var(--color-navy);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f0f0f0;
+            text-align: center;
         }
 
         .content-section p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .restaurant-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 8px;
+            color: #4a5568;
+            line-height: 1.8;
             margin-bottom: 2rem;
-        }
-
-        .meta-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .meta-item {
-            background: white;
-            padding: 1rem;
-            border-radius: 6px;
+            font-size: 1.05rem;
             text-align: center;
-            border: 1px solid #e5e7eb;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .meta-item strong {
-            display: block;
-            color: #333;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
+        /* Combined Details Section */
+        .details-section {
+            margin-top: 2.5rem;
+            padding: 0;
+            box-shadow: none;
+            background: transparent;
+            border-radius: 0;
+            margin-bottom: 0;
         }
 
-        .meta-item span {
-            color: #666;
-            font-size: 1rem;
+        .details-section h3 {
+            color: var(--color-navy);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            margin-top: 0;
+            font-weight: 700;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f0f0f0;
+            text-align: left;
         }
 
-        .features-list {
-            list-style: none;
+        .details-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 0.5rem;
+            grid-template-columns: minmax(0, 1.35fr) 280px 340px;
+            column-gap: 2rem;
+            row-gap: 2rem;
+            max-width: 1200px;
+            margin: 0;
+            align-items: start;
         }
 
-        .features-list li {
-            padding: 0.75rem 1rem;
+        .details-list {
+            grid-column: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .details-hours-column {
+            grid-column: 2;
+            display: flex;
+            flex-direction: column;
+            align-self: stretch;
+            justify-content: flex-start;
+        }
+
+        .details-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            max-width: 440px;
+            justify-items: stretch;
+            align-items: stretch;
+        }
+
+        .details-info-card {
             background: white;
-            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            min-height: 90px;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+
+        .details-info-label {
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .details-info-value {
+            font-size: 1.05rem;
+            font-weight: 600;
             color: #333;
-            border-left: 3px solid #f59e0b;
+            line-height: 1.3;
+        }
+        
+        .details-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem 3rem;
         }
 
-        .features-list li:before {
-            content: "✓ ";
-            color: #f59e0b;
-            font-weight: bold;
+        .details-hours-container {
+            grid-column: 1;
+            margin-top: 1.5rem;
         }
 
-        .hours-section {
-            background: #f0f9ff;
-            border-left-color: #3b82f6;
+        .map-directions-box {
+            grid-column: 2;
+            grid-row: 1;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            margin-top: -1.1rem;
+            padding: 0.65rem 0.85rem;
+            box-shadow: 0 3px 16px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .map-address {
+            font-size: 0.78rem;
+            color: #1f2937;
+            font-weight: 600;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .map-directions-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--color-navy);
+            color: white;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+        }
+
+        .map-directions-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(168, 100, 59, 0.3);
+            background: var(--color-copper);
+        }
+
+        .restaurant-map-container {
+            position: relative;
+            z-index: 1;
+            margin-top: 0;
+            height: 280px;
+        }
+
+        .contact-info-box {
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 968px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+                grid-template-columns: 1fr;
+            }
+            
+            .details-list {
+                grid-column: 1;
+                grid-template-columns: 1fr;
+            }
+            
+            .details-hours-column {
+                grid-column: 1;
+                margin-top: 1.5rem;
+            }
+
+            .details-sidebar {
+                grid-column: 1;
+                margin-top: 1.5rem;
+            }
+            
+            .map-directions-box {
+                grid-column: 1;
+                grid-row: auto;
+                margin-top: -1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .restaurant-map-container {
+                margin-top: 0;
+                height: 220px;
+            }
+
+            .details-hours-spotlight {
+                width: 100%;
+                max-width: none;
+                margin: 1.5rem 0 2rem;
+                padding: 1.5rem;
+                box-shadow: none;
+                border-radius: 12px;
+            }
+
+            .contact-info-box {
+                margin-top: 1rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .details-info-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .details-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .details-hours-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .details-hours-label {
+            color: var(--color-navy);
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .details-hours-divider {
+            height: 1px;
+            width: 100%;
+            max-width: 80px;
+            background: rgba(0, 41, 107, 0.2);
+            margin: 0.25rem auto 0.75rem;
+        }
+        
+        .popular-dishes-container {
+            margin-top: 0.25rem;
+            padding-top: 0;
+            border-top: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            max-width: 440px;
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .popular-dishes-label {
+            color: var(--color-navy);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .popular-dishes-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+            align-items: stretch;
+            justify-content: flex-start;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .popular-dish-item {
+            color: #0f172a;
+            font-size: 0.85rem;
+            font-weight: 500;
+            line-height: 1.4;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            text-align: center;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .detail-label {
+            color: #64748b;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            color: var(--color-navy);
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .detail-value.price-range {
+            color: var(--color-copper);
+            font-size: 1.25rem;
+        }
+
+        .detail-value.rating {
+            color: var(--color-navy);
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .detail-value.rating span:first-child {
+            font-weight: 700;
+            color: var(--color-navy);
+            font-size: 1.25rem;
+        }
+
+        .half-star {
+            position: relative;
+            display: inline-block;
+            color: var(--color-navy);
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            width: 1em;
+            height: 1em;
+            line-height: 1;
+        }
+
+        .half-star::before {
+            content: '⭐';
+            position: absolute;
+            left: 0;
+            width: 50%;
+            overflow: hidden;
+            color: var(--color-navy);
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+        }
+
+        .half-star::after {
+            content: '☆';
+            color: #ddd;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+        }
+
+        .detail-value.reviews {
+            color: #64748b;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contact-info-box {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .contact-phone-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 0.35rem;
+        }
+
+        .contact-phone-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .contact-phone-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .contact-info-container {
+            margin-top: -2.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 440px;
+            align-items: flex-end;
+            margin-bottom: -0.5rem;
+        }
+
+        .contact-info-container .popular-dishes-container {
+            margin-top: 0.75rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.85rem;
+            background: var(--color-navy);
+            color: #fff;
+            border-radius: 999px;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, color 0.2s ease;
+            width: 165px;
+        }
+
+        .contact-link .contact-icon {
+            color: inherit;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(168, 100, 59, 0.3);
+            background: var(--color-copper);
+            color: #fff;
+        }
+
+        .detail-value.cuisine {
+            color: var(--color-navy);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .restaurant-map-container {
+            width: 100%;
+            height: 280px;
+            border-radius: 0 0 16px 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-top: none;
+        }
+
+        #restaurantMap {
+            width: 100%;
+            height: 100%;
         }
 
         .hours-list {
             display: grid;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .hours-list div {
-            padding: 0.5rem;
-            background: white;
-            border-radius: 4px;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .day {
@@ -221,19 +820,571 @@
             color: #666;
         }
 
+        .features-section {
+            margin-top: 2rem;
+            padding: 0;
+            box-shadow: none;
+            background: transparent;
+            border-radius: 0;
+        }
+
+        .features-section h3 {
+            color: var(--color-navy);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            margin-top: 0;
+            font-weight: 700;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f0f0f0;
+            text-align: center;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem 2rem;
+            list-style: none;
+            padding: 0;
+            max-width: 900px;
+            margin: 0 auto;
+            justify-items: start;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: #4a5568;
+            font-size: 1.05rem;
+            padding: 0.5rem 0;
+            line-height: 1.5;
+        }
+
+        .feature-item:before {
+            content: "✓";
+            color: var(--color-copper);
+            font-weight: bold;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        /* Photo Gallery Section */
+        .photo-gallery-section {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .photo-gallery-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .photo-gallery-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .photo-gallery-header p {
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        .photo-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-photo {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .gallery-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            width: 100%;
+            margin: 0;
+            padding: 2.5rem 0 3.25rem;
+            position: relative;
+        }
+
+        .reviews-section h3 {
+            color: var(--color-navy);
+            font-size: 1.85rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .reviews-header-actions {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .reviews-see-all-btn {
+            background: var(--color-navy);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .reviews-see-all-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
+            background: #0b1e4a;
+        }
+
+        .reviews-intro {
+            color: #475569;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .reviews-carousel-container {
+            position: relative;
+            padding: 0 3.5rem;
+        }
+
+        .reviews-viewport {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .reviews-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+            will-change: transform;
+            gap: 0;
+        }
+
+        .reviews-slide {
+            flex: 0 0 100%;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            padding: 0 0.5rem;
+            box-sizing: border-box;
+        }
+
+        .review-card {
+            background: white;
+            padding: 1.75rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            display: grid;
+            gap: 1rem;
+            height: 100%;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .review-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--color-navy);
+            font-size: 1.05rem;
+        }
+
+        .review-date {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .review-rating {
+            color: #f97316;
+            font-size: 1.05rem;
+            white-space: nowrap;
+        }
+
+        .review-text {
+            color: #334155;
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: rgba(15, 23, 42, 0.08);
+            color: #1f2937;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(15, 23, 42, 0.16);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .carousel-nav:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            transform: translateY(-50%);
+        }
+
+        .carousel-nav.prev {
+            left: 0.75rem;
+        }
+
+        .carousel-nav.next {
+            right: 0.75rem;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            padding: 0;
+            transition: background 0.2s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--color-navy);
+        }
+
+        .reviews-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .reviews-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+        }
+
+        .reviews-modal-content {
+            position: relative;
+            background: #ffffff;
+            border-radius: 18px;
+            max-width: 960px;
+            width: 90%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 2.5rem 2.5rem;
+            box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
+            overflow: hidden;
+        }
+
+        .reviews-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            font-size: 1.75rem;
+            background: transparent;
+            border: none;
+            color: #475569;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .reviews-modal-close:hover {
+            transform: scale(1.1);
+            color: #0f172a;
+        }
+
+        .reviews-modal h3 {
+            color: var(--color-navy);
+            font-size: 1.65rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.75rem;
+        }
+
+        .reviews-modal-grid-container {
+            flex: 1;
+            overflow: auto;
+        }
+
+        .reviews-modal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .reviews-modal-card {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 1.4rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .reviews-modal-card .modal-review-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .reviews-modal-card .modal-reviewer {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .reviews-modal-card .modal-reviewer-name {
+            color: var(--color-navy);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .reviews-modal-card .modal-reviewer-date {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .reviews-modal-card .modal-review-rating {
+            color: #f97316;
+            font-weight: 600;
+        }
+
+        .reviews-modal-card .modal-review-text {
+            color: #374151;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .reviews-modal-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.75rem;
+        }
+
+        .reviews-modal-pagination button {
+            background: rgba(15, 23, 42, 0.08);
+            border: none;
+            padding: 0.55rem 1.25rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #1f2937;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .reviews-modal-pagination button:hover {
+            background: rgba(15, 23, 42, 0.15);
+        }
+
+        .reviews-modal-pagination button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .reviews-modal-page-info {
+            color: #475569;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1024px) {
+            .reviews-modal-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .reviews-modal-content {
+                padding: 1.75rem 1.4rem 2rem;
+            }
+
+            .reviews-modal-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .reviews-carousel-container {
+                padding: 0 2.75rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            .restaurant-page {
-                margin: 1rem;
-                padding: 1rem;
+            .reviews-carousel-container {
+                padding: 0 2.25rem;
             }
-            
-            .restaurant-title {
-                font-size: 2rem;
+
+            .review-card {
+                padding: 1.5rem;
             }
-            
-            .meta-grid {
-                grid-template-columns: 1fr;
+        }
+
+        @media (max-width: 640px) {
+            .reviews-carousel-container {
+                padding: 0 2rem;
             }
+
+            .reviews-slide {
+                padding: 0;
+            }
+
+            .carousel-nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .photo-banner {
+                height: 400px;
+                flex-direction: column;
+            }
+
+            .photo-panel {
+                flex: 0 0 100%;
+                height: 100px;
+            }
+
+            .restaurant-name {
+                font-size: 1.8rem;
+            }
+
+            .restaurant-meta-row {
+                gap: 0.75rem;
+            }
+
+            .restaurant-content {
+                padding: 2rem 1rem;
+            }
+
+            .see-all-photos-btn {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .reviews-section {
+                padding: 2rem 1rem;
+            }
+
+            .reviews-carousel-container {
+                padding: 1.5rem;
+            }
+
+            .review-card {
+                padding: 1.5rem;
+            }
+        }
+
+        .details-hours-spotlight {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0 1.5rem 1.5rem;
+            max-width: 100%;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+        }
+
+        .details-hours-preview {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .details-hours-preview .hours-preview-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 0.9rem;
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .details-hours-preview .hours-preview-row span:first-child {
+            color: #475569;
+            font-weight: 600;
+            width: 52px;
+            color: #0f172a;
+        }
+
+        .details-hours-preview .hours-preview-row span:last-child {
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .contact-info-container {
+            margin-top: -2.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 440px;
+            align-items: flex-end;
+            margin-bottom: -0.5rem;
+        }
+
+        .contact-info-container .popular-dishes-container {
+            margin-top: 0.75rem;
+        }
+
+        .contact-phone-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #111827;
         }
     </style>
 </head>
@@ -242,100 +1393,225 @@
     <header class="header">
         <nav class="nav-container">
             <div class="nav-logo">
-                <a href="index.html">Duluth Hotels</a>
+                <h1><a href="index.html">YourDuluthGuide</a></h1>
             </div>
-            <a href="dining.html" class="back-button">← Back to Restaurants</a>
+            <a href="restaurants.html" class="back-button">← Back to Restaurants</a>
         </nav>
     </header>
 
-    <!-- Restaurant Page Content -->
-    <div class="restaurant-page">
-        <div class="restaurant-header">
-            <div class="restaurant-number" id="restaurantNumber">1</div>
-            <h1 class="restaurant-title" id="restaurantName">Restaurant Name</h1>
-            <div class="restaurant-rating">
-                <span class="stars">★★★★★</span>
-                <span id="restaurantRating">4.5 (1,234 reviews)</span>
+    <!-- Photo Banner Section -->
+    <div class="photo-banner">
+        <div class="photo-panel">
+            <img id="photo1" src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&h=800&fit=crop" alt="Restaurant photo 1">
+        </div>
+        <div class="photo-panel">
+            <img id="photo2" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&h=800&fit=crop" alt="Restaurant photo 2">
+            <div class="restaurant-info-overlay">
+                <h1 class="restaurant-name" id="restaurantName">Restaurant Name</h1>
+                <div class="restaurant-meta-row">
+                    <div class="rating-stars">
+                        <span class="stars" id="starsDisplay">★★★★★</span>
+                        <span class="rating-text" id="ratingText">4.5 (692 reviews)</span>
+                    </div>
+                    <div class="price-range" id="priceRange">$$</div>
+                </div>
+                <div class="cuisine-tags" id="cuisineTags">
+                    <!-- Cuisine tags will be inserted here -->
+                </div>
+                <div class="hours-info">
+                    <span class="hours-text" id="hoursText">Open 11:00 AM - 9:00 PM</span>
+                    <button class="see-hours-btn" onclick="toggleHours()">See hours</button>
+                </div>
+                <div class="update-info" id="updateInfo">Updated over 3 months ago</div>
             </div>
         </div>
+        <div class="photo-panel">
+            <img id="photo3" src="https://images.unsplash.com/photo-1528605105345-5344ea20e269?w=1200&h=800&fit=crop" alt="Restaurant photo 3">
+        </div>
+        <button class="see-all-photos-btn" onclick="showAllPhotos()">See all <span id="photoCount">0</span> photos</button>
+    </div>
 
-        <img id="restaurantImage" src="" alt="" class="restaurant-image">
-
-        <div class="restaurant-content">
-            <div class="content-section">
-                <h3>About This Restaurant</h3>
-                <p id="restaurantDescription">Restaurant description will be loaded here.</p>
-            </div>
-
-            <div class="content-section">
-                <h3>Restaurant Details</h3>
-                <div class="meta-grid">
-                    <div class="meta-item">
-                        <strong>Price Range</strong>
-                        <span id="restaurantPrice">$$</span>
+    <!-- Restaurant Content -->
+    <div class="restaurant-content">
+        <div class="content-section">
+            <h3 id="aboutHeading">About This Restaurant</h3>
+            <p id="restaurantDescription">Discover chef-driven flavors, warm Duluth hospitality, and locally sourced favorites in every visit.</p>
+            
+            <div class="details-section" style="margin-top: 2rem; padding: 0; box-shadow: none;">
+                <h3 id="detailsHeading" style="margin-top: 0;">Restaurant Details</h3>
+                <div class="details-grid">
+                    <div class="details-list">
+                        <div class="details-info-grid">
+                            <div class="details-info-card">
+                                <span class="details-info-label">Cuisine</span>
+                                <span class="details-info-value" id="infoCuisine">Cuisine</span>
+                            </div>
+                            <div class="details-info-card">
+                                <span class="details-info-label">Reservations</span>
+                                <span class="details-info-value" id="infoReservations">Recommended</span>
+                            </div>
+                            <div class="details-info-card">
+                                <span class="details-info-label">Price Range</span>
+                                <span class="details-info-value" id="infoPriceRange">$$</span>
+                            </div>
+                            <div class="details-info-card">
+                                <span class="details-info-label">Neighborhood</span>
+                                <span class="details-info-value" id="infoNeighborhood">Downtown</span>
+                            </div>
+                        </div>
+                        <div class="contact-info-container">
+                            <div class="contact-info-box">
+                                <span class="contact-phone-text" id="restaurantPhoneText">(218) 555-0123</span>
+                                <a href="#" class="contact-link contact-website" id="restaurantWebsite" target="_blank">
+                                    <span class="contact-text">Website</span>
+                                    <svg class="contact-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 3.33334L3.33333 12M12 3.33334H7.33333M12 3.33334V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="popular-dishes-container">
+                                <span class="popular-dishes-label">Most Popular Dishes</span>
+                                <div class="popular-dishes-list" id="popularDishesList">
+                                    <div class="popular-dish-item">Lemon Herb Walleye</div>
+                                    <div class="popular-dish-item">North Shore Wild Rice Bowl</div>
+                                    <div class="popular-dish-item">Lake Superior Poutine</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="meta-item">
-                        <strong>Cuisine Type</strong>
-                        <span id="restaurantCuisine">Cuisine</span>
+                    <div class="details-hours-column">
+                        <div class="details-hours-spotlight">
+                            <div class="details-hours-label">Location &amp; Hours</div>
+                            <div class="details-hours-divider"></div>
+                            <div class="details-hours-preview" id="hoursPreview">
+                                <!-- Hours will be inserted here -->
+                            </div>
+                        </div>
                     </div>
-                    <div class="meta-item">
-                        <strong>Rating</strong>
-                        <span id="restaurantRatingValue">4.5</span>
-                    </div>
-                    <div class="meta-item">
-                        <strong>Reviews</strong>
-                        <span id="restaurantReviews">1,234</span>
+                    <div class="details-sidebar">
+                        <div class="restaurant-map-container">
+                            <div id="restaurantMap"></div>
+                        </div>
+                        <div class="map-directions-box">
+                            <div class="map-address" id="mapAddress"></div>
+                            <a href="#" class="map-directions-button" id="mapDirectionsButton" target="_blank">Get Directions</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="content-section">
-                <h3>What to Expect</h3>
-                <ul class="features-list" id="restaurantFeatures">
-                    <li>Friendly service</li>
-                    <li>Clean atmosphere</li>
-                    <li>Quality ingredients</li>
-                    <li>Great value</li>
-                </ul>
+            <div class="reviews-section content-subsection" id="reviewsSection">
+                <h3>Customer Reviews</h3>
+                <div class="reviews-header-actions">
+                    <button class="reviews-see-all-btn" id="reviewsSeeAllBtn">See all reviews</button>
+                </div>
+                <div class="reviews-carousel-container">
+                    <button class="carousel-nav prev" id="reviewsPrev" aria-label="Previous reviews">&lsaquo;</button>
+                    <div class="reviews-viewport">
+                        <div class="reviews-track" id="reviewsTrack">
+                            <!-- Slides inserted here -->
+                        </div>
+                    </div>
+                    <button class="carousel-nav next" id="reviewsNext" aria-label="Next reviews">&rsaquo;</button>
+                </div>
+                <div class="carousel-dots" id="reviewsDots"></div>
             </div>
 
-            <div class="content-section hours-section">
-                <h3>Hours of Operation</h3>
-                <div class="hours-list">
-                    <div>
-                        <span class="day">Monday</span>
-                        <span class="time">11:00 AM – 10:00 PM</span>
+            <div class="reviews-modal" id="reviewsModal">
+                <div class="reviews-modal-overlay"></div>
+                <div class="reviews-modal-content">
+                    <button class="reviews-modal-close" id="reviewsModalClose" aria-label="Close review modal">&times;</button>
+                    <h3>All Guest Reviews</h3>
+                    <div class="reviews-modal-grid-container">
+                        <div class="reviews-modal-grid" id="reviewsModalGrid">
+                            <!-- modal cards -->
+                        </div>
                     </div>
-                    <div>
-                        <span class="day">Tuesday</span>
-                        <span class="time">11:00 AM – 10:00 PM</span>
-                    </div>
-                    <div>
-                        <span class="day">Wednesday</span>
-                        <span class="time">11:00 AM – 10:00 PM</span>
-                    </div>
-                    <div>
-                        <span class="day">Thursday</span>
-                        <span class="time">11:00 AM – 10:00 PM</span>
-                    </div>
-                    <div>
-                        <span class="day">Friday</span>
-                        <span class="time">11:00 AM – 11:00 PM</span>
-                    </div>
-                    <div>
-                        <span class="day">Saturday</span>
-                        <span class="time">10:00 AM – 11:00 PM</span>
-                    </div>
-                    <div>
-                        <span class="day">Sunday</span>
-                        <span class="time">10:00 AM – 9:00 PM</span>
+                    <div class="reviews-modal-pagination">
+                        <button id="reviewsModalPrev">Previous</button>
+                        <span class="reviews-modal-page-info" id="reviewsModalPageInfo"></span>
+                        <button id="reviewsModalNext">Next</button>
                     </div>
                 </div>
             </div>
+
+            <div class="photo-gallery-section content-subsection" id="photoGallery">
+                <div class="photo-gallery-header">
+                    <h2>Photo Gallery</h2>
+                    <p>View all photos from this restaurant</p>
+                </div>
+                <div class="photo-gallery-grid" id="photoGalleryGrid">
+                    <!-- Photos will be loaded here -->
+                </div>
+            </div>
         </div>
+
     </div>
 
     <script>
+        // Function to generate star representation based on numeric rating
+        function generateStars(rating) {
+            const numRating = parseFloat(rating);
+            const rounded = Math.round(numRating * 2) / 2; // Round to nearest 0.5
+            const fullStars = Math.floor(rounded);
+            const hasHalf = (rounded - fullStars) >= 0.5;
+            const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
+            
+            let stars = '';
+            
+            // Add full stars (using rounded star character)
+            for (let i = 0; i < fullStars; i++) {
+                stars += '⭐';
+            }
+            
+            // Add half star if needed (using HTML entity for better compatibility)
+            if (hasHalf) {
+                stars += '<span class="half-star"></span>';
+            }
+            
+            // Add empty stars (using rounded empty star)
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '☆';
+            }
+            
+            return stars;
+        }
+
+        function setTextIfExists(id, value) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = value;
+            }
+            return element;
+        }
+
+        function setHTMLIfExists(id, value) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.innerHTML = value;
+            }
+            return element;
+        }
+
+        function setSrcIfExists(id, value) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.src = value;
+            }
+            return element;
+        }
+
+        let reviewsData = [];
+        let reviewsPerView = 3;
+        let reviewsSlides = [];
+        let reviewsCurrentSlide = 0;
+        let reviewsAutoTimer = null;
+        let reviewsDomInitialized = false;
+        let reviewsListenersAttached = false;
+        let reviewsModalInitialized = false;
+        let reviewsModalCurrentPage = 0;
+        const REVIEWS_MODAL_PAGE_SIZE = 12;
+
         // Get restaurant data from URL parameters
         function loadRestaurantData() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -343,30 +1619,243 @@
             // Get all restaurant data from URL parameters
             const restaurantName = urlParams.get('name') || 'Restaurant Name';
             const restaurantNumber = urlParams.get('number') || '1';
-            const restaurantRating = urlParams.get('rating') || '4.5';
+            const restaurantRating = parseFloat(urlParams.get('rating')) || 4.5;
             const restaurantReviews = urlParams.get('reviews') || '1,234';
             const restaurantPrice = urlParams.get('price') || '$$';
             const restaurantCuisine = urlParams.get('cuisine') || 'Cuisine';
-            const restaurantDescription = urlParams.get('description') || 'Restaurant description';
-            const restaurantImage = urlParams.get('image') || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop';
+            let restaurantDescription = urlParams.get('description') || '';
+            const restaurantImage = urlParams.get('image') || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop';
+            const restaurantLocation = urlParams.get('location') || 'Duluth';
             
             // Update page title
-            document.title = `${restaurantName} - Duluth Hotels`;
+            document.title = `${restaurantName} - YourDuluthGuide`;
             
-            // Update all content
-            document.getElementById('restaurantNumber').textContent = restaurantNumber;
-            document.getElementById('restaurantName').textContent = restaurantName;
-            document.getElementById('restaurantRating').textContent = `${restaurantRating} (${restaurantReviews} reviews)`;
-            document.getElementById('restaurantImage').src = restaurantImage;
-            document.getElementById('restaurantImage').alt = restaurantName;
-            document.getElementById('restaurantPrice').textContent = restaurantPrice;
-            document.getElementById('restaurantCuisine').textContent = restaurantCuisine;
-            document.getElementById('restaurantRatingValue').textContent = restaurantRating;
-            document.getElementById('restaurantReviews').textContent = restaurantReviews;
-            document.getElementById('restaurantDescription').textContent = restaurantDescription;
+            // Update restaurant name
+            setTextIfExists('restaurantName', restaurantName);
+            setTextIfExists('aboutHeading', `About ${restaurantName}`);
+            setTextIfExists('detailsHeading', `${restaurantName} Details`);
+            
+            // Update rating and stars - use same generateStars function
+            const starsDisplay = generateStars(restaurantRating);
+            setHTMLIfExists('starsDisplay', starsDisplay);
+            setTextIfExists('ratingText', `${restaurantRating} (${restaurantReviews} reviews)`);
+            
+            // Update price range
+            const priceBadge = document.getElementById('priceRange');
+            if (priceBadge) {
+                priceBadge.textContent = restaurantPrice;
+            }
+
+            const heroPrice = document.getElementById('restaurantPrice');
+            if (heroPrice) {
+                heroPrice.textContent = restaurantPrice;
+            }
+            
+            // Update cuisine tags (limit to 3)
+            const cuisineArray = restaurantCuisine.split(' • ').slice(0, 3);
+            const cuisineTagsContainer = document.getElementById('cuisineTags');
+            if (cuisineTagsContainer) {
+                cuisineTagsContainer.innerHTML = '';
+                cuisineArray.forEach(cuisine => {
+                    const tag = document.createElement('span');
+                    tag.className = 'cuisine-tag';
+                    tag.textContent = cuisine.trim();
+                    cuisineTagsContainer.appendChild(tag);
+                });
+            }
+            setTextIfExists('restaurantCuisine', restaurantCuisine);
+
+            // Update info grid cards
+            const infoCuisineElement = document.getElementById('infoCuisine');
+            if (infoCuisineElement) {
+                const primaryCuisine = restaurantCuisine.split(' • ')[0].trim();
+                infoCuisineElement.textContent = primaryCuisine || restaurantCuisine;
+                if (!restaurantDescription || restaurantDescription === 'Restaurant description') {
+                    restaurantDescription = `${restaurantName} highlights ${primaryCuisine.toLowerCase()} favorites in ${restaurantLocation}, pairing local ingredients with Duluth's signature warmth.`;
+                }
+            }
+
+            const infoPriceElement = document.getElementById('infoPriceRange');
+            if (infoPriceElement) {
+                infoPriceElement.textContent = restaurantPrice;
+            }
+
+            const infoReservationsElement = document.getElementById('infoReservations');
+            if (infoReservationsElement) {
+                infoReservationsElement.textContent = getReservationRecommendation(restaurantPrice, restaurantRating);
+            }
+
+            const infoNeighborhoodElement = document.getElementById('infoNeighborhood');
+            if (infoNeighborhoodElement) {
+                infoNeighborhoodElement.textContent = restaurantLocation;
+            }
+            
+            // Generate consistent update time per restaurant (1 week to 2 months ago)
+            function getRestaurantUpdateTime(restaurantName) {
+                // Use restaurant name to generate consistent update time
+                const nameHash = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                const daysAgo = (nameHash % 54) + 7; // 7 to 60 days (1 week to ~2 months)
+                
+                if (daysAgo < 14) {
+                    return 'Updated ' + daysAgo + ' day' + (daysAgo !== 1 ? 's' : '') + ' ago';
+                } else if (daysAgo < 30) {
+                    const weeks = Math.floor(daysAgo / 7);
+                    return 'Updated ' + weeks + ' week' + (weeks !== 1 ? 's' : '') + ' ago';
+                } else {
+                    const months = Math.floor(daysAgo / 30);
+                    return 'Updated ' + months + ' month' + (months !== 1 ? 's' : '') + ' ago';
+                }
+            }
+            
+            // Set consistent update time based on restaurant name
+            setTextIfExists('updateInfo', getRestaurantUpdateTime(restaurantName));
+            
+            // Generate varied photos for banner based on restaurant name (consistent per restaurant)
+            function getVariedPhotos(baseImage, restaurantName, cuisine) {
+                const samplePhotos = [
+                    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1563805042-7684c019e1b1?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1558030006-450675393462?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1200&h=800&fit=crop&auto=format&q=80',
+                    'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&h=800&fit=crop&auto=format&q=80'
+                ];
+
+                const nameHash = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                const chosen = [];
+
+                for (let i = 0; i < 3; i++) {
+                    const idx = (nameHash * (i + 1) + i) % samplePhotos.length;
+                    chosen.push(samplePhotos[idx]);
+                }
+
+                return chosen;
+            }
+            
+            const photoVariations = getVariedPhotos(restaurantImage, restaurantName, restaurantCuisine);
+            setSrcIfExists('photo1', photoVariations[0]);
+            setSrcIfExists('photo2', photoVariations[1]);
+            setSrcIfExists('photo3', photoVariations[2]);
+            
+            // Set photo count (random number between 100-800 for variety)
+            const nameHash = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            const photoCount = ((nameHash % 700) + 100); // Consistent per restaurant
+            setTextIfExists('photoCount', photoCount);
+            
+            // Generate photo gallery
+            generatePhotoGallery(restaurantName, restaurantCuisine, photoCount);
+            
+            // Update other content
+            const starsDisplayDetail = generateStars(restaurantRating);
+            setHTMLIfExists('restaurantRatingReviews', `<span>${restaurantRating}</span> <span style="color: var(--color-navy); font-size: 1.25rem; letter-spacing: 1px;">${starsDisplayDetail}</span> <span style="color: #64748b; font-size: 0.9rem;">(${restaurantReviews} reviews)</span>`);
+            setTextIfExists('restaurantDescription', restaurantDescription);
+            
+            // Initialize map
+            initializeRestaurantMap(restaurantLocation, restaurantName);
             
             // Generate features based on cuisine type
             generateRestaurantFeatures(restaurantCuisine, restaurantPrice);
+            
+            // Generate and display reviews
+            generateReviews(restaurantName, restaurantRating);
+            
+            // Generate and display hours
+            generateHours();
+            
+            // Generate and display popular dishes
+            generatePopularDishes(restaurantCuisine);
+            
+            // Generate and display contact information
+            generateContactInfo(restaurantName, restaurantLocation);
+        }
+
+        function getReservationRecommendation(priceRange, rating) {
+            if (priceRange === '$$$' || rating >= 4.6) {
+                return 'Highly recommended';
+            }
+            if (priceRange === '$$' && rating >= 4.2) {
+                return 'Recommended';
+            }
+            return 'Walk-ins welcome';
+        }
+
+        // Generate contact information based on restaurant
+        function generateContactInfo(restaurantName, location) {
+            // Generate consistent phone number based on restaurant name
+            function getRestaurantPhone(restaurantName) {
+                const nameHash = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                const areaCode = 218; // Duluth area code
+                const exchange = 200 + (nameHash % 800); // 200-999
+                const number = 1000 + (nameHash % 9000); // 1000-9999
+                return `(${areaCode}) ${exchange}-${number}`;
+            }
+            
+            // Generate website URL
+            function getRestaurantWebsite(restaurantName) {
+                const websiteName = restaurantName.toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, '')
+                    .replace(/\s+/g, '')
+                    .substring(0, 20);
+                return `https://www.${websiteName}.com`;
+            }
+            
+            // Generate directions link (Google Maps)
+            function getDirectionsLink(restaurantName, location) {
+                const query = encodeURIComponent(`${restaurantName}, ${location}, MN`);
+                return `https://www.google.com/maps/search/?api=1&query=${query}`;
+            }
+            
+            // Generate address based on restaurant name
+            function getRestaurantAddress(restaurantName, location) {
+                const nameHash = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                const streetNumber = 100 + (nameHash % 900);
+                const streets = ['Superior St', 'Lake Ave', 'Canal Park Dr', 'London Rd', 'Michigan St', 'First St', 'Second St', 'Third St'];
+                const street = streets[nameHash % streets.length];
+                const zipCode = 55802 + (nameHash % 5);
+                return `${streetNumber} ${street} ${location}, MN ${zipCode}`;
+            }
+            
+            const phone = getRestaurantPhone(restaurantName);
+            const website = getRestaurantWebsite(restaurantName);
+            const directions = getDirectionsLink(restaurantName, location);
+            const address = getRestaurantAddress(restaurantName, location);
+            const formattedAddress = address;
+            
+            // Update website
+            const websiteLink = document.getElementById('restaurantWebsite');
+            if (websiteLink) {
+                websiteLink.href = website;
+                const websiteTextSpan = websiteLink.querySelector('.contact-text');
+                if (websiteTextSpan) {
+                    websiteTextSpan.textContent = 'Website';
+                }
+            }
+            
+            // Update phone
+            setTextIfExists('restaurantPhoneText', phone);
+            
+            // Update directions
+            const mapAddressElement = document.getElementById('mapAddress');
+            if (mapAddressElement) {
+                mapAddressElement.textContent = formattedAddress;
+            }
+
+            const mapDirectionsButton = document.getElementById('mapDirectionsButton');
+            if (mapDirectionsButton) {
+                mapDirectionsButton.href = directions;
+            }
         }
 
         function generateRestaurantFeatures(cuisine, price) {
@@ -419,13 +1908,823 @@
             }
             
             // Update features list
-            const featuresList = document.getElementById('restaurantFeatures');
-            featuresList.innerHTML = '';
-            features.slice(0, 6).forEach(feature => {
-                const li = document.createElement('li');
-                li.textContent = feature;
-                featuresList.appendChild(li);
+            const featuresContainer = document.getElementById('restaurantFeatures');
+            if (featuresContainer) {
+                featuresContainer.innerHTML = '';
+                features.slice(0, 6).forEach(feature => {
+                    const li = document.createElement('li');
+                    li.className = 'feature-item';
+                    li.textContent = feature;
+                    featuresContainer.appendChild(li);
+                });
+            }
+        }
+
+        function toggleHours() {
+            const preview = document.getElementById('hoursPreview');
+            if (!preview) return;
+            preview.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showAllPhotos() {
+            const gallerySection = document.getElementById('photoGallery');
+            if (gallerySection) {
+                gallerySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Location coordinates for different areas in Duluth
+        const locationCoordinates = {
+            'Downtown': { lat: 46.7867, lng: -92.1005 },
+            'Canal Park': { lat: 46.7756, lng: -92.0919 },
+            'Miller Hill': { lat: 46.8131, lng: -92.1831 },
+            'Chester Creek': { lat: 46.8006, lng: -92.0831 },
+            'Central Entrance': { lat: 46.8067, lng: -92.1333 },
+            'London Road': { lat: 46.7933, lng: -92.0917 },
+            'East Duluth': { lat: 46.7917, lng: -92.0667 },
+            'West Duluth': { lat: 46.7750, lng: -92.1333 },
+            'West Central Entrance': { lat: 46.8083, lng: -92.1500 },
+            'North Shore': { lat: 46.8167, lng: -92.0833 }
+        };
+
+        // Get coordinates for a restaurant based on location
+        function getRestaurantCoordinates(location) {
+            return locationCoordinates[location] || locationCoordinates['Downtown'];
+        }
+
+        const MAP_ZOOM_LEVEL = 15;
+        let restaurantMapInstance = null;
+        let restaurantMapMarker = null;
+        let pendingMapLocation = null;
+        let pendingMapName = null;
+
+        window.initRestaurantGoogleMap = function() {
+            restaurantMapLibraryLoaded = true;
+            if (pendingMapLocation !== null) {
+                initializeRestaurantMap(pendingMapLocation, pendingMapName);
+            }
+        };
+
+        function initializeRestaurantMap(location, restaurantName) {
+            pendingMapLocation = location || 'Downtown';
+            pendingMapName = restaurantName || 'Restaurant';
+
+            const mapContainer = document.getElementById('restaurantMap');
+            if (!mapContainer) {
+                return;
+            }
+
+            const coords = getRestaurantCoordinates(pendingMapLocation);
+            const center = { lat: coords.lat, lng: coords.lng };
+            const label = pendingMapName;
+
+            const markerNumber = 1;
+
+            if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
+                restaurantMapLibraryLoaded = true;
+
+                if (!restaurantMapInstance || !(restaurantMapInstance instanceof google.maps.Map)) {
+                    restaurantMapInstance = new google.maps.Map(mapContainer, {
+                        center,
+                        zoom: MAP_ZOOM_LEVEL,
+                        mapTypeControl: false,
+                        fullscreenControl: false,
+                        streetViewControl: false,
+                        styles: [
+                            { featureType: 'all', elementType: 'geometry', stylers: [{ color: '#ebe3cd' }] },
+                            { featureType: 'all', elementType: 'labels.text.fill', stylers: [{ color: '#333333' }] },
+                            { featureType: 'all', elementType: 'labels.text.stroke', stylers: [{ color: '#f5f1e6' }] },
+                            { featureType: 'administrative', elementType: 'geometry.stroke', stylers: [{ color: '#c9b2a6' }] },
+                            { featureType: 'poi', elementType: 'geometry.fill', stylers: [{ color: '#dfd2ae' }] },
+                            { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#3d4852' }] },
+                            { featureType: 'poi.park', elementType: 'geometry.fill', stylers: [{ color: '#a5b076' }] },
+                            { featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{ color: '#556453' }] },
+                            { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#f5f1e6' }] },
+                            { featureType: 'road.arterial', elementType: 'geometry', stylers: [{ color: '#fdfcf8' }] },
+                            { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#f8c967' }] },
+                            { featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{ color: '#e9bc62' }] },
+                            { featureType: 'road.highway.controlled_access', elementType: 'geometry', stylers: [{ color: '#e98d58' }] },
+                            { featureType: 'road.highway.controlled_access', elementType: 'geometry.stroke', stylers: [{ color: '#db8555' }] },
+                            { featureType: 'transit', elementType: 'geometry', stylers: [{ color: '#dfd2ae' }] },
+                            { featureType: 'water', elementType: 'geometry.fill', stylers: [{ color: '#aadaff' }] }
+                        ]
+                    });
+                } else {
+                    restaurantMapInstance.setCenter(center);
+                    restaurantMapInstance.setZoom(MAP_ZOOM_LEVEL);
+                }
+
+                if (restaurantMapMarker) {
+                    restaurantMapMarker.setMap(null);
+                }
+
+                const svgMarker = `
+                    <svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="markerGradient" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#4a8ffe"/>
+                                <stop offset="100%" stop-color="#1a66ff"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M20 0C11.2 0 4 7.2 4 16c0 11.3 12 24.1 14.5 26.7a2.5 2.5 0 0 0 3.0 0C24 40.1 36 27.3 36 16 36 7.2 28.8 0 20 0Z" fill="url(#markerGradient)" stroke="#FFFFFF" stroke-width="3"/>
+                        <circle cx="20" cy="16" r="9" fill="#ffffff"/>
+                        <text x="20" y="20.5" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#1a66ff">${markerNumber}</text>
+                    </svg>`;
+                const svgUrl = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svgMarker);
+
+                restaurantMapMarker = new google.maps.Marker({
+                    position: center,
+                    map: restaurantMapInstance,
+                    title: label,
+                    icon: {
+                        url: svgUrl,
+                        scaledSize: new google.maps.Size(40, 52),
+                        anchor: new google.maps.Point(20, 52)
+                    }
+                });
+
+                return;
+            }
+
+            if (typeof L !== 'undefined') {
+                restaurantMapLibraryLoaded = true;
+
+                if (!restaurantMapInstance || !(restaurantMapInstance instanceof L.Map)) {
+                    mapContainer.innerHTML = '';
+                    restaurantMapInstance = L.map(mapContainer).setView([center.lat, center.lng], MAP_ZOOM_LEVEL);
+                    restaurantMapInstance.attributionControl.setPrefix('');
+
+                    var isRetina = window.devicePixelRatio > 1;
+                    var tileUrl = isRetina
+                        ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png'
+                    : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+
+                L.tileLayer(tileUrl, {
+                    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+                    subdomains: 'abcd',
+                    maxZoom: 19
+                }).addTo(restaurantMapInstance);
+            } else {
+                restaurantMapInstance.setView([center.lat, center.lng], MAP_ZOOM_LEVEL);
+                }
+        
+            if (restaurantMapMarker) {
+                restaurantMapMarker.remove();
+            }
+
+            var markerHtml =
+                '<div style="position: relative; width: 32px; height: 32px;">' +
+                    '<div style="' +
+                        'background: linear-gradient(135deg, #4a8ffe 0%, #1a66ff 100%);' +
+                        'border-radius: 50%;' +
+                        'width: 32px;' +
+                        'height: 32px;' +
+                        'display: flex;' +
+                        'align-items: center;' +
+                        'justify-content: center;' +
+                        'color: #ffffff;' +
+                        'font-weight: 700;' +
+                        'font-size: 12px;' +
+                        'border: 3px solid #ffffff;' +
+                        'box-shadow: 0 6px 14px rgba(26, 102, 255, 0.35);' +
+                    '">' + markerNumber + '</div>' +
+                    '<div style="' +
+                        'position: absolute;' +
+                        'left: 50%;' +
+                        'bottom: -6px;' +
+                        'width: 12px;' +
+                        'height: 12px;' +
+                        'background: linear-gradient(135deg, #4a8ffe 0%, #1a66ff 100%);' +
+                        'transform: translate(-50%, 0) rotate(45deg);' +
+                        'border-radius: 2px;' +
+                        'border-left: 3px solid #ffffff;' +
+                        'border-top: 3px solid #ffffff;' +
+                        'box-shadow: 0 6px 14px rgba(26, 102, 255, 0.35);' +
+                    '"></div>' +
+                '</div>';
+
+            var customIcon = L.divIcon({
+                className: 'restaurant-marker',
+                html: markerHtml,
+                iconSize: [32, 44],
+                iconAnchor: [16, 36]
             });
+
+            restaurantMapMarker = L.marker([center.lat, center.lng], { icon: customIcon })
+                .addTo(restaurantMapInstance)
+                .bindPopup(label);
+
+            setTimeout(function() {
+                if (restaurantMapInstance && typeof restaurantMapInstance.invalidateSize === 'function') {
+                    restaurantMapInstance.invalidateSize();
+                }
+            }, 200);
+
+            return;
+        }
+
+        setTimeout(function() {
+            initializeRestaurantMap(pendingMapLocation, pendingMapName);
+        }, 500);
+    }
+
+    // Generate photo gallery with sample photos
+        function generatePhotoGallery(restaurantName, cuisine, photoCount) {
+            const galleryContainer = document.getElementById('photoGalleryGrid');
+            if (!galleryContainer) return;
+            
+            // Sample restaurant/food photos
+            const samplePhotos = [
+                'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1563805042-7684c019e1b1?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1558030006-450675393462?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=400&h=300&fit=crop'
+            ];
+            
+            galleryContainer.innerHTML = '';
+            
+            // Display all sample photos
+            samplePhotos.forEach((photoUrl, index) => {
+                const img = document.createElement('img');
+                img.src = photoUrl;
+                img.alt = `${restaurantName} - Photo ${index + 1}`;
+                img.className = 'gallery-photo';
+                img.loading = 'lazy';
+                galleryContainer.appendChild(img);
+            });
+        }
+
+        // Generate popular dishes based on cuisine
+        function generatePopularDishes(cuisine) {
+            const dishesList = document.getElementById('popularDishesList');
+            if (!dishesList) return;
+
+            // Cuisine-based popular dishes
+            const cuisineDishes = {
+                'Italian': ['Margherita Pizza', 'Fettuccine Alfredo', 'Tiramisu'],
+                'Pizza': ['Margherita Pizza', 'Pepperoni Pizza', 'Hawaiian Pizza'],
+                'Mexican': ['Tacos al Pastor', 'Chiles Rellenos', 'Guacamole'],
+                'BBQ': ['Smoked Brisket', 'Pulled Pork', 'BBQ Ribs'],
+                'Smokehouse': ['Smoked Salmon', 'Pulled Pork', 'Smoked Brisket'],
+                'Brewery': ['Fish & Chips', 'Burgers', 'Wings'],
+                'Japanese': ['Sushi Roll', 'Ramen', 'Teriyaki Chicken'],
+                'Sushi': ['California Roll', 'Dragon Roll', 'Sashimi Platter'],
+                'Chinese': ['Kung Pao Chicken', 'Sweet and Sour Pork', 'General Tso\'s Chicken'],
+                'Thai': ['Pad Thai', 'Green Curry', 'Tom Yum Soup'],
+                'Vietnamese': ['Pho', 'Banh Mi', 'Spring Rolls'],
+                'Indian': ['Chicken Tikka Masala', 'Butter Chicken', 'Naan Bread'],
+                'Ice Cream': ['Vanilla Bean', 'Chocolate Fudge', 'Strawberry'],
+                'Coffee': ['Espresso', 'Cappuccino', 'Latte'],
+                'Cafe': ['Avocado Toast', 'Quiche', 'Croissant'],
+                'American': ['Burgers', 'French Fries', 'Caesar Salad'],
+                'Pub': ['Fish & Chips', 'Wings', 'Burgers'],
+                'Bar': ['Wings', 'Nachos', 'Burgers'],
+                'Seafood': ['Grilled Salmon', 'Fish & Chips', 'Crab Cakes'],
+                'Steakhouse': ['Ribeye Steak', 'Filet Mignon', 'Caesar Salad'],
+                'Fine Dining': ['Filet Mignon', 'Lobster Tail', 'Chocolate Soufflé'],
+                'Farm-to-Table': ['Roasted Chicken', 'Seasonal Salad', 'Grilled Vegetables']
+            };
+
+            // Find matching cuisine
+            let dishes = ['House Special', 'Chef\'s Choice', 'Signature Dish'];
+            for (const [key, value] of Object.entries(cuisineDishes)) {
+                if (cuisine.toLowerCase().includes(key.toLowerCase())) {
+                    dishes = value;
+                    break;
+                }
+            }
+
+            // Take first 3 dishes
+            dishes = dishes.slice(0, 3);
+
+            dishesList.innerHTML = '';
+            dishes.forEach(dish => {
+                const dishItem = document.createElement('div');
+                dishItem.className = 'popular-dish-item';
+                dishItem.textContent = dish;
+                dishesList.appendChild(dishItem);
+            });
+        }
+
+        // Generate hours for details section
+        function generateHours() {
+            const preview = document.getElementById('hoursPreview');
+            const heroHoursText = document.getElementById('hoursText');
+            if (!preview && !heroHoursText) return;
+
+            const hours = [
+                { day: 'Monday', time: '11:00 AM – 9:00 PM' },
+                { day: 'Tuesday', time: '11:00 AM – 9:00 PM' },
+                { day: 'Wednesday', time: '11:00 AM – 9:00 PM' },
+                { day: 'Thursday', time: '11:00 AM – 9:00 PM' },
+                { day: 'Friday', time: '11:00 AM – 11:00 PM' },
+                { day: 'Saturday', time: '10:00 AM – 11:00 PM' },
+                { day: 'Sunday', time: '10:00 AM – 9:00 PM' }
+            ];
+
+            if (preview) {
+                preview.innerHTML = '';
+                hours.forEach(hour => {
+                    const row = document.createElement('div');
+                    row.className = 'hours-preview-row';
+                    row.innerHTML = `
+                        <span>${hour.day.slice(0, 3)}</span>
+                        <span>${hour.time}</span>
+                    `;
+                    preview.appendChild(row);
+                });
+            }
+
+            if (heroHoursText) {
+                const todayIndex = new Date().getDay(); // Sunday=0
+                const normalizedIndex = todayIndex === 0 ? 6 : todayIndex - 1; // map Monday=0
+                const todayHours = hours[normalizedIndex];
+                heroHoursText.textContent = `Today (${todayHours.day}): ${todayHours.time}`;
+            }
+        }
+
+        function buildSampleReviews(restaurantName, restaurantRating) {
+            const seedBase = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + Math.round(restaurantRating * 10);
+            const reviewerNames = [
+                'Avery H.', 'Mason P.', 'Harper L.', 'Evelyn S.', 'Logan D.', 'Sofia R.', 'Hudson C.', 'Mila W.', 'Caleb B.', 'Nora F.',
+                'Gavin T.', 'Isla K.', 'Rowan J.', 'Naomi V.', 'Theo M.', 'Piper G.', 'Elias N.', 'Hazel Y.', 'Sawyer Q.', 'Adeline Z.',
+                'Jasper L.', 'Vivian O.', 'Grayson I.', 'Ruby A.', 'Luca E.', 'Emery X.', 'Finley U.', 'Clara H.', 'Declan P.', 'Lena S.'
+            ];
+            const introTemplates = [
+                'We stopped into %RESTAURANT% after exploring Canal Park and left absolutely stuffed.',
+                'Dinner at %RESTAURANT% capped off our Duluth getaway perfectly.',
+                'Our group chose %RESTAURANT% for a celebration and it did not disappoint.',
+                'I finally tried %RESTAURANT% and now I understand the hype.',
+                'We made reservations at %RESTAURANT% last minute and were pleasantly surprised.',
+                'Lunch at %RESTAURANT% was the highlight of our weekend in town.',
+                'We stumbled upon %RESTAURANT% and it instantly became a favorite.',
+                'Date night at %RESTAURANT% felt special from start to finish.',
+                'Stopping at %RESTAURANT% after a hike was the best decision.',
+                'Visiting %RESTAURANT% on a snowy evening made for the coziest meal.',
+                'Our family reunion at %RESTAURANT% was relaxed and delicious.',
+                'We kicked off our Duluth adventure at %RESTAURANT% and set the bar high.',
+                'Brunch at %RESTAURANT% turned into a leisurely afternoon.',
+                'We treated ourselves to %RESTAURANT% and every course felt thoughtful.',
+                'Took clients to %RESTAURANT% and everyone left impressed.'
+            ];
+            const featureHighlights = [
+                'house-made sauces',
+                'locally sourced produce',
+                'signature cocktails',
+                'wood-fired pizzas',
+                'seasonal tasting menu items',
+                'staff recommendations',
+                'dessert flights',
+                'lakeview patio tables',
+                'craft beer lineup',
+                'coffee program',
+                'gluten-free options',
+                'slow-smoked meats',
+                'fresh pasta specials',
+                'seafood plates',
+                'vegetarian offerings',
+                'weekend brunch dishes',
+                'charcuterie boards',
+                'warm hospitality',
+                'bartender creations',
+                'chef\'s specials',
+                'scratch-made sides',
+                'daily soup specials',
+                'house desserts',
+                'tasting flights'
+            ];
+            const featureAdjectives = [
+                'absolutely stellar',
+                'perfectly balanced',
+                'packed with flavor',
+                'worth the hype',
+                'next-level',
+                'spot on',
+                'so fresh',
+                'comforting',
+                'beautifully crafted',
+                'elevated and satisfying',
+                'honestly unforgettable',
+                'seasoned just right'
+            ];
+            const secondaryDetails = [
+                'bursting with local character',
+                'served at just the right temperature',
+                'seasoned beautifully',
+                'presented with care',
+                'paired perfectly with our drinks',
+                'the talk of our table',
+                'exactly what we were craving',
+                'plated elegantly',
+                'as generous as they were delicious',
+                'impossible to stop eating',
+                'made with obvious pride',
+                'so good we ordered seconds'
+            ];
+            const extraSentences = [
+                'Our server\'s suggestions were on point.',
+                'Loved how they showcase local ingredients.',
+                'Portions were generous without feeling heavy.',
+                'The ambiance felt warm and relaxed.',
+                'Timing between courses was flawless.',
+                'They handled our dietary requests effortlessly.',
+                'We lingered longer than planned because everything was so good.',
+                'Even the kids were raving about their meals.',
+                'The music and lighting set the mood perfectly.',
+                'We appreciated the thoughtful wine pairings.',
+                'Dessert was an absolute must.',
+                'The open kitchen adds so much energy.',
+                'Staff checked on us often without hovering.',
+                'Great balance of comfort food and refined dishes.',
+                'Their specials board is full of surprises.'
+            ];
+            const endingPhrases = [
+                'Already planning our next visit.',
+                'Highly recommend if you\'re in Duluth!',
+                'Put this spot on your Duluth itinerary.',
+                'We\'ll definitely be back soon.',
+                'Worth every mile we drove.',
+                'Perfect for both locals and visitors.',
+                'Can\'t wait to try more of the menu.',
+                'Easily a new favorite in town.',
+                'Don\'t skip this place when you\'re nearby.',
+                'This will be a regular stop for us.'
+            ];
+            const dateOptions = [
+                'Today', 'Yesterday', '2 days ago', '3 days ago', '4 days ago', '5 days ago',
+                '1 week ago', '8 days ago', '9 days ago', '2 weeks ago', '16 days ago', '3 weeks ago',
+                '1 month ago', '5 weeks ago', '6 weeks ago', '7 weeks ago', '2 months ago',
+                '9 weeks ago', '10 weeks ago', '3 months ago', '14 weeks ago', '4 months ago'
+            ];
+            const ratingVariations = [-1, 0, 0, 0, 1];
+
+            function seededRandom(seed) {
+                const x = Math.sin(seed) * 10000;
+                return x - Math.floor(x);
+            }
+
+            function pickFromArray(array, seed) {
+                const index = Math.floor(seededRandom(seed) * array.length) % array.length;
+                return array[index];
+            }
+
+            function formatTemplate(template, restaurant) {
+                return template.replace(/%RESTAURANT%/g, restaurant);
+            }
+
+            const reviews = [];
+            const nameOffset = seedBase % reviewerNames.length;
+
+            for (let i = 0; i < 20; i++) {
+                const loopSeed = seedBase + (i + 1) * 97;
+                const reviewerName = reviewerNames[(nameOffset + i) % reviewerNames.length];
+                const intro = formatTemplate(pickFromArray(introTemplates, loopSeed), restaurantName);
+                const feature = pickFromArray(featureHighlights, loopSeed + 13);
+                const adjective = pickFromArray(featureAdjectives, loopSeed + 23);
+                const secondary = pickFromArray(secondaryDetails, loopSeed + 37);
+                const extraSentence = pickFromArray(extraSentences, loopSeed + 41);
+                const ending = pickFromArray(endingPhrases, loopSeed + 59);
+                const reviewText = `${intro} The ${feature} were ${adjective} and ${secondary}. ${extraSentence} ${ending}`;
+
+                const variation = pickFromArray(ratingVariations, loopSeed + 71);
+                let reviewRating = Math.round(restaurantRating) + variation;
+                reviewRating = Math.max(3, Math.min(5, reviewRating));
+                if (i === 0) {
+                    reviewRating = Math.max(4, Math.round(restaurantRating));
+                }
+
+                const reviewDate = dateOptions[(nameOffset + i * 3) % dateOptions.length];
+
+                reviews.push({
+                    name: reviewerName,
+                    rating: reviewRating,
+                    text: reviewText,
+                    date: reviewDate
+                });
+            }
+
+            return reviews;
+        }
+
+        function getReviewsPerView() {
+            const width = window.innerWidth;
+            if (width >= 1200) return 3;
+            if (width >= 768) return 2;
+            return 1;
+        }
+
+        function chunkReviews(reviews, size) {
+            const chunks = [];
+            for (let i = 0; i < reviews.length; i += size) {
+                chunks.push(reviews.slice(i, i + size));
+            }
+            return chunks;
+        }
+
+        function createReviewCard(review) {
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card';
+            reviewCard.innerHTML = `
+                <div class="review-header">
+                    <div class="review-meta">
+                        <div class="reviewer-name">${review.name}</div>
+                        <div class="review-date">${review.date}</div>
+                    </div>
+                    <div class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                </div>
+                <div class="review-text">${review.text}</div>
+            `;
+            return reviewCard;
+        }
+
+        function renderReviewsCarousel(reviews) {
+            const track = document.getElementById('reviewsTrack');
+            const dotsContainer = document.getElementById('reviewsDots');
+            const prevBtn = document.getElementById('reviewsPrev');
+            const nextBtn = document.getElementById('reviewsNext');
+
+            if (!track || !dotsContainer || !prevBtn || !nextBtn) {
+                return;
+            }
+
+            const desiredPerView = getReviewsPerView();
+            const shouldRebuild = desiredPerView !== reviewsPerView || !reviewsDomInitialized;
+
+            if (!shouldRebuild) {
+                return updateReviewsCarousel();
+            }
+
+            reviewsPerView = desiredPerView;
+            reviewsSlides = chunkReviews(reviews, reviewsPerView);
+            reviewsCurrentSlide = 0;
+
+            if (reviewsSlides.length === 0) {
+                track.innerHTML = '';
+                dotsContainer.innerHTML = '';
+                if (prevBtn) prevBtn.disabled = true;
+                if (nextBtn) nextBtn.disabled = true;
+                return;
+            }
+
+            track.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            reviewsSlides.forEach(slideReviews => {
+                const slide = document.createElement('div');
+                slide.className = 'reviews-slide';
+                slideReviews.forEach(review => {
+                    slide.appendChild(createReviewCard(review));
+                });
+                track.appendChild(slide);
+            });
+
+            reviewsSlides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', `Go to reviews slide ${index + 1}`);
+                dot.addEventListener('click', () => goToReviewsSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            prevBtn.disabled = reviewsSlides.length <= 1;
+            nextBtn.disabled = reviewsSlides.length <= 1;
+
+            reviewsDomInitialized = true;
+            updateReviewsCarousel();
+        }
+
+        function updateReviewsCarousel() {
+            const track = document.getElementById('reviewsTrack');
+            const dots = document.querySelectorAll('#reviewsDots .carousel-dot');
+            const prevBtn = document.getElementById('reviewsPrev');
+            const nextBtn = document.getElementById('reviewsNext');
+
+            if (!track || dots.length === 0) return;
+
+            track.style.transform = `translateX(-${reviewsCurrentSlide * 100}%)`;
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === reviewsCurrentSlide);
+            });
+
+            const multiSlide = reviewsSlides.length > 1;
+            if (prevBtn) prevBtn.disabled = !multiSlide;
+            if (nextBtn) nextBtn.disabled = !multiSlide;
+
+            restartReviewsAutoRotate();
+        }
+
+        function goToReviewsSlide(index) {
+            if (index < 0) {
+                reviewsCurrentSlide = reviewsSlides.length - 1;
+            } else if (index >= reviewsSlides.length) {
+                reviewsCurrentSlide = 0;
+            } else {
+                reviewsCurrentSlide = index;
+            }
+            updateReviewsCarousel();
+        }
+
+        function goToNextReviewsSlide() {
+            goToReviewsSlide(reviewsCurrentSlide + 1);
+        }
+
+        function restartReviewsAutoRotate() {
+            if (reviewsAutoTimer) {
+                clearInterval(reviewsAutoTimer);
+            }
+            if (reviewsSlides.length > 1) {
+                reviewsAutoTimer = setInterval(goToNextReviewsSlide, 6000);
+            }
+        }
+
+        function renderReviewsModal() {
+            const modal = document.getElementById('reviewsModal');
+            const grid = document.getElementById('reviewsModalGrid');
+            const pageInfo = document.getElementById('reviewsModalPageInfo');
+            const prevBtn = document.getElementById('reviewsModalPrev');
+            const nextBtn = document.getElementById('reviewsModalNext');
+
+            if (!modal || !grid || !pageInfo || !prevBtn || !nextBtn) {
+                return;
+            }
+
+            const totalPages = Math.max(1, Math.ceil(reviewsData.length / REVIEWS_MODAL_PAGE_SIZE));
+            reviewsModalCurrentPage = Math.min(Math.max(reviewsModalCurrentPage, 0), totalPages - 1);
+
+            grid.innerHTML = '';
+
+            if (reviewsData.length === 0) {
+                const emptyMessage = document.createElement('p');
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.color = '#64748b';
+                emptyMessage.textContent = 'No reviews available yet.';
+                grid.appendChild(emptyMessage);
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+                pageInfo.textContent = '';
+                return;
+            }
+
+            const start = reviewsModalCurrentPage * REVIEWS_MODAL_PAGE_SIZE;
+            const items = reviewsData.slice(start, start + REVIEWS_MODAL_PAGE_SIZE);
+
+            items.forEach(review => {
+                const card = document.createElement('div');
+                card.className = 'reviews-modal-card';
+                card.innerHTML = `
+                    <div class="modal-review-header">
+                        <div class="modal-reviewer">
+                            <div class="modal-reviewer-name">${review.name}</div>
+                            <div class="modal-reviewer-date">${review.date}</div>
+                        </div>
+                        <div class="modal-review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                    </div>
+                    <div class="modal-review-text">${review.text}</div>
+                `;
+                grid.appendChild(card);
+            });
+
+            pageInfo.textContent = `Page ${reviewsModalCurrentPage + 1} of ${totalPages}`;
+            prevBtn.disabled = reviewsModalCurrentPage === 0;
+            nextBtn.disabled = reviewsModalCurrentPage >= totalPages - 1;
+        }
+
+        function openReviewsModal(page = 0) {
+            const modal = document.getElementById('reviewsModal');
+            if (!modal) return;
+            reviewsModalCurrentPage = page;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            renderReviewsModal();
+            reviewsModalInitialized = true;
+        }
+
+        function closeReviewsModal() {
+            const modal = document.getElementById('reviewsModal');
+            if (!modal) return;
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function changeReviewsModalPage(delta) {
+            reviewsModalCurrentPage += delta;
+            renderReviewsModal();
+        }
+
+        function setupReviewsInteractions() {
+            if (reviewsListenersAttached) return;
+
+            const prevBtn = document.getElementById('reviewsPrev');
+            const nextBtn = document.getElementById('reviewsNext');
+            const container = document.getElementById('reviewsSection');
+            const modal = document.getElementById('reviewsModal');
+            const modalOverlay = modal ? modal.querySelector('.reviews-modal-overlay') : null;
+            const modalClose = document.getElementById('reviewsModalClose');
+            const modalPrev = document.getElementById('reviewsModalPrev');
+            const modalNext = document.getElementById('reviewsModalNext');
+            const seeAllBtn = document.getElementById('reviewsSeeAllBtn');
+
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', () => {
+                    goToReviewsSlide(reviewsCurrentSlide - 1);
+                });
+                nextBtn.addEventListener('click', () => {
+                    goToNextReviewsSlide();
+                });
+            }
+
+            if (container) {
+                container.addEventListener('mouseenter', () => {
+                    if (reviewsAutoTimer) {
+                        clearInterval(reviewsAutoTimer);
+                    }
+                });
+                container.addEventListener('mouseleave', () => {
+                    restartReviewsAutoRotate();
+                });
+            }
+
+            if (seeAllBtn) {
+                seeAllBtn.addEventListener('click', () => openReviewsModal(0));
+            }
+
+            if (modalOverlay) {
+                modalOverlay.addEventListener('click', closeReviewsModal);
+            }
+
+            if (modalClose) {
+                modalClose.addEventListener('click', closeReviewsModal);
+            }
+
+            if (modalPrev) {
+                modalPrev.addEventListener('click', () => changeReviewsModalPage(-1));
+            }
+
+            if (modalNext) {
+                modalNext.addEventListener('click', () => changeReviewsModalPage(1));
+            }
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    closeReviewsModal();
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                // Re-render on resize while preserving current slide group start
+                const previousReview = reviewsSlides[reviewsCurrentSlide] ? reviewsSlides[reviewsCurrentSlide][0] : null;
+                renderReviewsCarousel(reviewsData);
+                if (previousReview) {
+                    const newIndex = reviewsSlides.findIndex(group => group.some(review => review === previousReview));
+                    if (newIndex >= 0) {
+                        reviewsCurrentSlide = newIndex;
+                        updateReviewsCarousel();
+                    }
+                }
+                if (reviewsModalInitialized) {
+                    renderReviewsModal();
+                }
+            });
+
+            reviewsListenersAttached = true;
+        }
+
+        // Generate reviews based on restaurant
+        function generateReviews(restaurantName, restaurantRating) {
+            reviewsData = buildSampleReviews(restaurantName, restaurantRating);
+            reviewsDomInitialized = false;
+            if (reviewsAutoTimer) {
+                clearInterval(reviewsAutoTimer);
+                reviewsAutoTimer = null;
+            }
+
+            renderReviewsCarousel(reviewsData);
+            setupReviewsInteractions();
+            const modal = document.getElementById('reviewsModal');
+            if (modal && modal.style.display === 'flex') {
+                renderReviewsModal();
+            } else {
+                reviewsModalInitialized = false;
+                reviewsModalCurrentPage = 0;
+            }
         }
 
         // Load data when page loads
@@ -433,3 +2732,4 @@
     </script>
 </body>
 </html>
+
