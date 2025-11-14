@@ -58,6 +58,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const restaurantSearchInput = document.querySelector('.restaurant-search input');
     const restaurantSearchBtn = document.querySelector('.restaurant-search-btn');
     
+    if (restaurantSearchInput) {
+        const desktopPlaceholder = 'Search Duluth Restaurants, Hotels, or Attractions';
+        const mobilePlaceholder = 'Search Duluth';
+        const placeholderQuery = window.matchMedia('(max-width: 768px)');
+        
+        const applyPlaceholder = (e) => {
+            const isMobile = e ? e.matches : placeholderQuery.matches;
+            restaurantSearchInput.setAttribute('placeholder', isMobile ? mobilePlaceholder : desktopPlaceholder);
+        };
+        
+        applyPlaceholder();
+        
+        if (typeof placeholderQuery.addEventListener === 'function') {
+            placeholderQuery.addEventListener('change', applyPlaceholder);
+        } else if (typeof placeholderQuery.addListener === 'function') {
+            placeholderQuery.addListener(applyPlaceholder);
+        }
+    }
+    
     // Cuisine category mapping (same as restaurants.html)
     const cuisineCategories = {
         'pizza': { name: 'Pizza', slug: 'pizza', keywords: ['pizza', 'italian pizza', 'neapolitan'] },
@@ -617,6 +636,18 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburger.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
+            document.body.classList.toggle('nav-open', navMenu.classList.contains('active'));
+        });
+
+        const mobileNavLinks = navMenu.querySelectorAll('a[href^="#"]');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    document.body.classList.remove('nav-open');
+                }
+            });
         });
     }
     
