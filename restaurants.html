@@ -707,6 +707,13 @@
                 // Replace with actual star characters
                 starsHtml = '★★★★★'.substring(0, fullStars) + (hasHalfStar ? '½' : '') + '☆'.repeat(emptyStars);
                 
+                var phoneParam = restaurant.phone ? '\'' + restaurant.phone.replace(/'/g, "\\'") + '\'' : 'null';
+                var websiteParam = restaurant.website ? '\'' + restaurant.website.replace(/'/g, "\\'") + '\'' : 'null';
+                var addressParam = restaurant.address ? '\'' + restaurant.address.replace(/'/g, "\\'") + '\'' : 'null';
+                var reservationsParam = restaurant.reservations ? '\'' + restaurant.reservations.replace(/'/g, "\\'") + '\'' : 'null';
+                var popularDishesParam = restaurant.popularDishes ? '\'' + restaurant.popularDishes.join(',').replace(/'/g, "\\'") + '\'' : 'null';
+                var hoursParam = restaurant.hours ? '\'' + encodeURIComponent(JSON.stringify(restaurant.hours)).replace(/'/g, "\\'") + '\'' : 'null';
+                
                 return '<div class="restaurant-card" onclick="openRestaurant(\'' +
                     name.replace(/'/g, "\\'") + '\',' +
                     restaurantNumber + ',\'' +
@@ -716,7 +723,13 @@
                     cuisine.replace(/'/g, "\\'") + '\',\'' +
                     description.replace(/'/g, "\\'") + '\',\'' +
                     restaurant.image + '\',\'' +
-                    location.replace(/'/g, "\\'") + '\')">' +
+                    location.replace(/'/g, "\\'") + '\',' +
+                    phoneParam + ',' +
+                    websiteParam + ',' +
+                    addressParam + ',' +
+                    reservationsParam + ',' +
+                    popularDishesParam + ',' +
+                    hoursParam + ')">' +
                     '<img src="' + restaurant.image + '" alt="' + name + '" class="restaurant-card-image" loading="lazy">' +
                     '<div class="restaurant-card-body">' +
                     '<h3 class="restaurant-card-name"><span class="restaurant-card-number">' + restaurantNumber + '.</span>' + name + '</h3>' +
@@ -1315,7 +1328,7 @@
         window.doSearch = doSearch;
         
         // Restaurant detail page function
-        window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image, location) {
+        window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image, location, phone, website, address, reservations, popularDishes, hours) {
             var params = new URLSearchParams();
             params.set('name', name);
             params.set('number', number);
@@ -1326,6 +1339,12 @@
             params.set('description', description);
             params.set('image', image);
             params.set('location', location || 'Duluth');
+            if (phone) params.set('phone', phone);
+            if (website) params.set('website', website);
+            if (address) params.set('address', address);
+            if (reservations) params.set('reservations', reservations);
+            if (popularDishes) params.set('popularDishes', popularDishes);
+            if (hours) params.set('hours', hours); // Already encoded
             window.location.href = 'restaurant-template.html?' + params.toString();
         };
         

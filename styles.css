@@ -90,7 +90,7 @@ body.nav-open {
 
 
 .nav-logo h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #ffffff;
     letter-spacing: -0.02em;
@@ -1291,12 +1291,12 @@ body.nav-open {
     }
 
     .nav-logo h1 {
-        font-size: 1.55rem;
+        font-size: 1.5rem;
         margin-left: 0;
     }
     
     .hero {
-        padding: 82px 0 0;
+        padding: 82px 0 40px;
         min-height: 420px;
     }
     
@@ -1451,7 +1451,7 @@ body.nav-open {
     }
     
     .hero {
-        padding: 64px 0 0;
+        padding: 64px 0 40px;
         min-height: 340px;
     }
 
@@ -1461,8 +1461,14 @@ body.nav-open {
     }
 
     .featured-stays {
-        padding: 0 0 52px;
-        margin-top: -24px;
+        padding: 0 0 2rem;
+        padding-bottom: 2rem;
+        margin-top: -40px;
+        position: relative;
+        z-index: 10;
+    }
+    .explore-duluth {
+        padding-top: 2rem;
     }
     
     .hero-title {
@@ -1484,11 +1490,6 @@ body.nav-open {
     .restaurant-search-btn {
         height: 52px;
         width: 52px;
-    }
-
-    .featured-stays {
-        padding: 0 0 44px;
-        margin-top: -32px;
     }
     
     .guests-modal .guests-dropdown-content {
@@ -2151,7 +2152,7 @@ body.nav-open {
     background: var(--color-navy);
     color: #ffffff;
     padding: 0.75rem 1.5rem;
-    border-radius: 20px;
+    border-radius: 16px;
     font-weight: 600;
     text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
@@ -2169,9 +2170,10 @@ body.nav-open {
 .btn-link:hover { color: var(--color-copper); text-decoration: underline; }
 
 /* Featured Restaurants */
-.featured-stays { background: var(--color-fog-white); padding: 32px 0 100px; }
+.featured-stays { background: var(--color-fog-white); padding: 32px 0 0; }
 .section-header { text-align: center; margin-bottom: 2rem; }
 .section-header h2 { color: var(--color-navy); font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.featured-stays .section-header h2 { white-space: nowrap; }
 .section-header.small h2 { margin-bottom: 1.5rem; }
 .section-subtext { max-width: 720px; margin: 0 auto; font-size: 1.05rem; }
 .section-subtext {
@@ -2186,18 +2188,24 @@ body.nav-open {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
 }
+.stay-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+}
+
 .stay-card {
     background: #ffffff;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     border: 1px solid #e5e7eb;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.stay-card:hover { transform: translateY(-8px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+.stay-card-link:hover .stay-card { transform: scale(1.05); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
 .stay-image { height: 220px; overflow: hidden; }
 .stay-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; }
-.stay-card:hover .stay-image img { transform: scale(1.05); }
 .stay-body { padding: 1.25rem; }
 .stay-top { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.5rem; }
 .stay-title { font-family: 'Inter', sans-serif; font-size: 1.2rem; color: var(--color-navy); font-weight: 600; }
@@ -2221,13 +2229,12 @@ body.nav-open {
 .stay-actions { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
 
 /* Explore Duluth */
-.explore-duluth { background: var(--color-lake-mist); padding: 32px 0 100px; position: relative; }
+.explore-duluth { background: #ffffff; padding: 32px 0 100px; position: relative; }
 .explore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
 .explore-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 2rem; text-align: left; box-shadow: 0 4px 16px rgba(0,0,0,0.06); transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .explore-card:hover { transform: translateY(-8px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
 .explore-card h3 { font-family: 'Inter', sans-serif; color: var(--color-navy); font-size: 1.25rem; margin: 0.5rem 0 0.6rem; font-weight: 600; }
 .explore-card p { color: #64748b; margin-bottom: 1rem; line-height: 1.6; }
-.explore-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: rgba(78, 165, 169, 0.1); color: var(--color-teal); border-radius: 16px; font-size: 1.5rem; margin-bottom: 0.5rem; }
 
 /* Wave divider */
 .wave-divider { display: none; }
@@ -2236,7 +2243,6 @@ body.nav-open {
 .why-book { background: var(--color-fog-white); padding: 32px 0 100px; }
 .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; align-items: stretch; }
 .trust-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 2rem; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-.trust-icon { width: 48px; height: 48px; margin: 0 auto 0.75rem; display: flex; align-items: center; justify-content: center; border-radius: 16px; background: rgba(78, 165, 169, 0.1); color: var(--color-teal); font-size: 1.2rem; font-weight: 700; }
 .trust-card h3 { font-family: 'Inter', sans-serif; color: var(--color-navy); margin-bottom: 0.5rem; font-weight: 600; }
 .trust-card p { color: #64748b; line-height: 1.6; }
 
@@ -2253,7 +2259,7 @@ body.nav-open {
 .season-body p { color: #64748b; margin-bottom: 1rem; line-height: 1.6; }
 
 /* Email CTA */
-.email-cta { background: var(--color-lake-mist); padding: 32px 0 100px; }
+.email-cta { background: var(--color-fog-white); padding: 32px 0 100px; }
 .email-cta-inner { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 2.5rem; max-width: 720px; margin: 0 auto; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
 .email-cta-inner h2 { font-family: 'Inter', sans-serif; color: var(--color-navy); margin-bottom: 1.25rem; font-weight: 600; }
 .email-form { display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; margin: 0.5rem 0 0.25rem; }
@@ -2301,4 +2307,13 @@ body.nav-open {
     .stay-image { height: 180px; }
     .season-image { height: 160px; }
     .email-form { grid-template-columns: 1fr; }
+    .featured-stays {
+        padding-bottom: 2rem;
+        margin-top: -40px;
+        position: relative;
+        z-index: 10;
+    }
+    .explore-duluth {
+        padding-top: 2rem;
+    }
 }
