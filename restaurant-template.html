@@ -2218,19 +2218,23 @@
                 infoNeighborhoodElement.textContent = restaurantLocation;
             }
             
-            // Generate consistent update time per restaurant (1 week to 2 months ago)
+            // Generate consistent update time per restaurant (1 day to several months ago)
             function getRestaurantUpdateTime(restaurantName) {
                 // Use restaurant name to generate consistent update time
                 const nameHash = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-                const daysAgo = (nameHash % 54) + 7; // 7 to 60 days (1 week to ~2 months)
+                const value = nameHash % 30; // 0-29 for variety
                 
-                if (daysAgo < 14) {
+                if (value < 13) {
+                    // 1-13 days
+                    const daysAgo = value + 1;
                     return 'Updated ' + daysAgo + ' day' + (daysAgo !== 1 ? 's' : '') + ' ago';
-                } else if (daysAgo < 30) {
-                    const weeks = Math.floor(daysAgo / 7);
+                } else if (value < 16) {
+                    // 2-4 weeks (14, 21, 28 days)
+                    const weeks = value - 11; // 2, 3, or 4 weeks
                     return 'Updated ' + weeks + ' week' + (weeks !== 1 ? 's' : '') + ' ago';
                 } else {
-                    const months = Math.floor(daysAgo / 30);
+                    // 1+ months (starting at 1 month = ~30 days)
+                    const months = value - 15; // 1-14 months
                     return 'Updated ' + months + ' month' + (months !== 1 ? 's' : '') + ' ago';
                 }
             }
