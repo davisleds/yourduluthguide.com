@@ -2094,6 +2094,27 @@
         function loadRestaurantData() {
             const urlParams = new URLSearchParams(window.location.search);
             
+            // Get return parameters for back button
+            const returnPage = urlParams.get('returnPage');
+            const returnSearch = urlParams.get('returnSearch');
+            
+            // Update back button to preserve page and search
+            const backButton = document.querySelector('.back-button');
+            if (backButton) {
+                let backUrl = 'restaurants.html';
+                const backParams = new URLSearchParams();
+                if (returnPage) {
+                    backParams.set('returnPage', returnPage);
+                }
+                if (returnSearch) {
+                    backParams.set('returnSearch', returnSearch);
+                }
+                if (backParams.toString()) {
+                    backUrl += '?' + backParams.toString();
+                }
+                backButton.href = backUrl;
+            }
+            
             // Get all restaurant data from URL parameters
             const restaurantName = urlParams.get('name') || 'Restaurant Name';
             const restaurantNumber = urlParams.get('number') || '1';

@@ -1,0 +1,22 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- White square background with black border -->
+  <rect width="512" height="512" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
+  
+  <!-- Dark blue oval -->
+  <ellipse cx="256" cy="256" rx="200" ry="160" fill="#00296B"/>
+  
+  <!-- White compass rose -->
+  <g fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2">
+    <!-- North arrow -->
+    <path d="M 256 120 L 240 180 L 256 200 L 272 180 Z"/>
+    <!-- South arrow -->
+    <path d="M 256 392 L 240 332 L 256 312 L 272 332 Z"/>
+    <!-- East arrow -->
+    <path d="M 392 256 L 332 240 L 312 256 L 332 272 Z"/>
+    <!-- West arrow -->
+    <path d="M 120 256 L 180 240 L 200 256 L 180 272 Z"/>
+    <!-- Center circle -->
+    <circle cx="256" cy="256" r="20" fill="#FFFFFF"/>
+  </g>
+</svg>
+

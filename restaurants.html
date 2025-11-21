@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Top 10 best restaurants near Duluth, Minnesota. Discover the highest-rated dining experiences with reviews, ratings, and photos.">
     <meta name="keywords" content="best restaurants Duluth MN, top restaurants Duluth, highest rated restaurants Duluth, Duluth dining guide">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Top 10 Best Restaurants Near Duluth Minnesota | YourDuluthGuide">
+    <meta property="og:description" content="Top 10 best restaurants near Duluth, Minnesota. Discover the highest-rated dining experiences with reviews, ratings, and photos.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://duluthguide.com/restaurants.html">
+    <meta property="og:image" content="https://duluthguide.com/logo.svg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <link rel="apple-touch-icon" href="/logo.svg">
+    
     <title>Top 10 Best Restaurants Near Duluth Minnesota | YourDuluthGuide</title>
     
     <link rel="stylesheet" href="styles.css">
@@ -920,7 +932,7 @@
         }
         
         // Search function
-        function doSearch() {
+        function doSearch(skipPageReset) {
             var searchInput = document.getElementById('restaurantSearch');
             var searchTerm = searchInput ? searchInput.value.trim() : '';
             
@@ -932,8 +944,10 @@
                 return;
             }
             
-            // Reset to page 1 when searching
-            currentPage = 1;
+            // Reset to page 1 when searching (unless we're restoring a page)
+            if (!skipPageReset) {
+                currentPage = 1;
+            }
             
             // Detect cuisine category
             var category = detectCuisineCategory(searchTerm);
@@ -967,12 +981,67 @@
                         return matchesCategory;
                     });
                 } else {
-                    // Regular search
+                    // Regular search with improved matching
                     allFilteredRestaurants = allRestaurants.filter(function(restaurant) {
-                        var nameMatch = restaurant.name.toLowerCase().indexOf(term) !== -1;
-                        var cuisineMatch = restaurant.cuisine.toLowerCase().indexOf(term) !== -1;
-                        var locationMatch = restaurant.location.toLowerCase().indexOf(term) !== -1;
-                        var descMatch = restaurant.description.toLowerCase().indexOf(term) !== -1;
+                        var nameLower = restaurant.name.toLowerCase();
+                        var cuisineLower = restaurant.cuisine.toLowerCase();
+                        var locationLower = restaurant.location.toLowerCase();
+                        var descLower = restaurant.description.toLowerCase();
+                        
+                        // Exact substring match
+                        var nameMatch = nameLower.indexOf(term) !== -1;
+                        var cuisineMatch = cuisineLower.indexOf(term) !== -1;
+                        var locationMatch = locationLower.indexOf(term) !== -1;
+                        var descMatch = descLower.indexOf(term) !== -1;
+                        
+                        // Word-based matching (check if search term matches any word in name)
+                        if (!nameMatch && term.length >= 3) {
+                            var nameWords = nameLower.split(/[\s\(\)]+/);
+                            for (var i = 0; i < nameWords.length; i++) {
+                                var word = nameWords[i];
+                                // Exact match or substring match
+                                if (word.indexOf(term) !== -1 || term.indexOf(word) !== -1) {
+                                    nameMatch = true;
+                                    break;
+                                }
+                                // Check if word starts with term (allowing for small differences)
+                                if (word.length >= term.length - 1 && word.length <= term.length + 2) {
+                                    // Check if first few characters match (fuzzy)
+                                    var minLen = Math.min(term.length, word.length);
+                                    var matchChars = 0;
+                                    for (var k = 0; k < minLen; k++) {
+                                        if (term[k] === word[k]) {
+                                            matchChars++;
+                                        }
+                                    }
+                                    // If at least 75% of characters match at the start, it's a match
+                                    if (matchChars >= Math.floor(term.length * 0.75)) {
+                                        nameMatch = true;
+                                        break;
+                                    }
+                                    // Also check if word starts with term (with 1 char tolerance)
+                                    if (word.indexOf(term.substring(0, Math.max(3, term.length - 1))) === 0) {
+                                        nameMatch = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Additional fuzzy matching for the full name
+                        if (!nameMatch && term.length >= 3) {
+                            var nameWithoutSpaces = nameLower.replace(/\s+/g, '');
+                            var termWithoutSpaces = term.replace(/\s+/g, '');
+                            
+                            // Check if name starts with term (allowing 1-2 char difference)
+                            if (nameWithoutSpaces.length >= termWithoutSpaces.length - 1) {
+                                var prefixLen = Math.max(3, termWithoutSpaces.length - 1);
+                                if (nameWithoutSpaces.substring(0, prefixLen).indexOf(termWithoutSpaces.substring(0, prefixLen)) !== -1) {
+                                    nameMatch = true;
+                                }
+                            }
+                        }
+                        
                         return nameMatch || cuisineMatch || locationMatch || descMatch;
                     });
                 }
@@ -980,6 +1049,16 @@
             
             // Sort by rating (highest first)
             allFilteredRestaurants = sortRestaurantsByRating(allFilteredRestaurants);
+            
+            // If we're restoring a page, make sure it's valid for the filtered results
+            if (skipPageReset) {
+                var totalPages = Math.ceil(allFilteredRestaurants.length / restaurantsPerPage);
+                if (currentPage > totalPages && totalPages > 0) {
+                    currentPage = totalPages;
+                } else if (currentPage < 1) {
+                    currentPage = 1;
+                }
+            }
             
             // Render results
             renderRestaurants();
@@ -1345,6 +1424,14 @@
             if (reservations) params.set('reservations', reservations);
             if (popularDishes) params.set('popularDishes', popularDishes);
             if (hours) params.set('hours', hours); // Already encoded
+            
+            // Preserve current page and search term
+            params.set('returnPage', currentPage);
+            var searchInput = document.getElementById('restaurantSearch');
+            if (searchInput && searchInput.value.trim()) {
+                params.set('returnSearch', searchInput.value.trim());
+            }
+            
             window.location.href = 'restaurant-template.html?' + params.toString();
         };
         
@@ -1399,10 +1486,26 @@
             var urlParams = new URLSearchParams(window.location.search);
             var searchParam = urlParams.get('search');
             var cuisineParam = urlParams.get('cuisine');
+            var returnPage = urlParams.get('returnPage');
+            var returnSearch = urlParams.get('returnSearch');
             
-            if (searchParam) {
+            // Restore page number if returning from restaurant detail page
+            var isRestoringPage = false;
+            if (returnPage) {
+                var pageNum = parseInt(returnPage, 10);
+                if (pageNum > 0) {
+                    currentPage = pageNum;
+                    isRestoringPage = true;
+                }
+            }
+            
+            if (returnSearch) {
+                // Restore search term and page when returning from restaurant detail
+                searchInput.value = returnSearch;
+                doSearch(true); // Skip page reset since we're restoring
+            } else if (searchParam) {
                 searchInput.value = searchParam;
-                doSearch();
+                doSearch(isRestoringPage); // Preserve page if restoring
             } else if (cuisineParam) {
                 // Handle cuisine category from URL
                 var categoryKey = cuisineParam.replace(/-/g, ' ');
@@ -1410,16 +1513,16 @@
                     var category = cuisineCategories[key];
                     if (category.name.toLowerCase() === categoryKey || category.plural.toLowerCase() === categoryKey) {
                         searchInput.value = category.keywords[0];
-                        doSearch();
+                        doSearch(isRestoringPage); // Preserve page if restoring
                         return;
                     }
                 }
                 // Fallback
                 searchInput.value = cuisineParam.replace(/-/g, ' ');
-                doSearch();
+                doSearch(isRestoringPage); // Preserve page if restoring
             } else {
                 // Initial render - show all restaurants sorted by rating
-                doSearch();
+                doSearch(isRestoringPage); // Preserve page if restoring
             }
         }
         
