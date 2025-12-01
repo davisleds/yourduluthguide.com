@@ -216,7 +216,7 @@
             cursor: pointer;
             display: flex;
             margin-bottom: 1.5rem;
-            min-height: 200px;
+            height: 200px;
         }
         
         .restaurant-card:hover {
@@ -236,6 +236,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            min-height: 0;
         }
         
         .restaurant-card-number {
@@ -306,6 +308,8 @@
             line-height: 1.5;
             margin-bottom: 0.75rem;
             flex: 1;
+            overflow: hidden;
+            min-height: 0;
         }
         
         .restaurant-card-tags {
@@ -313,6 +317,66 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-top: auto;
+        }
+
+        .restaurant-card-voting {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.1rem;
+            padding: 1rem;
+            width: fit-content;
+            flex-shrink: 0;
+        }
+
+        .restaurant-card-voting .vote-button {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #9ca3af;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .restaurant-card-voting .vote-button svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .restaurant-card-voting .vote-button:hover {
+            color: #d1d5db;
+        }
+
+        .restaurant-card-voting .vote-button.voted-up {
+            color: var(--color-navy);
+        }
+
+        .restaurant-card-voting .vote-button.voted-down {
+            color: var(--color-navy);
+        }
+
+        .restaurant-card-voting .vote-count {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-navy);
+            text-align: center;
+            min-width: 35px;
+            line-height: 1.2;
+        }
+
+        .restaurant-card-voting .vote-count.positive {
+            color: var(--color-navy);
+        }
+
+        .restaurant-card-voting .vote-count.negative {
+            color: var(--color-navy);
         }
         
         .map-container {
@@ -491,12 +555,29 @@
             
             .restaurant-card {
                 flex-direction: column;
+                height: auto;
+                position: relative;
             }
             
             .restaurant-card-image {
                 width: 100%;
                 min-width: 100%;
                 height: 200px;
+            }
+            
+            .restaurant-card-voting {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                padding: 0.5rem;
+            }
+            
+            .restaurant-card-voting .vote-button {
+                font-size: 1.3rem;
+            }
+            
+            .restaurant-card-voting .vote-count {
+                font-size: 1.2rem;
             }
             
             .pagination {
@@ -751,6 +832,11 @@
                     '<div class="restaurant-card-location-info">' + location + ' • ' + restaurant.price + '</div>' +
                     '<p class="restaurant-card-description">' + description + '</p>' +
                     '<div class="restaurant-card-tags">' + cuisineTags + '</div>' +
+                    '</div>' +
+                    '<div class="restaurant-card-voting" data-restaurant="' + restaurant.name.replace(/'/g, "\\'") + '" data-restaurant-id="' + restaurant.name.replace(/[^a-zA-Z0-9]/g, '-') + '" onclick="event.stopPropagation();">' +
+                    '<button class="vote-button upvote" data-restaurant-name="' + restaurant.name.replace(/"/g, '&quot;').replace(/'/g, '&#39;') + '" data-vote-type="up" aria-label="Upvote this restaurant"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></button>' +
+                    '<span class="vote-count positive" id="vote-' + restaurant.name.replace(/[^a-zA-Z0-9]/g, '-') + '">1</span>' +
+                    '<button class="vote-button downvote" data-restaurant-name="' + restaurant.name.replace(/"/g, '&quot;').replace(/'/g, '&#39;') + '" data-vote-type="down" aria-label="Downvote this restaurant"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>' +
                     '</div></div>';
             }).join('');
             
@@ -759,6 +845,177 @@
             
             // Update pagination controls
             updatePagination(totalPages);
+            
+            // Initialize voting for displayed restaurants
+            pageRestaurants.forEach(function(restaurant) {
+                initializeRestaurantVoting(restaurant.name);
+            });
+            
+            // Attach event listeners
+            attachVoteButtonListeners();
+        }
+        
+        function attachVoteButtonListeners() {
+            // Use event delegation - simple and reliable
+            var restaurantsContainer = document.getElementById('restaurantsGrid');
+            if (!restaurantsContainer) {
+                console.warn('restaurantsGrid not found');
+                return;
+            }
+            
+            // Remove old listener if exists
+            if (restaurantsContainer._voteListenerAttached) {
+                restaurantsContainer.removeEventListener('click', restaurantsContainer._voteHandler, true);
+            }
+            
+            // Create handler
+            restaurantsContainer._voteHandler = function(e) {
+                // Find button - handle clicks on SVG elements
+                var target = e.target;
+                var button = target.closest('.vote-button');
+                
+                // If closest didn't work, try traversing up
+                if (!button) {
+                    var parent = target.parentElement;
+                    var depth = 0;
+                    while (parent && depth < 5) {
+                        if (parent.classList && parent.classList.contains('vote-button')) {
+                            button = parent;
+                            break;
+                        }
+                        parent = parent.parentElement;
+                        depth++;
+                    }
+                }
+                
+                if (!button) return;
+                
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                
+                var restaurantName = button.getAttribute('data-restaurant-name');
+                var voteType = button.getAttribute('data-vote-type');
+                
+                if (restaurantName && voteType) {
+                    // Decode HTML entities
+                    var decodedName = restaurantName
+                        .replace(/&quot;/g, '"')
+                        .replace(/&#39;/g, "'")
+                        .replace(/&amp;/g, '&');
+                    handleRestaurantVote(decodedName, voteType, button);
+                }
+            };
+            
+            restaurantsContainer.addEventListener('click', restaurantsContainer._voteHandler, true);
+            restaurantsContainer._voteListenerAttached = true;
+        }
+        
+        // Restaurant voting functions
+        function getRestaurantVoteData(restaurantName) {
+            var key = 'restaurant-' + restaurantName + '-votes';
+            var stored = localStorage.getItem(key);
+            if (stored) {
+                var data = JSON.parse(stored);
+                // Ensure we have at least 1 upvote (starting score of 1)
+                if (data.upvotes === 0 && data.downvotes === 0 && data.userVote === null) {
+                    data.upvotes = 1;
+                }
+                return data;
+            }
+            return { upvotes: 1, downvotes: 0, userVote: null };
+        }
+        
+        function saveRestaurantVoteData(restaurantName, voteData) {
+            var key = 'restaurant-' + restaurantName + '-votes';
+            localStorage.setItem(key, JSON.stringify(voteData));
+        }
+        
+        function handleRestaurantVote(restaurantName, voteType, buttonElement) {
+            var voteData = getRestaurantVoteData(restaurantName);
+            
+            // If user already voted the same way, remove the vote
+            if (voteData.userVote === voteType) {
+                if (voteType === 'up') {
+                    voteData.upvotes = Math.max(0, voteData.upvotes - 1);
+                } else {
+                    voteData.downvotes = Math.max(0, voteData.downvotes - 1);
+                }
+                voteData.userVote = null;
+            } else {
+                // Remove previous vote if exists
+                if (voteData.userVote === 'up') {
+                    voteData.upvotes = Math.max(0, voteData.upvotes - 1);
+                } else if (voteData.userVote === 'down') {
+                    voteData.downvotes = Math.max(0, voteData.downvotes - 1);
+                }
+                
+                // Add new vote
+                if (voteType === 'up') {
+                    voteData.upvotes += 1;
+                } else {
+                    voteData.downvotes += 1;
+                }
+                voteData.userVote = voteType;
+            }
+            
+            saveRestaurantVoteData(restaurantName, voteData);
+            updateRestaurantVoteDisplay(restaurantName, voteData);
+        }
+        
+        function updateRestaurantVoteDisplay(restaurantName, voteData) {
+            var safeId = restaurantName.replace(/[^a-zA-Z0-9]/g, '-');
+            // Use safeId to find the voting container (most reliable method)
+            var votingContainer = document.querySelector('[data-restaurant-id="' + safeId + '"]');
+            
+            if (!votingContainer) {
+                // Fallback: try to find by restaurant name (escape special chars for CSS selector)
+                var escapedName = restaurantName.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, '\\$&');
+                votingContainer = document.querySelector('[data-restaurant="' + escapedName + '"]');
+            }
+            
+            if (!votingContainer) {
+                console.warn('Could not find voting container for:', restaurantName);
+                return;
+            }
+            
+            var upButton = votingContainer.querySelector('.vote-button.upvote');
+            var downButton = votingContainer.querySelector('.vote-button.downvote');
+            var voteCount = document.getElementById('vote-' + safeId);
+            
+            if (!upButton || !downButton || !voteCount) {
+                console.warn('Could not find voting elements for:', restaurantName, { upButton: !!upButton, downButton: !!downButton, voteCount: !!voteCount });
+                return;
+            }
+            
+            // Update button states
+            upButton.classList.remove('voted-up', 'voted-down');
+            downButton.classList.remove('voted-up', 'voted-down');
+            
+            if (voteData.userVote === 'up') {
+                upButton.classList.add('voted-up');
+            } else if (voteData.userVote === 'down') {
+                downButton.classList.add('voted-down');
+            }
+            
+            // Calculate net score (upvotes - downvotes)
+            var netScore = voteData.upvotes - voteData.downvotes;
+            voteCount.textContent = netScore;
+            
+            // Update count color based on positive/negative/zero
+            voteCount.classList.remove('positive', 'negative');
+            if (netScore > 0) {
+                voteCount.classList.add('positive');
+            } else if (netScore < 0) {
+                voteCount.classList.add('negative');
+            } else {
+                // netScore is 0, default to positive (green) for neutral
+                voteCount.classList.add('positive');
+            }
+        }
+        
+        function initializeRestaurantVoting(restaurantName) {
+            var voteData = getRestaurantVoteData(restaurantName);
+            updateRestaurantVoteDisplay(restaurantName, voteData);
         }
         
         // Update pagination controls
@@ -946,7 +1203,7 @@
             
             // Reset to page 1 when searching (unless we're restoring a page)
             if (!skipPageReset) {
-                currentPage = 1;
+            currentPage = 1;
             }
             
             // Detect cuisine category
@@ -1455,6 +1712,9 @@
             
             // Initialize map
             initMap();
+            
+            // Attach vote button listeners (will be re-attached when restaurants render, but ensure it's set up)
+            attachVoteButtonListeners();
             
             // Set up search input event listeners - only search on Enter
             searchInput.addEventListener('keydown', function(e) {

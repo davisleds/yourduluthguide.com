@@ -232,6 +232,7 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: white;
+            padding-right: 60px;
         }
 
         .restaurant-meta-row {
@@ -988,414 +989,107 @@
             text-align: center;
         }
 
-        .reviews-header-actions {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .reviews-see-all-btn {
-            background: var(--color-navy);
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.4rem;
-            border-radius: 999px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.15);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            margin: 1rem auto 0;
-            text-align: center;
-        }
-
-        .reviews-see-all-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
-            background: #0b1e4a;
-        }
-
-        .reviews-intro {
-            color: #475569;
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 1rem;
-        }
-
-        .reviews-carousel-container {
-            position: relative;
-            padding: 0 3.5rem;
-        }
-
-        .reviews-viewport {
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .reviews-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
-            will-change: transform;
-            gap: 0;
-        }
-
-        .reviews-slide {
-            flex: 0 0 100%;
+        .featured-reviews-container {
             display: grid;
-            gap: 1.5rem;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            padding: 0 0.5rem;
-            box-sizing: border-box;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+        
+        @media (max-width: 992px) {
+            .featured-reviews-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .featured-reviews-container {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .review-card {
+        .restaurant-voting {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.1rem;
+            width: fit-content;
+            position: absolute;
+            top: 2.5rem;
+            right: 2rem;
+        }
+
+        .featured-review-card {
             background: white;
-            padding: 1.75rem;
+            padding: 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            display: grid;
-            gap: 1rem;
-            height: 100%;
-            text-align: left;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .review-card:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            transition: box-shadow 0.2s ease;
         }
 
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
+        .featured-review-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .review-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-        }
-
-        .reviewer-name {
-            font-weight: 600;
-            color: var(--color-navy);
-            font-size: 1.05rem;
-        }
-
-        .review-date {
-            color: #64748b;
-            font-size: 0.85rem;
-            display: none;
-        }
-
-        .review-rating {
-            color: #f97316;
-            font-size: 1.05rem;
-            white-space: nowrap;
-        }
-
-        .review-text {
+        .featured-review-text {
             color: #334155;
-            line-height: 1.75;
+            line-height: 1.7;
             font-size: 1rem;
-            text-align: left;
-            display: -webkit-box;
-            -webkit-line-clamp: 5;
-            line-clamp: 5;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            word-break: break-word;
+            margin: 0;
         }
 
-        .review-read-more {
-            display: inline-block;
-            margin-top: 0.35rem;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #6b7280; /* subtle gray */
-            cursor: pointer;
-            text-decoration: none;
-            opacity: 0.9;
-        }
-        .review-read-more:hover {
-            text-decoration: underline;
-            color: #4b5563;
-            opacity: 1;
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            border: none;
-            background: rgba(15, 23, 42, 0.08);
-            color: #1f2937;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            transition: all 0.3s ease;
-        }
-
-        .carousel-nav:hover {
-            background: rgba(15, 23, 42, 0.16);
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .carousel-nav:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-            transform: translateY(-50%);
-        }
-
-        .carousel-nav.prev {
-            left: 0.75rem;
-        }
-
-        .carousel-nav.next {
-            right: 0.75rem;
-        }
-
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-        }
-
-        .carousel-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #cbd5e1;
-            cursor: pointer;
-            border: none;
-            outline: none;
-            padding: 0;
-            transition: background 0.2s ease;
-        }
-
-        .carousel-dot.active {
-            background: var(--color-navy);
-        }
-
-        .reviews-modal {
-            position: fixed;
-            inset: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 200;
-        }
-
-        .reviews-modal-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.55);
-        }
-
-        .reviews-modal-content {
-            position: relative;
-            background: #ffffff;
-            border-radius: 18px;
-            max-width: 960px;
-            width: 90%;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            padding: 2rem 2.5rem 2.5rem;
-            box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
-            overflow: hidden;
-        }
-
-        .reviews-modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1.2rem;
-            font-size: 1.75rem;
+        .vote-button {
             background: transparent;
             border: none;
-            color: #475569;
+            border-radius: 0;
             cursor: pointer;
-            transition: transform 0.2s ease, color 0.2s ease;
-        }
-
-        .reviews-modal-close:hover {
-            transform: scale(1.1);
-            color: #0f172a;
-        }
-
-        .reviews-modal h3 {
-            color: var(--color-navy);
-            font-size: 1.65rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 1.75rem;
-        }
-
-        .reviews-modal-grid-container {
-            flex: 1;
-            overflow: auto;
-        }
-
-        .reviews-modal-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.5rem;
-        }
-
-        .reviews-modal-card {
-            background: #f8fafc;
-            border-radius: 14px;
-            padding: 1.4rem;
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            display: grid;
-            gap: 0.85rem;
-        }
-
-        .reviews-modal-card .modal-review-header {
+            transition: all 0.2s ease;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0;
+            width: 28px;
+            height: 28px;
             display: flex;
-            justify-content: space-between;
-            gap: 0.75rem;
-        }
-
-        .reviews-modal-card .modal-reviewer {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-        }
-
-        .reviews-modal-card .modal-reviewer-name {
-            color: var(--color-navy);
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .reviews-modal-card .modal-reviewer-date {
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-
-        .reviews-modal-card .modal-review-rating {
-            color: #f97316;
-            font-weight: 600;
-        }
-
-        .reviews-modal-card .modal-review-text {
-            color: #374151;
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        .reviews-modal-pagination {
-            display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 1rem;
-            margin-top: 1.75rem;
+            justify-content: center;
+        }
+        
+        .vote-button svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
         }
 
-        .reviews-modal-pagination button {
-            background: rgba(15, 23, 42, 0.08);
-            border: none;
-            padding: 0.55rem 1.25rem;
-            border-radius: 999px;
-            cursor: pointer;
-            font-weight: 600;
-            color: #1f2937;
-            transition: background 0.2s ease, color 0.2s ease;
+        .vote-button:hover {
+            color: white;
         }
 
-        .reviews-modal-pagination button:hover {
-            background: rgba(15, 23, 42, 0.15);
+        .vote-button.voted-up {
+            color: var(--color-navy);
         }
 
-        .reviews-modal-pagination button:disabled {
-            opacity: 0.45;
-            cursor: not-allowed;
+        .vote-button.voted-down {
+            color: var(--color-navy);
         }
 
-        .reviews-modal-page-info {
-            color: #475569;
-            font-size: 0.9rem;
+        .vote-count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            min-width: 40px;
+            line-height: 1.2;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
         }
 
-        @media (max-width: 1024px) {
-            .reviews-modal-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+        .vote-count.positive {
+            color: var(--color-navy);
         }
 
-        @media (max-width: 640px) {
-            .reviews-modal-content {
-                padding: 1.75rem 1.4rem 2rem;
-            }
-
-            .reviews-modal-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
+        .vote-count.negative {
+            color: var(--color-navy);
         }
 
-        @media (max-width: 992px) {
-            .reviews-carousel-container {
-                padding: 0 2.75rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .reviews-carousel-container {
-                padding: 0 2.25rem;
-            }
-
-            .review-card {
-                padding: 1.5rem;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .reviews-carousel-container {
-                padding: 0;
-            }
-
-            .reviews-slide {
-                padding: 0 0.5rem; /* internal gutter so card doesn't touch edges */
-            }
-
-            .carousel-nav {
-                display: none;
-            }
-            .reviews-viewport {
-                overflow: hidden;
-                width: 100%;
-                box-sizing: border-box;
-                padding: 0; /* ensure no outer padding causes cut-off */
-            }
-            .reviews-track {
-                gap: 0;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .reviews-slide {
-                min-width: 100%;
-                flex: 0 0 100%;
-                box-sizing: border-box;
-                display: flex;
-            }
-            .reviews-slide .review-card {
-                width: 100%;
-                max-width: 100%;
-                box-sizing: border-box;
-            }
-        }
 
         @media (max-width: 768px) {
             .back-button {
@@ -1894,6 +1588,19 @@
                     </div>
                     <div class="price-range" id="priceRange">$$</div>
                 </div>
+                <div class="restaurant-voting" id="restaurantVoting">
+                    <button class="vote-button upvote" id="restaurantUpvote" aria-label="Upvote this restaurant">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                    <span class="vote-count" id="restaurantVoteCount">1</span>
+                    <button class="vote-button downvote" id="restaurantDownvote" aria-label="Downvote this restaurant">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
                 <div class="cuisine-tags" id="cuisineTags">
                     <!-- Cuisine tags will be inserted here -->
                 </div>
@@ -1980,37 +1687,9 @@
             </div>
 
             <div class="reviews-section content-subsection" id="reviewsSection">
-                <h3>Customer Reviews</h3>
-                <div class="reviews-header-actions">
-                    <button class="reviews-see-all-btn" id="reviewsSeeAllBtn">See all reviews</button>
-                </div>
-                <div class="reviews-carousel-container">
-                    <button class="carousel-nav prev" id="reviewsPrev" aria-label="Previous reviews">&lsaquo;</button>
-                    <div class="reviews-viewport">
-                        <div class="reviews-track" id="reviewsTrack">
-                            <!-- Slides inserted here -->
-                        </div>
-                    </div>
-                    <button class="carousel-nav next" id="reviewsNext" aria-label="Next reviews">&rsaquo;</button>
-                </div>
-                <div class="carousel-dots" id="reviewsDots"></div>
-            </div>
-
-            <div class="reviews-modal" id="reviewsModal">
-                <div class="reviews-modal-overlay"></div>
-                <div class="reviews-modal-content">
-                    <button class="reviews-modal-close" id="reviewsModalClose" aria-label="Close review modal">&times;</button>
-                    <h3>All Guest Reviews</h3>
-                    <div class="reviews-modal-grid-container">
-                        <div class="reviews-modal-grid" id="reviewsModalGrid">
-                            <!-- modal cards -->
-                        </div>
-                    </div>
-                    <div class="reviews-modal-pagination">
-                        <button id="reviewsModalPrev">Previous</button>
-                        <span class="reviews-modal-page-info" id="reviewsModalPageInfo"></span>
-                        <button id="reviewsModalNext">Next</button>
-                    </div>
+                <h3>Featured Reviews</h3>
+                <div class="featured-reviews-container" id="featuredReviewsContainer">
+                    <!-- Featured reviews will be inserted here -->
                 </div>
             </div>
 
@@ -2080,15 +1759,6 @@
         }
 
         let reviewsData = [];
-        let reviewsPerView = 3;
-        let reviewsSlides = [];
-        let reviewsCurrentSlide = 0;
-        let reviewsAutoTimer = null;
-        let reviewsDomInitialized = false;
-        let reviewsListenersAttached = false;
-        let reviewsModalInitialized = false;
-        let reviewsModalCurrentPage = 0;
-        const REVIEWS_MODAL_PAGE_SIZE = 12;
 
         // Get restaurant data from URL parameters
         function loadRestaurantData() {
@@ -2824,119 +2494,7 @@
 
         function buildSampleReviews(restaurantName, restaurantRating) {
             const seedBase = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + Math.round(restaurantRating * 10);
-            const reviewerNames = [
-                'Avery H.', 'Mason P.', 'Harper L.', 'Evelyn S.', 'Logan D.', 'Sofia R.', 'Hudson C.', 'Mila W.', 'Caleb B.', 'Nora F.',
-                'Gavin T.', 'Isla K.', 'Rowan J.', 'Naomi V.', 'Theo M.', 'Piper G.', 'Elias N.', 'Hazel Y.', 'Sawyer Q.', 'Adeline Z.',
-                'Jasper L.', 'Vivian O.', 'Grayson I.', 'Ruby A.', 'Luca E.', 'Emery X.', 'Finley U.', 'Clara H.', 'Declan P.', 'Lena S.'
-            ];
-            const introTemplates = [
-                'We stopped into %RESTAURANT% after exploring Canal Park and left absolutely stuffed.',
-                'Dinner at %RESTAURANT% capped off our Duluth getaway perfectly.',
-                'Our group chose %RESTAURANT% for a celebration and it did not disappoint.',
-                'I finally tried %RESTAURANT% and now I understand the hype.',
-                'We made reservations at %RESTAURANT% last minute and were pleasantly surprised.',
-                'Lunch at %RESTAURANT% was the highlight of our weekend in town.',
-                'We stumbled upon %RESTAURANT% and it instantly became a favorite.',
-                'Date night at %RESTAURANT% felt special from start to finish.',
-                'Stopping at %RESTAURANT% after a hike was the best decision.',
-                'Visiting %RESTAURANT% on a snowy evening made for the coziest meal.',
-                'Our family reunion at %RESTAURANT% was relaxed and delicious.',
-                'We kicked off our Duluth adventure at %RESTAURANT% and set the bar high.',
-                'Brunch at %RESTAURANT% turned into a leisurely afternoon.',
-                'We treated ourselves to %RESTAURANT% and every course felt thoughtful.',
-                'Took clients to %RESTAURANT% and everyone left impressed.'
-            ];
-            const featureHighlights = [
-                'house-made sauces',
-                'locally sourced produce',
-                'signature cocktails',
-                'wood-fired pizzas',
-                'seasonal tasting menu items',
-                'staff recommendations',
-                'dessert flights',
-                'lakeview patio tables',
-                'craft beer lineup',
-                'coffee program',
-                'gluten-free options',
-                'slow-smoked meats',
-                'fresh pasta specials',
-                'seafood plates',
-                'vegetarian offerings',
-                'weekend brunch dishes',
-                'charcuterie boards',
-                'warm hospitality',
-                'bartender creations',
-                'chef\'s specials',
-                'scratch-made sides',
-                'daily soup specials',
-                'house desserts',
-                'tasting flights'
-            ];
-            const featureAdjectives = [
-                'absolutely stellar',
-                'perfectly balanced',
-                'packed with flavor',
-                'worth the hype',
-                'next-level',
-                'spot on',
-                'so fresh',
-                'comforting',
-                'beautifully crafted',
-                'elevated and satisfying',
-                'honestly unforgettable',
-                'seasoned just right'
-            ];
-            const secondaryDetails = [
-                'bursting with local character',
-                'served at just the right temperature',
-                'seasoned beautifully',
-                'presented with care',
-                'paired perfectly with our drinks',
-                'the talk of our table',
-                'exactly what we were craving',
-                'plated elegantly',
-                'as generous as they were delicious',
-                'impossible to stop eating',
-                'made with obvious pride',
-                'so good we ordered seconds'
-            ];
-            const extraSentences = [
-                'Our server\'s suggestions were on point.',
-                'Loved how they showcase local ingredients.',
-                'Portions were generous without feeling heavy.',
-                'The ambiance felt warm and relaxed.',
-                'Timing between courses was flawless.',
-                'They handled our dietary requests effortlessly.',
-                'We lingered longer than planned because everything was so good.',
-                'Even the kids were raving about their meals.',
-                'The music and lighting set the mood perfectly.',
-                'We appreciated the thoughtful wine pairings.',
-                'Dessert was an absolute must.',
-                'The open kitchen adds so much energy.',
-                'Staff checked on us often without hovering.',
-                'Great balance of comfort food and refined dishes.',
-                'Their specials board is full of surprises.'
-            ];
-            const endingPhrases = [
-                'Already planning our next visit.',
-                'Highly recommend if you\'re in Duluth!',
-                'Put this spot on your Duluth itinerary.',
-                'We\'ll definitely be back soon.',
-                'Worth every mile we drove.',
-                'Perfect for both locals and visitors.',
-                'Can\'t wait to try more of the menu.',
-                'Easily a new favorite in town.',
-                'Don\'t skip this place when you\'re nearby.',
-                'This will be a regular stop for us.'
-            ];
-            const dateOptions = [
-                'Today', 'Yesterday', '2 days ago', '3 days ago', '4 days ago', '5 days ago',
-                '1 week ago', '8 days ago', '9 days ago', '2 weeks ago', '16 days ago', '3 weeks ago',
-                '1 month ago', '5 weeks ago', '6 weeks ago', '7 weeks ago', '2 months ago',
-                '9 weeks ago', '10 weeks ago', '3 months ago', '14 weeks ago', '4 months ago'
-            ];
-            const ratingVariations = [-1, 0, 0, 0, 1];
-
+            
             function seededRandom(seed) {
                 const x = Math.sin(seed) * 10000;
                 return x - Math.floor(x);
@@ -2951,373 +2509,173 @@
                 return template.replace(/%RESTAURANT%/g, restaurant);
             }
 
+            const reviewTemplates = [
+                [
+                    'We stopped into %RESTAURANT% after exploring Canal Park and left absolutely stuffed. The food was incredible and the service was top-notch.',
+                    'Dinner at %RESTAURANT% capped off our Duluth getaway perfectly. Everything from the appetizers to dessert was outstanding.',
+                    'Our group chose %RESTAURANT% for a celebration and it did not disappoint. The atmosphere was perfect and the food exceeded our expectations.'
+                ],
+                [
+                    'I finally tried %RESTAURANT% and now I understand the hype. The portions were generous and everything tasted fresh and well-prepared.',
+                    'We made reservations at %RESTAURANT% last minute and were pleasantly surprised. Great food, friendly staff, and a cozy atmosphere.',
+                    'Lunch at %RESTAURANT% was the highlight of our weekend in town. The menu had great variety and everything we ordered was delicious.'
+                ],
+                [
+                    'We stumbled upon %RESTAURANT% and it instantly became a favorite. The quality of the food really stood out, and we appreciated the attention to detail.',
+                    'Date night at %RESTAURANT% felt special from start to finish. The ambiance was perfect and the dishes were beautifully presented.',
+                    'Stopping at %RESTAURANT% after a hike was the best decision. The comfort food hit the spot and the service was quick and friendly.'
+                ],
+                [
+                    'Visiting %RESTAURANT% on a snowy evening made for the coziest meal. The warm atmosphere and hearty dishes were exactly what we needed.',
+                    'Our family reunion at %RESTAURANT% was relaxed and delicious. Everyone found something they loved on the menu.',
+                    'We kicked off our Duluth adventure at %RESTAURANT% and set the bar high. The local ingredients really shined in every dish.'
+                ],
+                [
+                    'Brunch at %RESTAURANT% turned into a leisurely afternoon. The food was excellent and we never felt rushed.',
+                    'We treated ourselves to %RESTAURANT% and every course felt thoughtful. The chef clearly cares about quality and presentation.',
+                    'Took clients to %RESTAURANT% and everyone left impressed. The combination of great food and professional service made it a perfect business dinner.'
+                ]
+            ];
+
             const reviews = [];
-            const nameOffset = seedBase % reviewerNames.length;
-
-            for (let i = 0; i < 20; i++) {
+            
+            // Pick a different template set for each review to ensure variety
+            for (let i = 0; i < 3; i++) {
                 const loopSeed = seedBase + (i + 1) * 97;
-                const reviewerName = reviewerNames[(nameOffset + i) % reviewerNames.length];
-                const intro = formatTemplate(pickFromArray(introTemplates, loopSeed), restaurantName);
-                const feature = pickFromArray(featureHighlights, loopSeed + 13);
-                const adjective = pickFromArray(featureAdjectives, loopSeed + 23);
-                const secondary = pickFromArray(secondaryDetails, loopSeed + 37);
-                const extraSentence = pickFromArray(extraSentences, loopSeed + 41);
-                const ending = pickFromArray(endingPhrases, loopSeed + 59);
-                const reviewText = `${intro} The ${feature} were ${adjective} and ${secondary}. ${extraSentence} ${ending}`;
-
-                const variation = pickFromArray(ratingVariations, loopSeed + 71);
-                let reviewRating = Math.round(restaurantRating) + variation;
-                reviewRating = Math.max(3, Math.min(5, reviewRating));
-                if (i === 0) {
-                    reviewRating = Math.max(4, Math.round(restaurantRating));
-                }
-
-                const reviewDate = dateOptions[(nameOffset + i * 3) % dateOptions.length];
-
+                // Use different template set for each review
+                const templateSetIndex = (seedBase + i * 137) % reviewTemplates.length;
+                const templateSet = reviewTemplates[templateSetIndex];
+                const reviewText = formatTemplate(pickFromArray(templateSet, loopSeed), restaurantName);
+                
                 reviews.push({
-                    name: reviewerName,
-                    rating: reviewRating,
-                    text: reviewText,
-                    date: reviewDate
+                    text: reviewText
                 });
             }
 
             return reviews;
         }
 
-        function getReviewsPerView() {
-            const width = window.innerWidth;
-            if (width >= 1200) return 3;
-            if (width >= 768) return 2;
-            return 1;
+        function getRestaurantVoteData(restaurantName) {
+            const key = `restaurant-${restaurantName}-votes`;
+            const stored = localStorage.getItem(key);
+            if (stored) {
+                const data = JSON.parse(stored);
+                // Ensure we have at least 1 upvote (starting score of 1)
+                if (data.upvotes === 0 && data.downvotes === 0 && data.userVote === null) {
+                    data.upvotes = 1;
+                }
+                return data;
+            }
+            return { upvotes: 1, downvotes: 0, userVote: null };
         }
 
-        function chunkReviews(reviews, size) {
-            const chunks = [];
-            for (let i = 0; i < reviews.length; i += size) {
-                chunks.push(reviews.slice(i, i + size));
-            }
-            return chunks;
+        function saveRestaurantVoteData(restaurantName, voteData) {
+            const key = `restaurant-${restaurantName}-votes`;
+            localStorage.setItem(key, JSON.stringify(voteData));
         }
 
-        function createReviewCard(review) {
-            const reviewCard = document.createElement('div');
-            reviewCard.className = 'review-card';
-            if (typeof review._idx === 'number') {
-                reviewCard.setAttribute('data-review-index', String(review._idx));
-            }
-            reviewCard.innerHTML = `
-                <div class="review-header">
-                    <div class="review-meta">
-                        <div class="reviewer-name">${review.name}</div>
-                        <div class="review-date">${review.date}</div>
-                    </div>
-                    <div class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
-                </div>
-                <div class="review-text">${review.text}</div>
-            `;
-            return reviewCard;
-        }
-
-        function renderReviewsCarousel(reviews) {
-            const track = document.getElementById('reviewsTrack');
-            const dotsContainer = document.getElementById('reviewsDots');
-            const prevBtn = document.getElementById('reviewsPrev');
-            const nextBtn = document.getElementById('reviewsNext');
-            const seeAllBtn = document.getElementById('reviewsSeeAllBtn');
-            const carouselContainer = document.querySelector('.reviews-carousel-container');
-
-            if (!track || !dotsContainer || !prevBtn || !nextBtn) {
-                return;
-            }
-
-            const desiredPerView = getReviewsPerView();
-            const shouldRebuild = desiredPerView !== reviewsPerView || !reviewsDomInitialized;
-
-            if (!shouldRebuild) {
-                return updateReviewsCarousel();
-            }
-
-            reviewsPerView = desiredPerView;
-            const indexedReviews = reviews.map((r, i) => Object.assign({}, r, { _idx: i }));
-            reviewsSlides = chunkReviews(indexedReviews, reviewsPerView);
-            reviewsCurrentSlide = 0;
-
-            if (reviewsSlides.length === 0) {
-                track.innerHTML = '';
-                dotsContainer.innerHTML = '';
-                if (prevBtn) prevBtn.disabled = true;
-                if (nextBtn) nextBtn.disabled = true;
-                return;
-            }
-
-            track.innerHTML = '';
-            dotsContainer.innerHTML = '';
-
-            reviewsSlides.forEach(slideReviews => {
-                const slide = document.createElement('div');
-                slide.className = 'reviews-slide';
-                slideReviews.forEach(review => {
-                    slide.appendChild(createReviewCard(review));
-                });
-                track.appendChild(slide);
-            });
-
-            const isMobile = window.innerWidth <= 768;
-            const maxDots = isMobile ? 7 : reviewsSlides.length;
-            const dotsToShow = Math.min(maxDots, reviewsSlides.length);
+        function handleRestaurantVote(restaurantName, voteType) {
+            const voteData = getRestaurantVoteData(restaurantName);
             
-            reviewsSlides.forEach((_, index) => {
-                if (index < dotsToShow) {
-                    const dot = document.createElement('button');
-                    dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
-                    dot.type = 'button';
-                    dot.setAttribute('aria-label', `Go to reviews slide ${index + 1}`);
-                    dot.addEventListener('click', () => goToReviewsSlide(index));
-                    dotsContainer.appendChild(dot);
+            // If user already voted the same way, remove the vote
+            if (voteData.userVote === voteType) {
+                if (voteType === 'up') {
+                    voteData.upvotes = Math.max(0, voteData.upvotes - 1);
+                } else {
+                    voteData.downvotes = Math.max(0, voteData.downvotes - 1);
                 }
-            });
-
-            prevBtn.disabled = reviewsSlides.length <= 1;
-            nextBtn.disabled = reviewsSlides.length <= 1;
-
-            reviewsDomInitialized = true;
-            updateReviewsCarousel();
-
-            // Move "See all reviews" button below the carousel
-            if (seeAllBtn && carouselContainer && seeAllBtn.parentElement !== carouselContainer.parentElement) {
-                carouselContainer.parentNode.insertBefore(seeAllBtn, carouselContainer.nextSibling);
-            } else if (seeAllBtn && carouselContainer) {
-                carouselContainer.parentNode.insertBefore(seeAllBtn, carouselContainer.nextSibling);
-            }
-        }
-
-        function updateReviewsCarousel() {
-            const track = document.getElementById('reviewsTrack');
-            const dots = document.querySelectorAll('#reviewsDots .carousel-dot');
-            const prevBtn = document.getElementById('reviewsPrev');
-            const nextBtn = document.getElementById('reviewsNext');
-
-            if (!track || dots.length === 0) return;
-
-            track.style.transform = `translateX(-${reviewsCurrentSlide * 100}%)`;
-
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === reviewsCurrentSlide);
-            });
-
-            const multiSlide = reviewsSlides.length > 1;
-            if (prevBtn) prevBtn.disabled = !multiSlide;
-            if (nextBtn) nextBtn.disabled = !multiSlide;
-
-            restartReviewsAutoRotate();
-        }
-
-        function goToReviewsSlide(index) {
-            if (index < 0) {
-                reviewsCurrentSlide = reviewsSlides.length - 1;
-            } else if (index >= reviewsSlides.length) {
-                reviewsCurrentSlide = 0;
+                voteData.userVote = null;
             } else {
-                reviewsCurrentSlide = index;
-            }
-            updateReviewsCarousel();
-        }
-
-        function goToNextReviewsSlide() {
-            goToReviewsSlide(reviewsCurrentSlide + 1);
-        }
-
-        function restartReviewsAutoRotate() {
-            if (reviewsAutoTimer) {
-                clearInterval(reviewsAutoTimer);
-            }
-            if (reviewsSlides.length > 1) {
-                reviewsAutoTimer = setInterval(goToNextReviewsSlide, 6000);
-            }
-        }
-
-        function renderReviewsModal() {
-            const modal = document.getElementById('reviewsModal');
-            const grid = document.getElementById('reviewsModalGrid');
-            const pageInfo = document.getElementById('reviewsModalPageInfo');
-            const prevBtn = document.getElementById('reviewsModalPrev');
-            const nextBtn = document.getElementById('reviewsModalNext');
-
-            if (!modal || !grid || !pageInfo || !prevBtn || !nextBtn) {
-                return;
-            }
-
-            const totalPages = Math.max(1, Math.ceil(reviewsData.length / REVIEWS_MODAL_PAGE_SIZE));
-            reviewsModalCurrentPage = Math.min(Math.max(reviewsModalCurrentPage, 0), totalPages - 1);
-
-            grid.innerHTML = '';
-
-            if (reviewsData.length === 0) {
-                const emptyMessage = document.createElement('p');
-                emptyMessage.style.textAlign = 'center';
-                emptyMessage.style.color = '#64748b';
-                emptyMessage.textContent = 'No reviews available yet.';
-                grid.appendChild(emptyMessage);
-                prevBtn.disabled = true;
-                nextBtn.disabled = true;
-                pageInfo.textContent = '';
-                return;
-            }
-
-            const start = reviewsModalCurrentPage * REVIEWS_MODAL_PAGE_SIZE;
-            const items = reviewsData.slice(start, start + REVIEWS_MODAL_PAGE_SIZE);
-
-            items.forEach(review => {
-                const card = document.createElement('div');
-                card.className = 'reviews-modal-card';
-                card.innerHTML = `
-                    <div class="modal-review-header">
-                        <div class="modal-reviewer">
-                            <div class="modal-reviewer-name">${review.name}</div>
-                            <div class="modal-reviewer-date">${review.date}</div>
-                        </div>
-                        <div class="modal-review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
-                    </div>
-                    <div class="modal-review-text">${review.text}</div>
-                `;
-                grid.appendChild(card);
-            });
-
-            pageInfo.textContent = `Page ${reviewsModalCurrentPage + 1} of ${totalPages}`;
-            prevBtn.disabled = reviewsModalCurrentPage === 0;
-            nextBtn.disabled = reviewsModalCurrentPage >= totalPages - 1;
-        }
-
-        function openReviewsModal(page = 0) {
-            const modal = document.getElementById('reviewsModal');
-            if (!modal) return;
-            reviewsModalCurrentPage = page;
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            renderReviewsModal();
-            reviewsModalInitialized = true;
-        }
-
-        function closeReviewsModal() {
-            const modal = document.getElementById('reviewsModal');
-            if (!modal) return;
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-
-        function changeReviewsModalPage(delta) {
-            reviewsModalCurrentPage += delta;
-            renderReviewsModal();
-        }
-
-        function setupReviewsInteractions() {
-            if (reviewsListenersAttached) return;
-
-            const prevBtn = document.getElementById('reviewsPrev');
-            const nextBtn = document.getElementById('reviewsNext');
-            const container = document.getElementById('reviewsSection');
-            const modal = document.getElementById('reviewsModal');
-            const modalOverlay = modal ? modal.querySelector('.reviews-modal-overlay') : null;
-            const modalClose = document.getElementById('reviewsModalClose');
-            const modalPrev = document.getElementById('reviewsModalPrev');
-            const modalNext = document.getElementById('reviewsModalNext');
-            const seeAllBtn = document.getElementById('reviewsSeeAllBtn');
-
-            if (prevBtn && nextBtn) {
-                prevBtn.addEventListener('click', () => {
-                    goToReviewsSlide(reviewsCurrentSlide - 1);
-                });
-                nextBtn.addEventListener('click', () => {
-                    goToNextReviewsSlide();
-                });
-            }
-
-            if (container) {
-                container.addEventListener('mouseenter', () => {
-                    if (reviewsAutoTimer) {
-                        clearInterval(reviewsAutoTimer);
-                    }
-                });
-                container.addEventListener('mouseleave', () => {
-                    restartReviewsAutoRotate();
-                });
-            }
-
-            if (seeAllBtn) {
-                seeAllBtn.addEventListener('click', () => openReviewsModal(0));
-            }
-
-            if (modalOverlay) {
-                modalOverlay.addEventListener('click', closeReviewsModal);
-            }
-
-            // Delegated handler: click anywhere on review card opens modal to that review's page
-            document.addEventListener('click', function (e) {
-                const card = e.target.closest('.review-card');
-                if (!card) return;
-                const idxAttr = card.getAttribute('data-review-index');
-                const reviewIndex = parseInt(idxAttr || '0', 10);
-                const perView = getReviewsPerView();
-                const page = Math.floor(reviewIndex / perView);
-                openReviewsModal(page);
-            });
-
-            if (modalClose) {
-                modalClose.addEventListener('click', closeReviewsModal);
-            }
-
-            if (modalPrev) {
-                modalPrev.addEventListener('click', () => changeReviewsModalPage(-1));
-            }
-
-            if (modalNext) {
-                modalNext.addEventListener('click', () => changeReviewsModalPage(1));
-            }
-
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') {
-                    closeReviewsModal();
+                // Remove previous vote if exists
+                if (voteData.userVote === 'up') {
+                    voteData.upvotes = Math.max(0, voteData.upvotes - 1);
+                } else if (voteData.userVote === 'down') {
+                    voteData.downvotes = Math.max(0, voteData.downvotes - 1);
                 }
-            });
-
-            window.addEventListener('resize', () => {
-                // Re-render on resize while preserving current slide group start
-                const previousReview = reviewsSlides[reviewsCurrentSlide] ? reviewsSlides[reviewsCurrentSlide][0] : null;
-                renderReviewsCarousel(reviewsData);
-                if (previousReview) {
-                    const newIndex = reviewsSlides.findIndex(group => group.some(review => review === previousReview));
-                    if (newIndex >= 0) {
-                        reviewsCurrentSlide = newIndex;
-                        updateReviewsCarousel();
-                    }
+                
+                // Add new vote
+                if (voteType === 'up') {
+                    voteData.upvotes += 1;
+                } else {
+                    voteData.downvotes += 1;
                 }
-                if (reviewsModalInitialized) {
-                    renderReviewsModal();
-                }
-            });
+                voteData.userVote = voteType;
+            }
+            
+            saveRestaurantVoteData(restaurantName, voteData);
+            updateRestaurantVoteDisplay(restaurantName, voteData);
+        }
 
-            reviewsListenersAttached = true;
+        function updateRestaurantVoteDisplay(restaurantName, voteData) {
+            const upButton = document.getElementById('restaurantUpvote');
+            const downButton = document.getElementById('restaurantDownvote');
+            const voteCount = document.getElementById('restaurantVoteCount');
+            
+            if (upButton && downButton && voteCount) {
+                // Update button states
+                upButton.classList.remove('voted-up', 'voted-down');
+                downButton.classList.remove('voted-up', 'voted-down');
+                
+                if (voteData.userVote === 'up') {
+                    upButton.classList.add('voted-up');
+                } else if (voteData.userVote === 'down') {
+                    downButton.classList.add('voted-down');
+                }
+                
+                // Calculate net score (upvotes - downvotes)
+                const netScore = voteData.upvotes - voteData.downvotes;
+                voteCount.textContent = netScore;
+                
+                // Update count color based on positive/negative
+                voteCount.classList.remove('positive', 'negative');
+                if (netScore > 0) {
+                    voteCount.classList.add('positive');
+                } else if (netScore < 0) {
+                    voteCount.classList.add('negative');
+                }
+            }
+        }
+
+        function initializeRestaurantVoting(restaurantName) {
+            const voteData = getRestaurantVoteData(restaurantName);
+            updateRestaurantVoteDisplay(restaurantName, voteData);
+            
+            const upButton = document.getElementById('restaurantUpvote');
+            const downButton = document.getElementById('restaurantDownvote');
+            
+            if (upButton) {
+                upButton.addEventListener('click', () => handleRestaurantVote(restaurantName, 'up'));
+            }
+            if (downButton) {
+                downButton.addEventListener('click', () => handleRestaurantVote(restaurantName, 'down'));
+            }
+        }
+
+        function createFeaturedReviewCard(review) {
+            const card = document.createElement('div');
+            card.className = 'featured-review-card';
+            card.innerHTML = `<p class="featured-review-text">${review.text}</p>`;
+            return card;
+        }
+
+
+        function renderFeaturedReviews(reviews) {
+            const container = document.getElementById('featuredReviewsContainer');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            reviews.forEach((review) => {
+                const card = createFeaturedReviewCard(review);
+                container.appendChild(card);
+            });
         }
 
         // Generate reviews based on restaurant
         function generateReviews(restaurantName, restaurantRating) {
             reviewsData = buildSampleReviews(restaurantName, restaurantRating);
-            reviewsDomInitialized = false;
-            if (reviewsAutoTimer) {
-                clearInterval(reviewsAutoTimer);
-                reviewsAutoTimer = null;
-            }
-
-            renderReviewsCarousel(reviewsData);
-            setupReviewsInteractions();
-            const modal = document.getElementById('reviewsModal');
-            if (modal && modal.style.display === 'flex') {
-                renderReviewsModal();
-            } else {
-                reviewsModalInitialized = false;
-                reviewsModalCurrentPage = 0;
-            }
+            renderFeaturedReviews(reviewsData);
+            initializeRestaurantVoting(restaurantName);
         }
 
         // Load data when page loads
