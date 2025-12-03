@@ -999,7 +999,7 @@
                     </div>
                 </div>
                     
-                <div class="restaurant-item" onclick="openRestaurant('Northern Waters Smokehaus', 4, '4.8', '1,234', '$$', 'Smokehouse • Local', 'Local favorite specializing in smoked fish and sandwiches. Known for Lake Superior whitefish and artisanal smoked meats.', 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop')">
+                <div class="restaurant-item" onclick="openRestaurant('Northern Waters Smokehaus', 4, '4.8', '1,234', '$$', 'Smokehouse • Local', 'Local favorite specializing in smoked fish and sandwiches. Known for Lake Superior whitefish and artisanal smoked meats.', 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop', '394 Lake Ave S Ste LL1 Duluth, MN 55802')">
                     <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop" alt="Northern Waters Smokehaus" loading="lazy" class="restaurant-image">
                     <div class="restaurant-info">
                         <div class="restaurant-header">
@@ -1019,7 +1019,7 @@
                     </div>
                 </div>
                     
-                <div class="restaurant-item" onclick="openRestaurant('Fitger\'s Brewhouse', 5, '4.5', '3,456', '$$', 'Brewery • American', 'Historic brewery in a beautifully restored building with craft beers, fine dining, and Lake Superior views. Perfect for special occasions.', 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop')">
+                <div class="restaurant-item" onclick="openRestaurant('Fitger\'s Brewhouse Brewery &amp; Grille', 5, '4.5', '3,456', '$$', 'Brewery • American', 'Historic brewery in a beautifully restored building with craft beers, fine dining, and Lake Superior views. Perfect for special occasions.', 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop', '600 E Superior St, Duluth, MN 55802')">
                     <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop" alt="Fitger's Brewhouse" loading="lazy" class="restaurant-image">
                     <div class="restaurant-info">
                         <div class="restaurant-header">
@@ -1039,7 +1039,7 @@
                     </div>
                 </div>
                     
-                <div class="restaurant-item" onclick="openRestaurant('OMC Smokehouse', 6, '4.7', '1,890', '$$', 'BBQ • Smokehouse', 'Authentic barbecue smokehouse featuring slow-smoked meats, traditional sides, and craft cocktails. Great for meat lovers and BBQ enthusiasts.', 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop')">
+                <div class="restaurant-item" onclick="openRestaurant('OMC Smokehouse', 6, '4.7', '1,890', '$$', 'BBQ • Smokehouse', 'Authentic barbecue smokehouse featuring slow-smoked meats, traditional sides, and craft cocktails. Great for meat lovers and BBQ enthusiasts.', 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop', '1909 W Superior St Duluth, MN 55806')">
                     <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop" alt="OMC Smokehouse" loading="lazy" class="restaurant-image">
                     <div class="restaurant-info">
                         <div class="restaurant-header">
@@ -1064,7 +1064,7 @@
 
     <script>
         // Function to open restaurant page
-        function openRestaurant(name, number, rating, reviews, price, cuisine, description, image) {
+        function openRestaurant(name, number, rating, reviews, price, cuisine, description, image, address) {
             console.log('Opening restaurant:', name);
             
             // Pass restaurant data via URL parameters
@@ -1078,6 +1078,10 @@
                 description: description,
                 image: image
             });
+            
+            if (address) {
+                params.set('address', address);
+            }
             
             console.log('Navigating to:', `restaurant-template.html?${params.toString()}`);
             window.open(`restaurant-template.html?${params.toString()}`, '_blank');

@@ -1,0 +1,107 @@
+. 310-pub
+  2. 7-west-tap-house
+  3. 7-west-tap-house-miller-hill
+  4. a-dubs
+  5. alto-pino
+  6. at-saras-table-chester-creek-cafe
+  7. aztecas-mexican-grill
+  8. bali-asian-cuisine
+  9. bellisios-italian-restaurant-wine-bar
+ 10. big-daddys-burgers
+ 11. black-woods-grill-bar
+ 12. boat-club-restaurant-bar
+ 13. boomtown-woodfire-bar-grill
+ 14. bridgemans
+ 15. bridgemans
+ 16. bulldog-pizza-grill
+ 17. burnett-dairy
+ 18. burrito-union
+ 19. caddy-shack-indoor-golf-pub
+ 20. canal-park-brewing-company
+ 21. cantonese-house
+ 22. carmodys-irish-pub
+ 23. cast-iron-bar-grill
+ 24. chachos-taqueria
+ 25. chicken-n-whaaat
+ 26. china-king
+ 27. china-star
+ 28. cloud-9-sushi-hibachi
+ 29. clyde-iron-works-restaurant-bar
+ 30. coney-island-deluxe
+ 31. corktown-eatery-and-bar
+ 32. crooked-pint-ale-house
+ 33. dovetail-cafe
+ 34. dubh-linn-irish-brew-pub
+ 35. duluth-coffee-kitchen
+ 36. duluth-grill
+ 37. fitgers-brewhouse-brewery-grille
+ 38. gopher-bar-grill
+ 39. grand-view-grill-and-bar
+ 40. grandmas-saloon-grill-canal-park
+ 41. grandmas-saloon-grill-miller-hill
+ 42. great-harvest-bread-co
+ 43. hanabi-japanese-cuisine
+ 44. harbor-360
+ 45. howards-que
+ 46. hungry-hippie-tacos
+ 47. incline-station-bowling-banquet-facilities
+ 48. india-palace
+ 49. jade-fountain-cocktail-lounge
+ 50. juice-pharm
+ 51. kostas-gyros
+ 52. lake-avenue-restaurant-bar
+ 53. lake-effect-restaurant-bar
+ 54. lake-superior-brewing-co
+ 55. lakewalk-galley
+ 56. little-angies-cantina-grill
+ 57. lulus-pizza
+ 58. lyric-kitchen-bar
+ 59. margaritas-bar-grill
+ 60. mckenzies-bar-grill
+ 61. mexico-lindo
+ 62. mr-ds-bar-grill
+ 63. new-scenic-cafe
+ 64. northern-waters-smokehaus
+ 65. oasis-del-norte
+ 66. old-chicago-pizza-taproom
+ 67. omc-smokehouse
+ 68. oriental-house
+ 69. osaka-sushi-hibachi
+ 70. perk-place-coffeehouse
+ 71. perkins-restaurant-bakery
+ 72. pho-hoa
+ 73. phoholic-taste-of-vietnam-central-entrance
+ 74. phoholic-taste-of-vietnam-london-road
+ 75. pickwick-restaurant-pub
+ 76. pizza-luce
+ 77. restaurant-301
+ 78. ritual-salad
+ 79. silos-restaurant-bar
+ 80. sir-benedicts-tavern-on-the-lake
+ 81. skyline-social-games
+ 82. studio-cafe
+ 83. t-bonz-bar-grill
+ 84. tappa-keg-inn
+ 85. tavern-on-the-hill
+ 86. thai-by-thai
+ 87. the-breeze-inn
+ 88. the-fitgers-barrel-room
+ 89. the-greenery-cafe-bakery
+ 90. the-king-of-creams
+ 91. the-loch-cafe-games
+ 92. the-other-place-bar-grill
+ 93. the-social-house
+ 94. the-spot-sports-bar-grill
+ 95. toastys-sandwich-shop
+ 96. trophy-cafe
+ 97. uncle-louis-cafe
+ 98. va-bene
+ 99. vitta-pizza-canal-park
+100. vitta-pizza-central-entrance
+101. wasabi-all-you-can-eat-superior
+102. wired-whiskers
+103. wussows-concert-cafe
+104. zeitgeist-arts-cafe
+105. zen-house-japanese-restaurant
+106. zhong-hua
+

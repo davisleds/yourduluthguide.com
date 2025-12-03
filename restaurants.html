@@ -547,10 +547,7 @@
             }
             
             .map-container {
-                width: 100%;
-                min-width: 100%;
-                height: 400px;
-                position: relative;
+                display: none;
             }
             
             .restaurant-card {
@@ -696,6 +693,9 @@
         var markers = [];
         var googleMarkers = [];
         
+        // Track if user has manually interacted with the map (zoomed or panned)
+        var mapUserInteracted = false;
+        
         if (window.__initMapPending && typeof initMap === 'function') {
             window.__initMapPending = false;
             initMap();
@@ -715,16 +715,240 @@
             'North Shore': { lat: 46.8167, lng: -92.0833 }
         };
         
-        // Get coordinates for a restaurant based on location
+        // Geocoding cache
+        var geocodeCache = {};
+        var geocodingInProgress = {};
+
+        // Hard-coded coordinate overrides for restaurants that geocode poorly
+        // Values are approximate but place the pin on the correct building.
+        var restaurantCoordinateOverrides = {
+            'Northern Waters Smokehaus': { lat: 46.7795, lng: -92.0936 }
+        };
+        
+        // Load geocode cache from localStorage
+        function loadGeocodeCache() {
+            try {
+                var cached = localStorage.getItem('restaurantGeocodeCache');
+                if (cached) {
+                    geocodeCache = JSON.parse(cached);
+                }
+            } catch (e) {
+                console.warn('Failed to load geocode cache:', e);
+            }
+        }
+        
+        // Save geocode cache to localStorage
+        function saveGeocodeCache() {
+            try {
+                localStorage.setItem('restaurantGeocodeCache', JSON.stringify(geocodeCache));
+            } catch (e) {
+                console.warn('Failed to save geocode cache:', e);
+            }
+        }
+        
+        // Geocode address using Google Geocoding API
+        function geocodeWithGoogle(address, callback) {
+            if (typeof google === 'undefined' || !google.maps || !google.maps.Geocoder) {
+                callback(null);
+                return;
+            }
+            
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: address }, function(results, status) {
+                if (status === 'OK' && results && results[0]) {
+                    var location = results[0].geometry.location;
+                    var coords = {
+                        lat: location.lat(),
+                        lng: location.lng()
+                    };
+                    console.log('Geocoded (Google):', address, '->', coords);
+                    callback(coords);
+                } else {
+                    console.warn('Google geocoding failed for:', address, 'Status:', status);
+                    callback(null);
+                }
+            });
+        }
+        
+        // Geocode address using Nominatim (OpenStreetMap) - free alternative
+        function geocodeWithNominatim(address, callback) {
+            var encodedAddress = encodeURIComponent(address);
+            var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodedAddress + '&limit=1&addressdetails=1';
+            
+            fetch(url, {
+                headers: {
+                    'User-Agent': 'YourDuluthGuide/1.0 (https://yourduluthguide.com)'
+                }
+            })
+            .then(function(response) {
+                if (!response.ok) throw new Error('Geocoding failed: ' + response.status);
+                return response.json();
+            })
+            .then(function(data) {
+                if (data && data.length > 0) {
+                    var coords = {
+                        lat: parseFloat(data[0].lat),
+                        lng: parseFloat(data[0].lon)
+                    };
+                    console.log('Geocoded (Nominatim):', address, '->', coords);
+                    callback(coords);
+                } else {
+                    console.warn('Nominatim geocoding returned no results for:', address);
+                    callback(null);
+                }
+            })
+            .catch(function(error) {
+                console.warn('Nominatim geocoding failed for:', address, 'Error:', error);
+                callback(null);
+            });
+        }
+        
+        // Normalize address for cache key (remove extra spaces, normalize case)
+        function normalizeAddress(address) {
+            return address.trim().replace(/\s+/g, ' ');
+        }
+        
+        // Geocode an address (tries Google first, then Nominatim)
+        function geocodeAddress(address, callback) {
+            var normalizedAddress = normalizeAddress(address);
+            
+            // Check cache first
+            if (geocodeCache[normalizedAddress]) {
+                callback(geocodeCache[normalizedAddress]);
+                return;
+            }
+            
+            // Check if already geocoding this address
+            if (geocodingInProgress[normalizedAddress]) {
+                geocodingInProgress[normalizedAddress].push(callback);
+                return;
+            }
+            
+            geocodingInProgress[normalizedAddress] = [callback];
+            
+            var callbacks = geocodingInProgress[normalizedAddress];
+            
+            // Try Google first
+            geocodeWithGoogle(address, function(coords) {
+                if (coords) {
+                    geocodeCache[normalizedAddress] = coords;
+                    saveGeocodeCache();
+                    delete geocodingInProgress[normalizedAddress];
+                    callbacks.forEach(function(cb) { cb(coords); });
+                } else {
+                    // Fallback to Nominatim
+                    geocodeWithNominatim(address, function(coords) {
+                        if (coords) {
+                            geocodeCache[normalizedAddress] = coords;
+                            saveGeocodeCache();
+                        }
+                        delete geocodingInProgress[normalizedAddress];
+                        callbacks.forEach(function(cb) { cb(coords); });
+                    });
+                }
+            });
+        }
+        
+        // Clear geocode cache (useful for debugging or if addresses change)
+        function clearGeocodeCache() {
+            geocodeCache = {};
+            try {
+                localStorage.removeItem('restaurantGeocodeCache');
+                console.log('Geocode cache cleared');
+            } catch (e) {
+                console.warn('Failed to clear geocode cache:', e);
+            }
+        }
+        
+        // Expose clear function for debugging (can call clearGeocodeCache() in console)
+        window.clearGeocodeCache = clearGeocodeCache;
+        
+        // Get coordinates for a restaurant based on address
         function getRestaurantCoordinates(restaurant) {
+            // 1) Use hard-coded overrides first if available
+            if (restaurant && restaurant.name && restaurantCoordinateOverrides[restaurant.name]) {
+                return restaurantCoordinateOverrides[restaurant.name];
+            }
+
+            // Use address if available
+            if (restaurant.address && restaurant.address.trim() && restaurant.address !== 'N/A') {
+                var address = restaurant.address.trim();
+                var normalizedAddress = normalizeAddress(address);
+                
+                // Check cache first (synchronous)
+                if (geocodeCache[normalizedAddress]) {
+                    return geocodeCache[normalizedAddress];
+                }
+                
+                // If not in cache, geocode it asynchronously and update map when done
+                geocodeAddress(address, function(coords) {
+                    if (coords && map) {
+                        // Small delay to ensure cache is saved
+                        setTimeout(function() {
+                            // Refresh map markers with new coordinates
+                            refreshMapMarkers();
+                        }, 100);
+                    }
+                });
+                
+                // Return fallback coordinates while geocoding
             var baseLocation = locationCoordinates[restaurant.location] || locationCoordinates['Downtown'];
-            // Add slight random offset to avoid markers overlapping exactly
-            var offset = (Math.random() - 0.5) * 0.01;
             return {
-                lat: baseLocation.lat + offset,
-                lng: baseLocation.lng + offset
+                    lat: baseLocation.lat,
+                    lng: baseLocation.lng
+                };
+            }
+            
+            // Fallback to location-based coordinates if no address
+            var baseLocation = locationCoordinates[restaurant.location] || locationCoordinates['Downtown'];
+            return {
+                lat: baseLocation.lat,
+                lng: baseLocation.lng
             };
         }
+        
+        // Pre-geocode all restaurant addresses in the background
+        function preGeocodeAllRestaurants() {
+            if (typeof allRestaurants === 'undefined') {
+                return;
+            }
+            
+            // Process restaurants with a delay to avoid overwhelming the geocoding service
+            var index = 0;
+            var delay = 1100; // 1.1 second delay between requests (respects Nominatim's 1 req/sec limit)
+            
+            function geocodeNext() {
+                if (index >= allRestaurants.length) {
+                    return;
+        }
+                
+                var restaurant = allRestaurants[index];
+                if (restaurant.address && restaurant.address.trim() && restaurant.address !== 'N/A') {
+                    var address = restaurant.address.trim();
+                    
+                    // Only geocode if not already in cache
+                    if (!geocodeCache[address]) {
+                        geocodeAddress(address, function(coords) {
+                            if (coords) {
+                                // Refresh map if it's already initialized
+                                if (map) {
+                                    refreshMapMarkers();
+                                }
+                            }
+                        });
+                    }
+                }
+                
+                index++;
+                setTimeout(geocodeNext, delay);
+            }
+            
+            // Start geocoding after a short delay
+            setTimeout(geocodeNext, 1000);
+        }
+        
+        // Initialize geocode cache on page load
+        loadGeocodeCache();
         
         // Sort restaurants by rating (highest first)
         function sortRestaurantsByRating(restaurants) {
@@ -807,6 +1031,9 @@
                 var popularDishesParam = restaurant.popularDishes ? '\'' + restaurant.popularDishes.join(',').replace(/'/g, "\\'") + '\'' : 'null';
                 var hoursParam = restaurant.hours ? '\'' + encodeURIComponent(JSON.stringify(restaurant.hours)).replace(/'/g, "\\'") + '\'' : 'null';
                 
+                // Use restaurant image directly (paths are already properly formatted)
+                var imagePath = restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop';
+                
                 return '<div class="restaurant-card" onclick="openRestaurant(\'' +
                     name.replace(/'/g, "\\'") + '\',' +
                     restaurantNumber + ',\'' +
@@ -815,7 +1042,7 @@
                     restaurant.price + '\',\'' +
                     cuisine.replace(/'/g, "\\'") + '\',\'' +
                     description.replace(/'/g, "\\'") + '\',\'' +
-                    restaurant.image + '\',\'' +
+                    restaurant.image.replace(/'/g, "\\'") + '\',\'' +
                     location.replace(/'/g, "\\'") + '\',' +
                     phoneParam + ',' +
                     websiteParam + ',' +
@@ -823,7 +1050,7 @@
                     reservationsParam + ',' +
                     popularDishesParam + ',' +
                     hoursParam + ')">' +
-                    '<img src="' + restaurant.image + '" alt="' + name + '" class="restaurant-card-image" loading="lazy">' +
+                    '<img src="' + imagePath + '" alt="' + name + '" class="restaurant-card-image" loading="lazy" onerror="console.error(\'Image failed to load:\', this.src); this.onerror=null; this.src=\'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop\';">' +
                     '<div class="restaurant-card-body">' +
                     '<h3 class="restaurant-card-name"><span class="restaurant-card-number">' + restaurantNumber + '.</span>' + name + '</h3>' +
                     '<div class="restaurant-card-meta">' +
@@ -1436,6 +1663,14 @@
                     position: google.maps.ControlPosition.RIGHT_CENTER
                 }
             });
+            
+            // Track user interaction (zoom and pan)
+            google.maps.event.addListener(map, 'zoom_changed', function() {
+                mapUserInteracted = true;
+            });
+            google.maps.event.addListener(map, 'dragend', function() {
+                mapUserInteracted = true;
+            });
         }
         
         // Initialize Leaflet map with Google Maps-like styling (fallback)
@@ -1461,6 +1696,14 @@
                     map.invalidateSize();
                 }
             }, 200);
+            
+            // Track user interaction (zoom and pan)
+            map.on('zoomend', function() {
+                mapUserInteracted = true;
+            });
+            map.on('dragend', function() {
+                mapUserInteracted = true;
+            });
         }
         
         // Update map with restaurant locations
@@ -1554,6 +1797,10 @@
                     title: restaurant.name
                 });
                 
+                var addressDisplay = restaurant.address && restaurant.address !== 'N/A' 
+                    ? restaurant.address 
+                    : restaurant.location;
+                
                 var infoWindow = new google.maps.InfoWindow({
                     content: '<div style="min-width: 200px; padding: 4px;">' +
                         '<strong style="font-size: 1.1rem; color: #1e3a5f; display: block; margin-bottom: 6px;">' + 
@@ -1562,7 +1809,7 @@
                         '<span style="color: #f97316; font-weight: 600;">' + restaurant.rating + ' ⭐</span> (' + restaurant.reviews + ' reviews)' +
                         '</div>' +
                         '<div style="color: #64748b; font-size: 0.85rem;">' +
-                        '📍 ' + restaurant.location + ' • ' + restaurant.price +
+                        '📍 ' + addressDisplay + ' • ' + restaurant.price +
                         '</div>' +
                         '</div>'
                 });
@@ -1575,12 +1822,15 @@
             });
             
             if (googleMarkers.length > 0) {
+                // Only auto-zoom if user hasn't manually interacted with the map
+                if (!mapUserInteracted) {
                 map.fitBounds(bounds, { padding: 40 });
                 google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
                     if (map.getZoom() > 15) {
                         map.setZoom(15);
                     }
                 });
+                }
             }
         }
         
@@ -1638,6 +1888,10 @@
                     iconAnchor: [19, 46]
                 });
                 
+                var addressDisplay = restaurant.address && restaurant.address !== 'N/A' 
+                    ? restaurant.address 
+                    : restaurant.location;
+                
                 var marker = L.marker([coords.lat, coords.lng], { icon: customIcon })
                     .addTo(map)
                     .bindPopup(
@@ -1647,7 +1901,7 @@
                         '<span style="color: #f97316; font-weight: 600;">' + restaurant.rating + ' ⭐</span> (' + restaurant.reviews + ' reviews)' +
                         '</div>' +
                         '<div style="color: #64748b; font-size: 0.85rem;">' +
-                        '📍 ' + restaurant.location + ' • ' + restaurant.price +
+                        '📍 ' + addressDisplay + ' • ' + restaurant.price +
                         '</div>' +
                         '</div>'
                     );
@@ -1656,7 +1910,10 @@
             });
             
             if (bounds.length > 0) {
+                // Only auto-zoom if user hasn't manually interacted with the map
+                if (!mapUserInteracted) {
                 map.fitBounds(bounds, { padding: [40, 40] });
+                }
             }
         }
         
@@ -1709,6 +1966,9 @@
                 setTimeout(initRestaurantsPage, 100);
                 return;
             }
+            
+            // Start pre-geocoding all addresses in the background
+            preGeocodeAllRestaurants();
             
             // Initialize map
             initMap();

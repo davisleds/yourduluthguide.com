@@ -1,9 +1,7 @@
 // All Duluth Restaurants Data
 const allRestaurants = [
     { name: "310 Pub", cuisine: "Sports Bar • Burgers • American", price: "$$", rating: "4.2", reviews: "567", description: "310 Pub is a casual neighborhood bar in Duluth known for its laid-back vibe, classic pub fare, and wide selection of drinks.", location: "Canal Park", phone: "(218) 464-4681", website: "https://310pub.com/", address: "310 S Lake Ave Duluth, MN 55802", reservations: "none", popularDishes: ["Boneless Chicken Wings", "Bacon Burger", "Meat Lovers Pizza"], hours: { "Monday": "3:00 PM - 2:00 AM", "Tuesday": "3:00 PM - 2:00 AM", "Wednesday": "3:00 PM - 2:00 AM", "Thursday": "11:00 AM - 2:00 AM", "Friday": "11:00 AM - 2:00 AM", "Saturday": "11:00 AM - 2:00 AM", "Sunday": "11:00 AM - 2:00 AM" } },
-    { name: "7 West Tap House", cuisine: "American • Bar • Burgers", price: "$", rating: "4.3", reviews: "892", description: "7 West Tap House serves craft beer, burgers, and bar snacks in a casual, lively downtown atmosphere.", location: "Downtown Duluth", phone: "(218) 727-2494", website: "https://7westtaphouse.com/", address: "7 W Superior St, Duluth, MN 55802", reservations: "none", popularDishes: ["Burgers", "Pretzels", "Beer Flights"], hours: { "Monday": "11:00 AM - 2:00 AM", "Tuesday": "11:00 AM - 2:00 AM", "Wednesday": "11:00 AM - 2:00 AM", "Thursday": "11:00 AM - 2:00 AM", "Friday": "11:00 AM - 2:00 AM", "Saturday": "11:00 AM - 2:00 AM", "Sunday": "11:00 AM - 2:00 AM" } },
     { name: "7 West Tap House(Miller Hill)", cuisine: "Burgers • Tacos • Bar", price: "$$", rating: "4.3", reviews: "756", description: "7 West Tap House is award-winning for its Burgers, a huge rotating craft beer selection 40+, and generous, comfort-style fare in a friendly, beer-lover's pub environment.", location: "Duluth Heights", phone: "(218) 464-1879", website: "https://7westtaphouse.com/", address: "2510 Maple Grove Rd Duluth, MN 55811", reservations: "none", popularDishes: ["Taphouse Burger", "Avocado Chicken Tacos", "Sugar Daddy"], hours: { "Monday": "11:00 AM - 9:00 PM", "Tuesday": "11:00 AM - 9:00 PM", "Wednesday": "11:00 AM - 9:00 PM", "Thursday": "11:00 AM - 9:00 PM", "Friday": "11:00 AM - 10:00 PM", "Saturday": "11:00 AM - 10:00 PM", "Sunday": "11:00 AM - 9:00 PM" } },
-    { name: "A & Dubs", cuisine: "Drive-in • Burgers • American", price: "$", rating: "4.1", reviews: "423", description: "A & Dubs is a classic seasonal drive-in known for its char-grilled burgers, signature root beer, and nostalgic curbside service.", location: "Lincoln Park", phone: "(218) 624-0198", website: "None", address: "3131 W 3rd St, Duluth, MN 55806", reservations: "none", popularDishes: ["Char Cheeseburger Basket", "Coney with Cheese", "Onion Rings"], hours: { "Monday": "Seasonal (Mother's Day–mid-Fall)", "Tuesday": "Seasonal (Mother's Day–mid-Fall)", "Wednesday": "Seasonal (Mother's Day–mid-Fall)", "Thursday": "Seasonal (Mother's Day–mid-Fall)", "Friday": "Seasonal (Mother's Day–mid-Fall)", "Saturday": "Seasonal (Mother's Day–mid-Fall)", "Sunday": "Seasonal (Mother's Day–mid-Fall)" } },
     { name: "Alto Pino", cuisine: "Mediterranean • Upscale • Cocktail bar", price: "$$$", rating: "4.6", reviews: "2,618", description: "Alto Pino is a Mediterranean-inspired restaurant in downtown Duluth offering seasonally driven shared dishes with flavors from across the Mediterranean.", location: "Downtown", phone: "(218) 464-1380", website: "https://www.altopinoduluth.com/", address: "7 W Superior St, Duluth, MN 55802", reservations: "Required", popularDishes: ["Eggplant Dolmas", "Lamb Ragu", "Squash Hummus"], hours: { "Monday": "Closed", "Tuesday": "Closed", "Wednesday": "5:00 PM - 9:00 PM", "Thursday": "5:00 PM - 9:00 PM", "Friday": "5:00 PM - 10:00 PM", "Saturday": "5:00 PM - 10:00 PM", "Sunday": "5:00 PM - 9:00 PM" } },
     { name: "At Sara's Table Chester Creek Cafe", cuisine: "Farm-to-Table • Brunch • American", price: "$$", rating: "4.5", reviews: "1,567", description: "At Sara's Table Chester Creek Cafe is a cozy, community-focused restaurant in Duluth that emphasizes sustainably sourced, handcrafted dishes made with local ingredients.", location: "Chester Park", phone: "(218) 724-6811", website: "https://www.astccc.net/", address: "1902 E 8th St, Duluth, MN 55812", reservations: "none", popularDishes: ["Cranberry Wild Rice French Toast", "Hippie Farm Breakfast", "Bison & Wild Rice Polenta"], hours: { "Monday": "8:00 AM - 9:00 PM", "Tuesday": "8:00 AM - 9:00 PM", "Wednesday": "8:00 AM - 9:00 PM", "Thursday": "8:00 AM - 9:00 PM", "Friday": "8:00 AM - 9:00 PM", "Saturday": "8:00 AM - 9:00 PM", "Sunday": "8:00 AM - 3:00 PM" } },
     { name: "Azteca's Mexican Grill", cuisine: "Mexican • Tequila Bar • Latin American", price: "$$", rating: "4.2", reviews: "1,234", description: "Azteca's Mexican Grill in Duluth is a lively spot with a large menu of authentic Mexican fare, a wide tequila selection, and upbeat atmosphere that makes every meal feel like a fiesta.", location: "Miller Hill", phone: "(218) 722-1038", website: "https://aztecasmexicangrillmn.com/", address: "2224 Mountain Shadow Dr, Duluth, MN 55811", reservations: "none", popularDishes: ["Fajita Trio", "Carne Asada y Mas", "Chimichanga"], hours: { "Monday": "11:00 AM - 9:00 PM", "Tuesday": "11:00 AM - 9:00 PM", "Wednesday": "11:00 AM - 9:00 PM", "Thursday": "11:00 AM - 9:00 PM", "Friday": "11:00 AM - 9:00 PM", "Saturday": "11:00 AM - 9:00 PM", "Sunday": "11:00 AM - 8:00 PM" } },
@@ -36,7 +34,7 @@ const allRestaurants = [
     { name: "Chicken n' Whaaat?!", cuisine: "Fried Chicken • Fast Casual • American", price: "$", rating: "4.2", reviews: "1,123", description: "Chicken n' Whaaat?! is a fast-casual restaurant in Duluth specializing in hand-breaded fried chicken sandwiches and tenders, cooked in beef tallow for flavor.", location: "West Duluth", phone: "(218) 206-6684", website: "https://chickenandwhat.com/", address: "231 N Central Ave, Duluth, MN 55807", reservations: "none", popularDishes: ["Cluckin' Dill‑icious Sammie", "Nashville Hot Tenders", "Whaaat Sauce Fries"], hours: { "Monday": "11:00 AM - 9:00 PM", "Tuesday": "11:00 AM - 9:00 PM", "Wednesday": "11:00 AM - 9:00 PM", "Thursday": "11:00 AM - 9:00 PM", "Friday": "11:00 AM - 9:00 PM", "Saturday": "11:00 AM - 9:00 PM", "Sunday": "11:00 AM - 9:00 PM" } },
     { name: "Duluth Coffee Kitchen", cuisine: "Café • Brunch • Farm‑to‑Table", price: "$$", rating: "4.4", reviews: "1,234", description: "Duluth Coffee Kitchen is a brunch‑focused restaurant next to Duluth Coffee Company, serving farm-sourced food, specialty coffee, and a full bar in a cozy downtown setting.", location: "Downtown", phone: "(218) 221‑6643", website: "https://duluthcoffeecompany.com", address: "107 E Superior St, Duluth, MN 55802", reservations: "none", popularDishes: ["Biscuits & Gravy", "Harvest Hash", "Bahn Mi Sandwich"], hours: { "Monday": "8:00 AM - 3:00 PM", "Tuesday": "8:00 AM - 3:00 PM", "Wednesday": "8:00 AM - 3:00 PM", "Thursday": "8:00 AM - 3:00 PM", "Friday": "8:00 AM - 3:00 PM", "Saturday": "8:00 AM - 3:00 PM", "Sunday": "8:00 AM - 3:00 PM" } },
     { name: "Duluth Grill", cuisine: "Brunch • Café • American", price: "$$", rating: "4.6", reviews: "6,624", description: "Duluth Grill is a cozy, locally focused brunch spot in Duluth that serves scratch-made dishes using seasonal, locally sourced ingredients.", location: "Lincoln Park", phone: "(218) 726-1150", website: "https://duluthgrill.com", address: "118 S 27th Ave W, Duluth, MN 55806", reservations: "Recommended", popularDishes: ["Pot Roast", "Banana Cream Pie", "Smoked Salmon Omelet"], hours: { "Monday": "8:00 AM - 3:00 PM", "Tuesday": "8:00 AM - 3:00 PM", "Wednesday": "8:00 AM - 3:00 PM", "Thursday": "8:00 AM - 3:00 PM", "Friday": "8:00 AM - 3:00 PM", "Saturday": "8:00 AM - 3:00 PM", "Sunday": "8:00 AM - 3:00 PM" } },
-    { name: "Fitger's Brewhouse Brewery & Grille", cuisine: "Brewpub • American • Bar", price: "$$", rating: "4.5", reviews: "3,456", description: "Pub-style restaurant and brewery in the historic Fitger's Brewery complex, serving handcrafted ales, lagers, and pub food like the famous Wild Rice Burger.", location: "Downtown / Fitger's Complex", phone: "(218) 279-2739", website: "https://fitgersbrewhouse.com/", address: "600 E Superior St, Duluth, MN 55802", reservations: "Recommended", popularDishes: ["Wild Rice Burger", "Poutine", "Fish Tacos"], hours: { "Monday": "11:00 AM - 11:00 PM", "Tuesday": "11:00 AM - 11:00 PM", "Wednesday": "11:00 AM - 11:00 PM", "Thursday": "11:00 AM - 11:00 PM", "Friday": "11:00 AM - 12:00 AM", "Saturday": "11:00 AM - 12:00 AM", "Sunday": "11:00 AM - 11:00 PM" } },
+    { name: "Fitger's Brewhouse Brewery & Grille", cuisine: "Brewpub • American • Bar", price: "$$", rating: "4.5", reviews: "3,456", description: "Pub-style restaurant and brewery in the historic Fitger's Brewery complex, serving handcrafted ales, lagers, and pub food like the famous Wild Rice Burger.", location: "Downtown", phone: "(218) 279-2739", website: "https://fitgersbrewhouse.com/", address: "600 E Superior St, Duluth, MN 55802", reservations: "Recommended", popularDishes: ["Wild Rice Burger", "Poutine", "Fish Tacos"], hours: { "Monday": "11:00 AM - 11:00 PM", "Tuesday": "11:00 AM - 11:00 PM", "Wednesday": "11:00 AM - 11:00 PM", "Thursday": "11:00 AM - 11:00 PM", "Friday": "11:00 AM - 12:00 AM", "Saturday": "11:00 AM - 12:00 AM", "Sunday": "11:00 AM - 11:00 PM" } },
     { name: "Harbor 360", cuisine: "American • Burger • Bar", price: "$", rating: "4.3", reviews: "1,234", description: "A rotating restaurant atop the Radisson Hotel with panoramic views of Duluth's harbor, offering fast-casual fare, board games, and a full bar.", location: "Downtown", phone: "(218) 722‑8439", website: "harbor360duluth.com", address: "505 W Superior St, Duluth, MN 55802", reservations: "none", popularDishes: ["Black Bean Burger with Fried Egg", "Spicy Chicken Sandwich", "Lake Superior Whitefish"], hours: { "Monday": "7:00 AM - 10:00 PM", "Tuesday": "7:00 AM - 10:00 PM", "Wednesday": "7:00 AM - 10:00 PM", "Thursday": "7:00 AM - 10:00 PM", "Friday": "7:00 AM - 12:00 AM", "Saturday": "7:00 AM - 12:00 AM", "Sunday": "7:00 AM - 8:30 PM" } },
     { name: "Howard's Que", cuisine: "Barbecue • Soul Food • Southern", price: "$$", rating: "4.4", reviews: "1,567", description: "A down‑home BBQ joint in Duluth's Lincoln Park serving slow‑smoked ribs, pulled pork, jerk chicken, and classic southern sides.", location: "Lincoln Park", phone: "(218) 310‑5618", website: "Facebook / Howard's Que", address: "1931 W Michigan St, Duluth, MN 55806", reservations: "none", popularDishes: ["Pulled Pork Sandwich", "Rib Dinner", "Jerk Chicken Sandwich"], hours: { "Monday": "Closed", "Tuesday": "Closed", "Wednesday": "10:30 AM - 2:00 PM", "Thursday": "10:30 AM - 2:00 PM", "Friday": "10:30 AM - 9:00 PM", "Saturday": "4:00 PM - 9:00 PM", "Sunday": "Closed" } },
     { name: "Hungry Hippie Tacos", cuisine: "Tacos • Mexican • Casual", price: "$$", rating: "4.3", reviews: "987", description: "An approachable taco shop in Duluth's Lincoln Park craft district serving up \"Northern tacos\" on fry‑bread, house‑smoked meats, and made‑from‑scratch sides.", location: "Lincoln Park", phone: "(218) 216‑6030", website: "hungryhippietacos.com", address: "1810 W Superior St, Duluth, MN 55806", reservations: "none", popularDishes: ["Northern Frybread Tacos", "Nashville Hot Cheese Curds", "Chimichanga"], hours: { "Monday": "11:00 AM - 8:00 PM", "Tuesday": "11:00 AM - 8:00 PM", "Wednesday": "11:00 AM - 8:00 PM", "Thursday": "11:00 AM - 8:00 PM", "Friday": "11:00 AM - 8:00 PM", "Saturday": "11:00 AM - 8:00 PM", "Sunday": "11:00 AM - 8:00 PM" } },
@@ -108,9 +106,735 @@ const allRestaurants = [
     { name: "Zhong Hua", cuisine: "Chinese • Asian", price: "$$", rating: "4.2", reviews: "1,234", description: "Casual Chinese restaurant serving traditional dishes, combos, and lunch specials.", location: "Duluth, MN", phone: "(218) ?", website: "N/A", address: "—", reservations: "none", popularDishes: ["General Tso's", "Fried Rice", "Egg Rolls"], hours: { "Monday": "Hours vary", "Tuesday": "Hours vary", "Wednesday": "Hours vary", "Thursday": "Hours vary", "Friday": "Hours vary", "Saturday": "Hours vary", "Sunday": "Hours vary" } }
 ];
 
+// Helper function to convert restaurant name to slug format (matching folder structure)
+function nameToSlug(name) {
+    // Extract location from parentheses if present
+    let location = "";
+    let cleanName = name;
+    
+    if (name.includes("(Miller Hill)")) {
+        location = "-miller-hill";
+        cleanName = name.replace(/\s*\(Miller Hill\)\s*/g, "");
+    } else if (name.includes("(Canal Park)")) {
+        location = "-canal-park";
+        cleanName = name.replace(/\s*\(Canal Park\)\s*/g, "");
+    } else if (name.includes("(Central Entrance)")) {
+        location = "-central-entrance";
+        cleanName = name.replace(/\s*\(Central Entrance\)\s*/g, "");
+    } else if (name.includes("(London Road)")) {
+        location = "-london-road";
+        cleanName = name.replace(/\s*\(London Road\)\s*/g, "");
+    }
+    
+    // Convert to lowercase
+    let slug = cleanName.toLowerCase();
+    
+    // Replace special characters with ASCII equivalents
+    slug = slug.replace(/é/g, 'e').replace(/è/g, 'e').replace(/ê/g, 'e').replace(/ë/g, 'e');
+    
+    // Remove special characters (keep only letters, numbers, spaces, hyphens)
+    slug = slug.replace(/[^a-z0-9 -]/g, '');
+    
+    // Replace spaces with hyphens
+    slug = slug.replace(/\s+/g, '-');
+    
+    // Remove multiple consecutive hyphens
+    slug = slug.replace(/-+/g, '-');
+    
+    // Remove leading/trailing hyphens
+    slug = slug.replace(/^-|-$/g, '');
+    
+    // Add location suffix if needed
+    return slug + location;
+}
+
+// Mapping of restaurant names to their photo information in the "Restaurant Photos" folder
+// Format: "Restaurant Name": { folderNumber: 64, filename: "photo-filename.jpg" }
+const restaurantPhotos = {
+    "Duluth Grill": {
+        folderNumber: 36,
+        filename: "Screenshot 2025-12-02 at 7.10.32\u202FAM.png",
+        allPhotos: [
+            "584424347_18491885107072492_1305928869302613271_nfull.webp",
+            "Screenshot 2025-12-02 at 7.08.53\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.08.57\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.09.12\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.09.32\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.10.04\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.10.32\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.11.31\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.11.55\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.12.12\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.13.57\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.14.28\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.15.10\u202FAM.png"
+        ]
+    },
+    "7 West Tap House(Miller Hill)": {
+        folderNumber: 3,
+        filename: "10584697_566123240193188_1982755173_n.jpg",
+        allPhotos: [
+            "10584697_566123240193188_1982755173_n.jpg",
+            "10953154_1413553268953932_2074637807_n.jpg",
+            "11226778_452788438232765_1695316346_n.jpg",
+            "23098958_638066629915410_3452931978297344000_n.jpg",
+            "23280007_1975892059301401_8429530744749031424_n.jpg",
+            "download.jpg"
+        ]
+    },
+    "Alto Pino": {
+        folderNumber: 5,
+        filename: "Screenshot 2025-12-02 at 7.19.08\u202FAM.png",
+        allPhotos: [
+            "Screenshot 2025-12-02 at 7.17.08\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.17.15\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.17.31\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.18.19\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.18.27\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.18.46\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.18.58\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.19.08\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.19.27\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.19.33\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.19.52\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.20.13\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.20.56\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.21.09\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.21.30\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.22.01\u202FAM.png"
+        ]
+    },
+    "Va Bene": {
+        folderNumber: 98,
+        filename: "Screenshot 2025-12-02 at 7.26.11\u202FAM.png",
+        allPhotos: [
+            "Screenshot 2025-12-02 at 7.25.25\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.25.52\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.25.59\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.26.11\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.26.27\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.26.57\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.27.23\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.27.39\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.27.53\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.28.39\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.29.40\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.30.13\u202FAM.png",
+            "enclosed_solarium_duluth_lake_views_italian_restaurant-290x160.jpg"
+        ]
+    },
+    "Northern Waters Smokehaus": {
+        folderNumber: 64,
+        filename: "Storefront+Patio+06-2024.webp",
+        allPhotos: [
+            "Storefront+Patio+06-2024.webp",
+            "Sandwich+Signs.webp",
+            "482707297_18486363781046676_5665944392773207498_n.jpg",
+            "482759316_18486363790046676_3586932510239256777_n.jpg",
+            "482810328_18486363760046676_4968769468087598003_n.jpg",
+            "482829391_18486363862046676_2071466819608436997_n.jpg",
+            "482845971_18486363799046676_1654427375083587832_n.jpg",
+            "482850865_18486363829046676_1653489072401057760_n.jpg",
+            "482879926_18486363859046676_2387815811757695479_n.jpg",
+            "482884321_18486363745046676_8890529902560048214_n.jpg",
+            "482952679_18486363820046676_1188578761616237520_n.jpg",
+            "483007759_18486363772046676_7491784328536596152_n.jpg",
+            "483083971_18486363841046676_8380515790956377680_n.jpg",
+            "483149356_18486363910046676_6120745070947309590_n.jpg",
+            "483161541_18486363871046676_6498393164930337717_n.jpg",
+            "483165461_18486363901046676_597191609838979606_n.jpg",
+            "483211467_18486363880046676_6958789782752508152_n.jpg",
+            "483234434_18486363889046676_6508564336636427039_n.jpg",
+            "483236306_18486363721046676_1770433575087502106_n.jpg"
+        ]
+    },
+    "Fitger's Brewhouse Brewery & Grille": {
+        folderNumber: 37,
+        filename: "Screenshot 2025-12-02 at 6.32.02\u202FPM.png",
+        allPhotos: [
+            "Screenshot 2025-12-02 at 6.32.02\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.32.16\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.32.24\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.32.36\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.32.59\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.33.28\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.33.39\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.35.00\u202FPM.png",
+            "SnapInsta.to_341950893_890968438640983_2798447449730338209_n.jpg",
+            "SnapInsta.to_347642345_243268098294591_3479674226272742245_n.png",
+            "SnapInsta.to_347788431_812839336940452_585392745251085561_n.png"
+        ]
+    },
+    "OMC Smokehouse": {
+        folderNumber: 67,
+        filename: "548527097_18413736886115424_2937642158121684275_n.jpg",
+        allPhotos: [
+            "426538139_18329729359115424_2713411797011606830_n.jpg",
+            "446863839_18347598394115424_1835753847993087306_n.jpg",
+            "449053835_18350421034115424_3762523172778136139_n.jpg",
+            "527590616_18408382537115424_3025418285146478095_n.jpg",
+            "541926371_18412813459115424_1853187376608108662_n.jpg",
+            "548527097_18413736886115424_2937642158121684275_n.jpg",
+            "551397947_18414586132115424_6430218361437892629_n.jpg",
+            "557411675_18416358373115424_8325910323420748189_n.jpg",
+            "565412828_18418556941115424_4885530204796069978_n.jpg",
+            "571513747_18422085478115424_3781392602728072716_n.jpg",
+            "572536367_18423403270115424_272561758650584307_n.jpg",
+            "573377182_18422543857115424_9099481153509206770_n.jpg",
+            "582854779_18425489215115424_280271548908638535_n.jpg",
+            "590421761_18426877603115424_7371288733064348174_n.jpg"
+        ]
+    },
+    "New Scenic Café": {
+        folderNumber: 63,
+        filename: "Screenshot 2025-12-02 at 6.14.43\u202FPM.png",
+        allPhotos: [
+            "Screenshot 2025-12-02 at 6.14.43\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.15.59\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.16.18\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.16.26\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.16.37\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.16.57\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.17.09\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.17.33\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.17.59\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.18.10\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.18.24\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.18.44\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.19.13\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.19.49\u202FPM.png"
+        ]
+    },
+    "Cloud 9 Sushi & Hibachi": {
+        folderNumber: 28,
+        filename: "Screenshot 2025-12-02 at 6.43.59\u202FPM.png",
+        allPhotos: [
+            "Screenshot 2025-12-02 at 6.41.26\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.41.45\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.42.32\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.42.54\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.43.06\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.43.29\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.43.44\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.43.59\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.44.09\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.44.31\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.44.52\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.45.46\u202FPM.png",
+            "download.jpg"
+        ]
+    },
+    "Clyde Iron Works Restaurant & Bar": {
+        folderNumber: 29,
+        filename: "499922042_1283906450410788_6063813335053097608_n.jpg",
+        allPhotos: [
+            "499922042_1283906450410788_6063813335053097608_n.jpg",
+            "532586774_1363905352410897_7100370096036391990_n.jpg",
+            "545598622_1386966976771401_4855829570594905320_n.jpg",
+            "576173208_1445276760940422_4066994143782177456_n.jpg",
+            "577233250_1445280607606704_6595977750101480446_n.jpg",
+            "581176931_1449265213874910_5692963381858024830_n.jpg",
+            "download.jpg"
+        ]
+    },
+    "Coney Island Deluxe": {
+        folderNumber: 30,
+        filename: "463618575_8548850801827039_5120183206792981031_n.jpg",
+        allPhotos: [
+            "463618575_8548850801827039_5120183206792981031_n.jpg",
+            "485952898_1184515190340621_733563651844107588_n.jpg",
+            "487850960_1195343782591095_6071488186560063180_n.jpg",
+            "488253167_1197365659055574_1624170572026414722_n.jpg",
+            "492157655_1214263397365800_5065857998766963223_n.jpg",
+            "545548271_1332904595501679_1310112226417405032_n.jpg"
+        ]
+    },
+    "Hanabi Japanese Cuisine": {
+        folderNumber: 43,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download-6.jpg",
+            "download-7.jpg",
+            "download-8.jpg",
+            "download-9.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images.jpg"
+        ]
+    },
+    "Zen House Japanese Restaurant": {
+        folderNumber: 105,
+        filename: "SnapInsta.to_18011581_1264497377004685_7997314673785438208_n.jpg",
+        allPhotos: [
+            "SnapInsta.to_18011581_1264497377004685_7997314673785438208_n.jpg",
+            "SnapInsta.to_18580345_1708652669441650_3625008335478063104_n.jpg",
+            "SnapInsta.to_18812231_313043879131781_5721898625940848640_n.jpg",
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download.jpg",
+            "images.jpg",
+            "w768.jpg"
+        ]
+    },
+    "At Sara's Table Chester Creek Cafe": {
+        folderNumber: 6,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images-2.jpg",
+            "images-3.jpg",
+            "images-4.jpg",
+            "images.jpg"
+        ]
+    },
+    "Azteca's Mexican Grill": {
+        folderNumber: 7,
+        filename: "461279064_18043789784003110_987818838625476223_n.jpg",
+        allPhotos: [
+            "461279064_18043789784003110_987818838625476223_n.jpg",
+            "461513830_3627417890904223_1886036993866173102_n.jpg",
+            "463823379_18045685799003110_1615715461975907106_n.jpg",
+            "464295770_18046185011003110_8821244250059317394_n.jpg",
+            "468666759_18049635317003110_5278565509566201356_n.jpg",
+            "469175373_18050367461003110_2842349115405329894_n.jpg",
+            "469197880_18050367497003110_5475738638452684764_n.jpg",
+            "download-1.jpg",
+            "download.jpg"
+        ]
+    },
+    "Bali Asian Cuisine": {
+        folderNumber: 8,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images-2.jpg",
+            "images-3.jpg",
+            "images.jpg"
+        ]
+    },
+    "Thai By Thai": {
+        folderNumber: 86,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download-6.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images-2.jpg",
+            "images-3.jpg",
+            "images.jpg"
+        ]
+    },
+    "Bellisio's Italian Restaurant & Wine Bar": {
+        folderNumber: 9,
+        filename: "524613050_1307933684668418_4180442537238943191_n.jpg",
+        allPhotos: [
+            "524613050_1307933684668418_4180442537238943191_n.jpg",
+            "530459054_1323616946433425_7209644138686736649_n.jpg",
+            "544559196_1346697667458686_7687564840518974788_n.jpg",
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download.jpg"
+        ]
+    },
+    "Big Daddy's Burgers": {
+        folderNumber: 10,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images-2.jpg",
+            "images-3.jpg",
+            "images.jpg"
+        ]
+    },
+    "Bridgeman's": {
+        folderNumber: 14,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download-6.jpg",
+            "download-7.jpg",
+            "download.jpg",
+            "images.jpg"
+        ]
+    },
+    "Black Woods Grill & Bar": {
+        folderNumber: 11,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download-6.jpg",
+            "download-7.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images-2.jpg",
+            "images.jpg"
+        ]
+    },
+    "Boat Club Restaurant & Bar": {
+        folderNumber: 12,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download-6.jpg",
+            "download-7.jpg",
+            "download.jpg",
+            "images.jpg"
+        ]
+    },
+    "BoomTown Woodfire Bar & Grill": {
+        folderNumber: 13,
+        filename: "522592672_835991405617102_8902602671071330722_n.jpg",
+        allPhotos: [
+            "522592672_835991405617102_8902602671071330722_n.jpg",
+            "525579209_844577171425192_5940623500307517664_n.jpg",
+            "527534288_847147114501531_7914626517948473027_n.jpg",
+            "545612201_875855641630678_2138054582248959175_n.jpg",
+            "550091714_884015734148002_479674444587700262_n.jpg",
+            "550993490_887295817153327_3378055347217280016_n.jpg",
+            "575752597_923222940227281_7951300829953504163_n.jpg",
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download.jpg",
+            "images.jpg"
+        ]
+    },
+    "Bulldog Pizza & Grill": {
+        folderNumber: 16,
+        filename: "481193185_9419691251402688_2046325751736930361_n.jpg",
+        allPhotos: [
+            "481193185_9419691251402688_2046325751736930361_n.jpg",
+            "481672104_1199545855508064_7459049411195585874_n.jpg",
+            "485589955_18493240663026885_5884988413079657771_n.jpg",
+            "517996710_18514219906026885_4094575702335605362_n.jpg",
+            "534727623_18521502118026885_5002900113726862742_n.jpg",
+            "568541690_18535149328026885_6223215375036289673_n.jpg",
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download.jpg",
+            "images.jpg"
+        ]
+    },
+    "Burnett Dairy": {
+        folderNumber: 17,
+        filename: "480300062_122210381138188440_2655585271796278200_n.jpg",
+        allPhotos: [
+            "480300062_122210381138188440_2655585271796278200_n.jpg",
+            "download-1.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images.jpg"
+        ]
+    },
+    "Burrito Union": {
+        folderNumber: 18,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images.jpg"
+        ]
+    },
+    "Caddy Shack Indoor Golf & Pub": {
+        folderNumber: 19,
+        filename: "484801260_1199105655551463_3485394684346758440_n.jpg",
+        allPhotos: [
+            "484801260_1199105655551463_3485394684346758440_n.jpg",
+            "484872418_1199105695551459_9210021947335596418_n.jpg",
+            "486638992_1210204177774944_5666248943333641273_n.jpg",
+            "487061428_1212659557529406_5184322936257715611_n.jpg",
+            "487375237_1212370214225007_7368302777412823227_n.jpg",
+            "_original.webp",
+            "download.jpg"
+        ]
+    },
+    "Canal Park Brewing Company": {
+        folderNumber: 20,
+        filename: "490267131_18076916869745414_7631916628626495833_n.jpg",
+        allPhotos: [
+            "490267131_18076916869745414_7631916628626495833_n.jpg",
+            "492009141_1158903046275770_449401236069366890_n.jpg",
+            "495121599_1158899906276084_1890891582557720776_n.jpg",
+            "496923893_1152092503623491_9140922795157843017_n.jpg",
+            "497462796_1152092416956833_8062893994920158619_n.jpg",
+            "498340339_1156918123140929_1345701558320686894_n.jpg",
+            "506613691_1176046127894795_4645818980289066879_n.jpg",
+            "540510374_1240533158112758_8303161159000019296_n.jpg",
+            "565924577_1287536640079076_1092014812244950044_n.jpg",
+            "download.jpg"
+        ]
+    },
+    "Restaurant 301": {
+        folderNumber: 77,
+        filename: "489529352_1086829090131852_5510052445319631002_n.jpg",
+        allPhotos: [
+            "489529352_1086829090131852_5510052445319631002_n.jpg",
+            "489957886_1086835003464594_8783767343512288006_n.jpg",
+            "490250863_1088387856642642_6892439247050358649_n.jpg",
+            "490295291_1087735523374542_6464792716682621350_n.jpg",
+            "490374421_1085777216903706_462420500960168004_n.jpg",
+            "490446186_1088387969975964_8606514991938537549_n.jpg",
+            "490699992_1088387966642631_628162160041415570_n.jpg",
+            "490703848_1088387639975997_7063003422736087103_n.jpg",
+            "download-1.jpg",
+            "download-2.jpg",
+            "download.jpg"
+        ]
+    },
+    "Wasabi All You Can Eat Superior": {
+        folderNumber: 101,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download-6.jpg",
+            "download.jpg",
+            "images.jpg"
+        ]
+    },
+    "Pizza Lucé": {
+        folderNumber: 76,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download-6.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images.jpg"
+        ]
+    },
+    "Howard's Que": {
+        folderNumber: 45,
+        filename: "download.jpg",
+        allPhotos: [
+            "download.jpg"
+        ]
+    },
+    "PhoHolic Taste of Vietnam (Central Entrance)": {
+        folderNumber: 73,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download-6.jpg",
+            "download.jpg",
+            "images.jpg"
+        ]
+    },
+    "Cantonese House": {
+        folderNumber: 21,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download.jpg"
+        ]
+    },
+    "Carmody's Irish Pub": {
+        folderNumber: 22,
+        filename: "30830232_591209094581551_8591404424297971712_n.jpg",
+        allPhotos: [
+            "30830232_591209094581551_8591404424297971712_n.jpg",
+            "31474826_2106784366028616_8414409019598307328_n.jpg",
+            "32035688_177877192874521_273429704101330944_n.jpg",
+            "download-1.jpg",
+            "download.jpg"
+        ]
+    },
+    "Cast Iron Bar & Grill": {
+        folderNumber: 23,
+        filename: "506468102_1331485582316469_6977577473484190427_n.jpg",
+        allPhotos: [
+            "506468102_1331485582316469_6977577473484190427_n.jpg",
+            "518365266_1359018089563218_7179712983705910583_n.jpg",
+            "558176214_1440530034745356_6636959319134387428_n.jpg",
+            "586917792_1483721040426255_2195761098504130219_n.jpg",
+            "587907038_1485604730237886_7812092606726867694_n.jpg",
+            "588558404_1487267573404935_1909006375493139373_n.jpg",
+            "590269607_1489179633213729_4502344158090555347_n.jpg",
+            "593976985_1493318929466466_142683337067164740_n.jpg",
+            "594551027_1494213112710381_6433386237261299086_n.jpg"
+        ]
+    },
+    "Chachos Taqueria": {
+        folderNumber: 24,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download.jpg",
+            "images.jpg"
+        ]
+    },
+    "Chicken n' Whaaat?!": {
+        folderNumber: 25,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download-4.jpg",
+            "download-5.jpg",
+            "download.jpg",
+            "images-1.jpg",
+            "images-2.jpg",
+            "images.jpg"
+        ]
+    },
+    "China King": {
+        folderNumber: 26,
+        filename: "102952936_3704190849607492_8259942867324222037_n.jpg",
+        allPhotos: [
+            "102952936_3704190849607492_8259942867324222037_n.jpg",
+            "103433197_3704191189607458_8637733934154980967_n.jpg",
+            "483487992_1048965993919494_2776539441827636621_n.jpg"
+        ]
+    },
+    "China Star": {
+        folderNumber: 27,
+        filename: "459024604_8092944934094273_2212592374492036102_n.jpg",
+        allPhotos: [
+            "459024604_8092944934094273_2212592374492036102_n.jpg",
+            "509082080_9971988942856520_1214106121203602761_n-1.jpg",
+            "download.jpg"
+        ]
+    },
+    "India Palace": {
+        folderNumber: 48,
+        filename: "469666402_600208912492234_6651961516572506619_n.jpg",
+        allPhotos: [
+            "469666402_600208912492234_6651961516572506619_n.jpg",
+            "469898556_602624208917371_8255430049225138385_n.jpg",
+            "download-1.jpg",
+            "download-2.jpg",
+            "download-3.jpg",
+            "download.jpg"
+        ]
+    }
+};
+
+// Helper function to encode a photo path for URL use
+function encodePhotoPath(folderNumber, slug, filename) {
+    // Build the path with literal spaces - browsers handle encoding automatically
+    // This works for both local file access and web servers
+    const fullPath = `Restaurant Photos/${folderNumber}. ${slug}/${filename}`;
+    // Return path with literal spaces - browser will encode as needed
+    return fullPath;
+}
+
+// Helper function to get photo path from "Restaurant Photos" folder
+function getRestaurantPhotoPath(restaurantName) {
+    // Safety check - ensure restaurantPhotos exists
+    if (typeof restaurantPhotos === 'undefined' || !restaurantPhotos) {
+        return null;
+    }
+    
+    // Check if restaurant has a specific photo mapped
+    if (restaurantPhotos[restaurantName]) {
+        const photoInfo = restaurantPhotos[restaurantName];
+        // Return null if filename is null (no photos available yet)
+        if (!photoInfo || !photoInfo.filename) {
+            return null;
+        }
+        const slug = nameToSlug(restaurantName);
+        const path = encodePhotoPath(photoInfo.folderNumber, slug, photoInfo.filename);
+        return path;
+    }
+    return null;
+}
+
+// Helper function to get all photos for a restaurant (for gallery and banner)
+function getRestaurantAllPhotos(restaurantName) {
+    if (restaurantPhotos[restaurantName] && restaurantPhotos[restaurantName].allPhotos) {
+        const photoInfo = restaurantPhotos[restaurantName];
+        const slug = nameToSlug(restaurantName);
+        // Return all photos with properly encoded paths
+        return photoInfo.allPhotos.map(filename => 
+            encodePhotoPath(photoInfo.folderNumber, slug, filename)
+        );
+    }
+    return null;
+}
+
+// Helper function to get banner photos (first 3 photos)
+function getRestaurantBannerPhotos(restaurantName) {
+    const allPhotos = getRestaurantAllPhotos(restaurantName);
+    if (allPhotos && allPhotos.length >= 3) {
+        return allPhotos.slice(0, 3);
+    }
+    return null;
+}
+
 // Helper function to generate image URL for a restaurant
-function getRestaurantImage(name) {
-    // Use a consistent image based on cuisine type
+function getRestaurantImage(restaurantName, cuisine) {
+    // First, check if restaurant has a photo in the "Restaurant Photos" folder
+    const photoPath = getRestaurantPhotoPath(restaurantName);
+    if (photoPath) {
+        return photoPath;
+    }
+    
+    // Fall back to cuisine-based images
     const cuisineImages = {
         'Italian': 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop',
         'Pizza': 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop',
@@ -135,8 +859,8 @@ function getRestaurantImage(name) {
     };
     
     // Find matching cuisine
-    for (const [cuisine, image] of Object.entries(cuisineImages)) {
-        if (name.includes(cuisine) || name.toLowerCase().includes(cuisine.toLowerCase())) {
+    for (const [cuisineType, image] of Object.entries(cuisineImages)) {
+        if (cuisine.includes(cuisineType) || cuisine.toLowerCase().includes(cuisineType.toLowerCase())) {
             return image;
         }
     }
@@ -147,7 +871,7 @@ function getRestaurantImage(name) {
 
 // Add images to all restaurants
 allRestaurants.forEach(restaurant => {
-    restaurant.image = getRestaurantImage(restaurant.cuisine);
+    restaurant.image = getRestaurantImage(restaurant.name, restaurant.cuisine);
     if (!restaurant.reviews) {
         restaurant.reviews = "1,000";
     }

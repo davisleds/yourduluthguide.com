@@ -386,6 +386,8 @@
             padding-bottom: 0.75rem;
             border-bottom: 2px solid #f0f0f0;
             text-align: center;
+            position: relative;
+            padding-right: 4rem;
         }
 
         .content-section p {
@@ -973,6 +975,154 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.2);
         }
 
+        /* Photo Lightbox Modal */
+        .photo-lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            z-index: 10000;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-lightbox.active {
+            display: flex;
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.95);
+        }
+
+        .photo-lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .photo-lightbox.active .photo-lightbox-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .photo-lightbox img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--color-navy);
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .photo-lightbox-close:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .photo-lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--color-navy);
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .photo-lightbox-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .photo-lightbox-prev {
+            left: -70px;
+        }
+
+        .photo-lightbox-next {
+            right: -70px;
+        }
+
+        .photo-lightbox-counter {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .photo-lightbox {
+                padding: 1rem;
+            }
+
+            .photo-lightbox-close {
+                top: 10px;
+                right: 10px;
+            }
+
+            .photo-lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .photo-lightbox-prev {
+                left: 10px;
+            }
+
+            .photo-lightbox-next {
+                right: 10px;
+            }
+
+            .photo-lightbox-counter {
+                bottom: 10px;
+            }
+        }
+
         /* Reviews Section */
         .reviews-section {
             width: 100%;
@@ -1015,8 +1165,14 @@
             gap: 0.1rem;
             width: fit-content;
             position: absolute;
-            top: 2.5rem;
-            right: 2rem;
+            top: 0;
+            right: 0;
+        }
+
+        @media (min-width: 769px) {
+            .restaurant-voting {
+                top: 6rem;
+            }
         }
 
         .featured-review-card {
@@ -1045,7 +1201,7 @@
             border-radius: 0;
             cursor: pointer;
             transition: all 0.2s ease;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--color-navy);
             padding: 0;
             width: 28px;
             height: 28px;
@@ -1053,15 +1209,15 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .vote-button svg {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
         }
 
         .vote-button:hover {
-            color: white;
+            color: var(--color-navy);
+            opacity: 0.8;
         }
 
         .vote-button.voted-up {
@@ -1075,7 +1231,7 @@
         .vote-count {
             font-size: 1.5rem;
             font-weight: 700;
-            color: white;
+            color: var(--color-navy);
             text-align: center;
             min-width: 40px;
             line-height: 1.2;
@@ -1249,6 +1405,7 @@
                 margin-bottom: 1rem;
                 padding-top: 1rem !important;
                 padding-bottom: 0.75rem;
+                padding-right: 4rem;
                 line-height: 1.2;
             }
             
@@ -1588,19 +1745,6 @@
                     </div>
                     <div class="price-range" id="priceRange">$$</div>
                 </div>
-                <div class="restaurant-voting" id="restaurantVoting">
-                    <button class="vote-button upvote" id="restaurantUpvote" aria-label="Upvote this restaurant">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                        </svg>
-                    </button>
-                    <span class="vote-count" id="restaurantVoteCount">1</span>
-                    <button class="vote-button downvote" id="restaurantDownvote" aria-label="Downvote this restaurant">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                </div>
                 <div class="cuisine-tags" id="cuisineTags">
                     <!-- Cuisine tags will be inserted here -->
                 </div>
@@ -1620,7 +1764,22 @@
     <!-- Restaurant Content -->
     <div class="restaurant-content">
         <div class="content-section">
-            <h3 id="aboutHeading">About This Restaurant</h3>
+            <div style="position: relative;">
+                <h3 id="aboutHeading">About This Restaurant</h3>
+                <div class="restaurant-voting" id="restaurantVoting">
+                    <button class="vote-button upvote" id="restaurantUpvote" aria-label="Upvote this restaurant">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                    <span class="vote-count" id="restaurantVoteCount">1</span>
+                    <button class="vote-button downvote" id="restaurantDownvote" aria-label="Downvote this restaurant">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
             <p id="restaurantDescription">Discover chef-driven flavors, warm Duluth hospitality, and locally sourced favorites in every visit.</p>
             
             <div class="details-section" style="margin-top: 2rem; padding: 0; box-shadow: none;">
@@ -1762,6 +1921,9 @@
 
         // Get restaurant data from URL parameters
         function loadRestaurantData() {
+            // Load geocode cache
+            loadRestaurantGeocodeCache();
+            
             const urlParams = new URLSearchParams(window.location.search);
             
             // Get return parameters for back button
@@ -1809,6 +1971,14 @@
                     console.warn('Error parsing hours:', e);
                 }
             }
+
+            // Get local photos for restaurant (if available)
+            const localBannerPhotos = typeof getRestaurantBannerPhotos !== 'undefined' 
+                ? getRestaurantBannerPhotos(restaurantName) 
+                : null;
+            const localGalleryPhotos = typeof getRestaurantAllPhotos !== 'undefined' 
+                ? getRestaurantAllPhotos(restaurantName) 
+                : null;
             
             // Update page title
             document.title = `${restaurantName} - YourDuluthGuide`;
@@ -1946,26 +2116,65 @@
                 return chosen;
             }
             
-            const photoVariations = getVariedPhotos(restaurantImage, restaurantName, restaurantCuisine);
-            setSrcIfExists('photo1', photoVariations[0]);
-            setSrcIfExists('photo2', photoVariations[1]);
-            setSrcIfExists('photo3', photoVariations[2]);
+            // Use real local photos if available, otherwise fall back to sample photos
+            const photoVariations = localBannerPhotos 
+                ? localBannerPhotos
+                : getVariedPhotos(restaurantImage, restaurantName, restaurantCuisine);
             
-            // Set photo count (random number between 100-800 for variety)
-            const nameHash = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-            const photoCount = ((nameHash % 700) + 100); // Consistent per restaurant
+            // Special case for Alto Pino: use photos 8, 15, and 10 (indices 7, 14, 9)
+            if (restaurantName === 'Alto Pino' && localGalleryPhotos && localGalleryPhotos.length > 14) {
+                setSrcIfExists('photo1', localGalleryPhotos[7]);  // Photo 8
+                setSrcIfExists('photo2', localGalleryPhotos[14]); // Photo 15
+                setSrcIfExists('photo3', localGalleryPhotos[9]);  // Photo 10
+            } else if (restaurantName === 'Cloud 9 Sushi & Hibachi' && localGalleryPhotos && localGalleryPhotos.length > 11) {
+                setSrcIfExists('photo1', localGalleryPhotos[5]);  // Photo 6
+                setSrcIfExists('photo2', localGalleryPhotos[8]);  // Photo 9
+                setSrcIfExists('photo3', localGalleryPhotos[11]); // Photo 12
+            } else if (restaurantName === "Howard's Que" && localGalleryPhotos && localGalleryPhotos.length > 0) {
+                // Use the same photo for all 3 hero photos since there's only 1 photo
+                setSrcIfExists('photo1', localGalleryPhotos[0]);
+                setSrcIfExists('photo2', localGalleryPhotos[0]);
+                setSrcIfExists('photo3', localGalleryPhotos[0]);
+            } else {
+                setSrcIfExists('photo1', photoVariations[0]);
+                setSrcIfExists('photo2', photoVariations[1]);
+                
+                // Special cases: use image 6 (index 5) for photo3
+                if (restaurantName === 'Duluth Grill' && localGalleryPhotos && localGalleryPhotos.length > 5) {
+                    setSrcIfExists('photo3', localGalleryPhotos[5]);
+                } else if (restaurantName === 'OMC Smokehouse' && localGalleryPhotos && localGalleryPhotos.length > 5) {
+                    setSrcIfExists('photo3', localGalleryPhotos[5]);
+                } else {
+                    setSrcIfExists('photo3', photoVariations[2]);
+                }
+            }
+            
+            // Set photo count to actual number of photos in gallery
+            let photoCount;
+            if (localGalleryPhotos && localGalleryPhotos.length > 0) {
+                photoCount = localGalleryPhotos.length;
+            } else {
+                // Fallback: use calculated number if no local photos
+                const nameHash = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                photoCount = ((nameHash % 700) + 100);
+            }
             setTextIfExists('photoCount', photoCount);
             
             // Generate photo gallery
-            generatePhotoGallery(restaurantName, restaurantCuisine, photoCount);
+            generatePhotoGallery(
+                restaurantName,
+                restaurantCuisine,
+                photoCount,
+                localGalleryPhotos
+            );
             
             // Update other content
             const starsDisplayDetail = generateStars(restaurantRating);
             setHTMLIfExists('restaurantRatingReviews', `<span>${restaurantRating}</span> <span style="color: var(--color-navy); font-size: 1.25rem; letter-spacing: 1px;">${starsDisplayDetail}</span> <span style="color: #64748b; font-size: 0.9rem;">(${restaurantReviews} reviews)</span>`);
             setTextIfExists('restaurantDescription', restaurantDescription);
             
-            // Initialize map
-            initializeRestaurantMap(restaurantLocation, restaurantName);
+            // Initialize map with address for accurate geocoding
+            initializeRestaurantMap(restaurantLocation, restaurantName, restaurantAddress);
             
             // Generate features based on cuisine type
             generateRestaurantFeatures(restaurantCuisine, restaurantPrice);
@@ -2135,7 +2344,12 @@
             }
         }
 
-        // Location coordinates for different areas in Duluth
+        // Hard-coded coordinate overrides for specific restaurants that geocode poorly
+        const restaurantCoordinateOverrides = {
+            'Northern Waters Smokehaus': { lat: 46.7795, lng: -92.0936 }
+        };
+
+        // Location coordinates for different areas in Duluth (fallback)
         const locationCoordinates = {
             'Downtown': { lat: 46.7867, lng: -92.1005 },
             'Canal Park': { lat: 46.7756, lng: -92.0919 },
@@ -2149,8 +2363,128 @@
             'North Shore': { lat: 46.8167, lng: -92.0833 }
         };
 
-        // Get coordinates for a restaurant based on location
-        function getRestaurantCoordinates(location) {
+        // Geocoding cache
+        let restaurantGeocodeCache = {};
+        
+        // Load geocode cache from localStorage
+        function loadRestaurantGeocodeCache() {
+            try {
+                const cached = localStorage.getItem('restaurantGeocodeCache');
+                if (cached) {
+                    restaurantGeocodeCache = JSON.parse(cached);
+                }
+            } catch (e) {
+                console.warn('Failed to load geocode cache:', e);
+            }
+        }
+        
+        // Save geocode cache to localStorage
+        function saveRestaurantGeocodeCache() {
+            try {
+                localStorage.setItem('restaurantGeocodeCache', JSON.stringify(restaurantGeocodeCache));
+            } catch (e) {
+                console.warn('Failed to save geocode cache:', e);
+            }
+        }
+        
+        // Normalize address for cache key
+        function normalizeAddress(address) {
+            return address ? address.trim().replace(/\s+/g, ' ') : '';
+        }
+        
+        // Geocode address using Google Geocoding API
+        function geocodeWithGoogle(address, callback) {
+            if (typeof google === 'undefined' || !google.maps || !google.maps.Geocoder) {
+                callback(null);
+                return;
+            }
+            
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: address }, function(results, status) {
+                if (status === 'OK' && results && results[0]) {
+                    const location = results[0].geometry.location;
+                    const coords = {
+                        lat: location.lat(),
+                        lng: location.lng()
+                    };
+                    callback(coords);
+                } else {
+                    callback(null);
+                }
+            });
+        }
+        
+        // Geocode address using Nominatim (OpenStreetMap)
+        function geocodeWithNominatim(address, callback) {
+            const encodedAddress = encodeURIComponent(address);
+            const url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodedAddress + '&limit=1&addressdetails=1';
+            
+            fetch(url, {
+                headers: {
+                    'User-Agent': 'YourDuluthGuide/1.0 (https://yourduluthguide.com)'
+                }
+            })
+            .then(function(response) {
+                if (!response.ok) throw new Error('Geocoding failed: ' + response.status);
+                return response.json();
+            })
+            .then(function(data) {
+                if (data && data.length > 0) {
+                    const coords = {
+                        lat: parseFloat(data[0].lat),
+                        lng: parseFloat(data[0].lon)
+                    };
+                    callback(coords);
+                } else {
+                    callback(null);
+                }
+            })
+            .catch(function(error) {
+                console.warn('Nominatim geocoding failed:', error);
+                callback(null);
+            });
+        }
+        
+        // Geocode an address (tries Google first, then Nominatim)
+        function geocodeRestaurantAddress(address, callback) {
+            const normalizedAddress = normalizeAddress(address);
+            
+            if (!normalizedAddress) {
+                callback(null);
+                return;
+            }
+            
+            // Check cache first
+            if (restaurantGeocodeCache[normalizedAddress]) {
+                callback(restaurantGeocodeCache[normalizedAddress]);
+                return;
+            }
+            
+            // Try Google first
+            geocodeWithGoogle(address, function(coords) {
+                if (coords) {
+                    restaurantGeocodeCache[normalizedAddress] = coords;
+                    saveRestaurantGeocodeCache();
+                    callback(coords);
+                } else {
+                    // Fallback to Nominatim
+                    geocodeWithNominatim(address, function(coords) {
+                        if (coords) {
+                            restaurantGeocodeCache[normalizedAddress] = coords;
+                            saveRestaurantGeocodeCache();
+                        }
+                        callback(coords);
+                    });
+                }
+            });
+        }
+        
+        // Get coordinates for a restaurant (uses address if available, otherwise location)
+        function getRestaurantCoordinates(location, address) {
+            if (address) {
+                // Return null to trigger async geocoding
+                return null;
+            }
             return locationCoordinates[location] || locationCoordinates['Downtown'];
         }
 
@@ -2159,26 +2493,66 @@
         let restaurantMapMarker = null;
         let pendingMapLocation = null;
         let pendingMapName = null;
+        let pendingMapAddress = null;
 
         window.initRestaurantGoogleMap = function() {
             restaurantMapLibraryLoaded = true;
             if (pendingMapLocation !== null) {
-                initializeRestaurantMap(pendingMapLocation, pendingMapName);
+                initializeRestaurantMap(pendingMapLocation, pendingMapName, pendingMapAddress);
             }
         };
 
-        function initializeRestaurantMap(location, restaurantName) {
+        function initializeRestaurantMap(location, restaurantName, restaurantAddress) {
             pendingMapLocation = location || 'Downtown';
             pendingMapName = restaurantName || 'Restaurant';
+            pendingMapAddress = restaurantAddress || null;
 
             const mapContainer = document.getElementById('restaurantMap');
             if (!mapContainer) {
                 return;
             }
 
-            const coords = getRestaurantCoordinates(pendingMapLocation);
-            const center = { lat: coords.lat, lng: coords.lng };
             const label = pendingMapName;
+
+            // 1) If we have a hard-coded override for this restaurant, use it immediately
+            if (restaurantCoordinateOverrides[pendingMapName]) {
+                updateMapWithCoordinates(restaurantCoordinateOverrides[pendingMapName], label);
+                return;
+            }
+
+            // 2) Try to get coordinates from address first
+            const coords = getRestaurantCoordinates(pendingMapLocation, pendingMapAddress);
+            
+            // If we have an address, geocode it
+            if (pendingMapAddress) {
+                geocodeRestaurantAddress(pendingMapAddress, function(geocodedCoords) {
+                    if (geocodedCoords) {
+                        updateMapWithCoordinates(geocodedCoords, label);
+                    } else {
+                        // Fallback to location-based coordinates
+                        const fallbackCoords = locationCoordinates[pendingMapLocation] || locationCoordinates['Downtown'];
+                        updateMapWithCoordinates(fallbackCoords, label);
+                    }
+                });
+            } else {
+                // Use location-based coordinates
+                const center = coords || (locationCoordinates[pendingMapLocation] || locationCoordinates['Downtown']);
+                updateMapWithCoordinates(center, label);
+            }
+        }
+        
+        function updateMapWithCoordinates(center, label) {
+            const mapContainer = document.getElementById('restaurantMap');
+            if (!mapContainer) {
+                return;
+            }
+            
+            // Safety check: ensure center coordinates are valid
+            if (!center || typeof center.lat !== 'number' || typeof center.lng !== 'number') {
+                console.warn('Invalid center coordinates:', center);
+                // Fallback to Downtown coordinates
+                center = locationCoordinates['Downtown'];
+            }
 
             const markerNumber = 1;
 
@@ -2326,12 +2700,12 @@
         }
 
         setTimeout(function() {
-            initializeRestaurantMap(pendingMapLocation, pendingMapName);
+            initializeRestaurantMap(pendingMapLocation, pendingMapName, pendingMapAddress);
         }, 500);
     }
 
-    // Generate photo gallery with sample photos
-        function generatePhotoGallery(restaurantName, cuisine, photoCount) {
+    // Generate photo gallery with sample photos or custom photos
+        function generatePhotoGallery(restaurantName, cuisine, photoCount, customPhotos) {
             const galleryContainer = document.getElementById('photoGalleryGrid');
             if (!galleryContainer) return;
             
@@ -2361,15 +2735,199 @@
             
             galleryContainer.innerHTML = '';
             
-            // Display all sample photos
-            samplePhotos.forEach((photoUrl, index) => {
+            // Decide which photos to use: custom (for specific restaurants) or the generic samples
+            const photosToShow = (customPhotos && Array.isArray(customPhotos) && customPhotos.length > 0)
+                ? customPhotos
+                : samplePhotos;
+            
+            // Display all chosen photos
+            photosToShow.forEach((photoUrl, index) => {
                 const img = document.createElement('img');
                 img.src = photoUrl;
                 img.alt = `${restaurantName} - Photo ${index + 1}`;
                 img.className = 'gallery-photo';
                 img.loading = 'lazy';
+                img.dataset.index = index;
+                img.addEventListener('click', function() {
+                    openPhotoLightbox(photosToShow, index);
+                });
                 galleryContainer.appendChild(img);
             });
+        }
+
+        // Photo Lightbox functionality
+        let lightboxPhotos = null;
+        let lightboxCurrentIndex = 0;
+        let lightboxKeyboardHandler = null;
+
+        function updateLightboxImage(newIndex) {
+            const lightbox = document.getElementById('photoLightbox');
+            if (!lightbox || !lightboxPhotos) return;
+            
+            if (newIndex < 0 || newIndex >= lightboxPhotos.length) return;
+            
+            lightboxCurrentIndex = newIndex;
+            const img = lightbox.querySelector('.photo-lightbox-content img');
+            const counter = lightbox.querySelector('.photo-lightbox-counter');
+            const prevBtn = lightbox.querySelector('.photo-lightbox-prev');
+            const nextBtn = lightbox.querySelector('.photo-lightbox-next');
+            
+            // Fade out image
+            if (img) {
+                img.style.opacity = '0';
+                setTimeout(() => {
+                    img.src = lightboxPhotos[newIndex];
+                    img.alt = `Photo ${newIndex + 1} of ${lightboxPhotos.length}`;
+                    img.style.opacity = '1';
+                }, 150);
+            }
+            
+            // Update counter
+            if (counter) {
+                counter.textContent = `${newIndex + 1} / ${lightboxPhotos.length}`;
+            }
+            
+            // Update button states
+            if (prevBtn) {
+                if (newIndex === 0) {
+                    prevBtn.style.opacity = '0.5';
+                    prevBtn.style.cursor = 'not-allowed';
+                } else {
+                    prevBtn.style.opacity = '1';
+                    prevBtn.style.cursor = 'pointer';
+                }
+            }
+            
+            if (nextBtn) {
+                if (newIndex === lightboxPhotos.length - 1) {
+                    nextBtn.style.opacity = '0.5';
+                    nextBtn.style.cursor = 'not-allowed';
+                } else {
+                    nextBtn.style.opacity = '1';
+                    nextBtn.style.cursor = 'pointer';
+                }
+            }
+        }
+
+        function openPhotoLightbox(photos, currentIndex) {
+            // Remove existing lightbox if any
+            const existingLightbox = document.getElementById('photoLightbox');
+            if (existingLightbox) {
+                existingLightbox.remove();
+            }
+            
+            // Remove existing keyboard handler if any
+            if (lightboxKeyboardHandler) {
+                document.removeEventListener('keydown', lightboxKeyboardHandler);
+            }
+
+            // Store photos and index globally
+            lightboxPhotos = photos;
+            lightboxCurrentIndex = currentIndex;
+
+            // Create lightbox
+            const lightbox = document.createElement('div');
+            lightbox.id = 'photoLightbox';
+            lightbox.className = 'photo-lightbox active';
+            
+            const content = document.createElement('div');
+            content.className = 'photo-lightbox-content';
+            
+            const img = document.createElement('img');
+            img.src = photos[currentIndex];
+            img.alt = `Photo ${currentIndex + 1} of ${photos.length}`;
+            img.style.transition = 'opacity 0.3s ease';
+            
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'photo-lightbox-close';
+            closeBtn.innerHTML = '×';
+            closeBtn.setAttribute('aria-label', 'Close');
+            
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'photo-lightbox-nav photo-lightbox-prev';
+            prevBtn.innerHTML = '‹';
+            prevBtn.setAttribute('aria-label', 'Previous photo');
+            if (currentIndex === 0) {
+                prevBtn.style.opacity = '0.5';
+                prevBtn.style.cursor = 'not-allowed';
+            }
+            
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'photo-lightbox-nav photo-lightbox-next';
+            nextBtn.innerHTML = '›';
+            nextBtn.setAttribute('aria-label', 'Next photo');
+            if (currentIndex === photos.length - 1) {
+                nextBtn.style.opacity = '0.5';
+                nextBtn.style.cursor = 'not-allowed';
+            }
+            
+            const counter = document.createElement('div');
+            counter.className = 'photo-lightbox-counter';
+            counter.textContent = `${currentIndex + 1} / ${photos.length}`;
+            
+            content.appendChild(img);
+            content.appendChild(closeBtn);
+            content.appendChild(prevBtn);
+            content.appendChild(nextBtn);
+            content.appendChild(counter);
+            lightbox.appendChild(content);
+            document.body.appendChild(lightbox);
+            
+            // Prevent body scroll when lightbox is open
+            document.body.style.overflow = 'hidden';
+            
+            // Close handlers
+            const closeLightbox = function() {
+                lightbox.classList.remove('active');
+                setTimeout(() => {
+                    lightbox.remove();
+                    document.body.style.overflow = '';
+                    lightboxPhotos = null;
+                    if (lightboxKeyboardHandler) {
+                        document.removeEventListener('keydown', lightboxKeyboardHandler);
+                        lightboxKeyboardHandler = null;
+                    }
+                }, 300);
+            };
+            
+            closeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeLightbox();
+            });
+            
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+            
+            // Navigation handlers - update image in place
+            prevBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (lightboxCurrentIndex > 0) {
+                    updateLightboxImage(lightboxCurrentIndex - 1);
+                }
+            });
+            
+            nextBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (lightboxCurrentIndex < photos.length - 1) {
+                    updateLightboxImage(lightboxCurrentIndex + 1);
+                }
+            });
+            
+            // Keyboard navigation
+            lightboxKeyboardHandler = function(e) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft' && lightboxCurrentIndex > 0) {
+                    updateLightboxImage(lightboxCurrentIndex - 1);
+                } else if (e.key === 'ArrowRight' && lightboxCurrentIndex < photos.length - 1) {
+                    updateLightboxImage(lightboxCurrentIndex + 1);
+                }
+            };
+            
+            document.addEventListener('keydown', lightboxKeyboardHandler);
         }
 
         // Generate popular dishes based on cuisine
@@ -2494,7 +3052,7 @@
 
         function buildSampleReviews(restaurantName, restaurantRating) {
             const seedBase = restaurantName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + Math.round(restaurantRating * 10);
-            
+
             function seededRandom(seed) {
                 const x = Math.sin(seed) * 10000;
                 return x - Math.floor(x);
@@ -2538,7 +3096,7 @@
             ];
 
             const reviews = [];
-            
+
             // Pick a different template set for each review to ensure variety
             for (let i = 0; i < 3; i++) {
                 const loopSeed = seedBase + (i + 1) * 97;
@@ -2546,7 +3104,7 @@
                 const templateSetIndex = (seedBase + i * 137) % reviewTemplates.length;
                 const templateSet = reviewTemplates[templateSetIndex];
                 const reviewText = formatTemplate(pickFromArray(templateSet, loopSeed), restaurantName);
-                
+
                 reviews.push({
                     text: reviewText
                 });
@@ -2567,7 +3125,7 @@
                 return data;
             }
             return { upvotes: 1, downvotes: 0, userVote: null };
-        }
+            }
 
         function saveRestaurantVoteData(restaurantName, voteData) {
             const key = `restaurant-${restaurantName}-votes`;
@@ -2591,17 +3149,17 @@
                     voteData.upvotes = Math.max(0, voteData.upvotes - 1);
                 } else if (voteData.userVote === 'down') {
                     voteData.downvotes = Math.max(0, voteData.downvotes - 1);
-                }
-                
+        }
+
                 // Add new vote
                 if (voteType === 'up') {
                     voteData.upvotes += 1;
-                } else {
+            } else {
                     voteData.downvotes += 1;
-                }
-                voteData.userVote = voteType;
             }
-            
+                voteData.userVote = voteType;
+        }
+
             saveRestaurantVoteData(restaurantName, voteData);
             updateRestaurantVoteDisplay(restaurantName, voteData);
         }
@@ -2610,12 +3168,12 @@
             const upButton = document.getElementById('restaurantUpvote');
             const downButton = document.getElementById('restaurantDownvote');
             const voteCount = document.getElementById('restaurantVoteCount');
-            
+
             if (upButton && downButton && voteCount) {
                 // Update button states
                 upButton.classList.remove('voted-up', 'voted-down');
                 downButton.classList.remove('voted-up', 'voted-down');
-                
+
                 if (voteData.userVote === 'up') {
                     upButton.classList.add('voted-up');
                 } else if (voteData.userVote === 'down') {
@@ -2642,7 +3200,7 @@
             
             const upButton = document.getElementById('restaurantUpvote');
             const downButton = document.getElementById('restaurantDownvote');
-            
+
             if (upButton) {
                 upButton.addEventListener('click', () => handleRestaurantVote(restaurantName, 'up'));
             }
@@ -2681,6 +3239,7 @@
         // Load data when page loads
         document.addEventListener('DOMContentLoaded', loadRestaurantData);
     </script>
+    <script src="restaurants-data.js"></script>
 </body>
 </html>
 
