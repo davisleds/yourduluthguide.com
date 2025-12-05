@@ -59,10 +59,8 @@ const allRestaurants = [
     { name: "Oasis Del Norte", cuisine: "Mexican • Tacos • Casual", price: "$", rating: "4.2", reviews: "856", description: "A taqueria serving authentic Mexican tacos, burritos, quesadillas, and tortas in the Lincoln Park Craft District, using scratch-made ingredients and local produce.", location: "Lincoln Park", phone: "(218) 464-0824", website: "oasisdelnorte.com", address: "2401 W Superior St, Duluth, MN 55806", reservations: "none", popularDishes: ["Tacos al Pastor", "Birria Ramen", "Carnitas Quesadilla"], hours: { "Monday": "11:00 AM - 9:00 PM", "Tuesday": "11:00 AM - 9:00 PM", "Wednesday": "11:00 AM - 9:00 PM", "Thursday": "11:00 AM - 9:00 PM", "Friday": "11:00 AM - 9:00 PM", "Saturday": "11:00 AM - 9:00 PM", "Sunday": "11:00 AM - 8:00 PM" } },
     { name: "Old Chicago Pizza & Taproom", cuisine: "American • Pizza • Bar", price: "$", rating: "4.1", reviews: "1,567", description: "A laid-back sports-friendly pizza and taproom spot known for hand-tossed pizzas, craft beers, and hearty pub fare.", location: "Downtown Duluth", phone: "(218) 409-8830", website: "oldchicago.com", address: "327 S Lake Ave, Duluth, MN 55802", reservations: "none", popularDishes: ["Sicilian Pepperoni Rolls", "Chicago 7 Pizza", "Hangover Burger"], hours: { "Monday": "11:00 AM - 12:00 AM", "Tuesday": "11:00 AM - 12:00 AM", "Wednesday": "11:00 AM - 12:00 AM", "Thursday": "11:00 AM - 12:00 AM", "Friday": "11:00 AM - 1:00 AM", "Saturday": "11:00 AM - 1:00 AM", "Sunday": "11:00 AM - 12:00 AM" } },
     { name: "OMC Smokehouse", cuisine: "Barbeque • Smokehouse • American", price: "$$", rating: "4.7", reviews: "1,890", description: "OMC Smokehouse is a well-loved Lincoln Park spot serving slow-smoked meats, hearty sides, and classic comfort flavors. It's a laid-back place known for big portions, homemade sauces, and a cozy neighborhood vibe.", location: "Lincoln Park", phone: "(218) 606-1611", website: "https://omcsmokehouse.com/", address: "1909 W Superior St Duluth, MN 55806", reservations: "none", popularDishes: ["Smoked Omc Plate", "Buttermilk Fried Chicken Sandwich", "Korean BBQ Pork Belly Sandwich"], hours: { "Monday": "11:00 AM - 9:00 PM", "Tuesday": "11:00 AM - 9:00 PM", "Wednesday": "11:00 AM - 9:00 PM", "Thursday": "11:00 AM - 9:00 PM", "Friday": "11:00 AM - 10:00 PM", "Saturday": "11:00 AM - 10:00 PM", "Sunday": "11:00 AM - 9:00 PM" } },
-    { name: "Oriental House", cuisine: "Chinese • Vietnamese", price: "$$", rating: "4.2", reviews: "987", description: "Mix of Chinese and Vietnamese dishes including pho, stir-fries, and fried rice.", location: "Duluth, MN", phone: "(218) ?", website: "N/A", address: "4731 E Superior St, Duluth, MN 55804", reservations: "none", popularDishes: ["Pho", "Stir-Fries", "Fried Rice"], hours: { "Monday": "Hours vary", "Tuesday": "Hours vary", "Wednesday": "Hours vary", "Thursday": "Hours vary", "Friday": "Hours vary", "Saturday": "Hours vary", "Sunday": "Hours vary" } },
     { name: "Osaka Sushi & Hibachi", cuisine: "Japanese • Hibachi", price: "$$", rating: "4.4", reviews: "1,234", description: "Popular hibachi restaurant with entertaining chefs and sushi options.", location: "Duluth, MN", phone: "(218) ?", website: "N/A", address: "4601 Miller Trunk Hwy, Duluth, MN 55811", reservations: "none", popularDishes: ["Hibachi", "Sushi Rolls", "Teriyaki"], hours: { "Monday": "Hours vary", "Tuesday": "Hours vary", "Wednesday": "Hours vary", "Thursday": "Hours vary", "Friday": "Hours vary", "Saturday": "Hours vary", "Sunday": "Hours vary" } },
     { name: "Perk Place Coffeehouse", cuisine: "Café • Bakery • Breakfast", price: "$$", rating: "4.2", reviews: "756", description: "A cozy, family-owned coffeehouse in Duluth serving scratch-made pastries, breakfast sandwiches, espresso drinks, and smoothies.", location: "Kenwood (West Duluth)", phone: "(218) 730-7375", website: "perkplaceduluth.com", address: "1336 W Arrowhead Rd, Duluth, MN 55811", reservations: "none", popularDishes: ["Egg Bake", "Breakfast Sandwich", "Cinnamon Scone"], hours: { "Monday": "7:00 AM - 3:00 PM", "Tuesday": "7:00 AM - 3:00 PM", "Wednesday": "7:00 AM - 3:00 PM", "Thursday": "7:00 AM - 3:00 PM", "Friday": "7:00 AM - 3:00 PM", "Saturday": "7:00 AM - 3:00 PM", "Sunday": "7:00 AM - 3:00 PM" } },
-    { name: "Perkins Restaurant & Bakery", cuisine: "American • Breakfast", price: "$$", rating: "4.0", reviews: "1,234", description: "Family chain serving breakfast all day, pies, and classic American meals.", location: "Duluth, MN", phone: "(218) ?", website: "N/A", address: "1302 Miller Trunk Hwy, Duluth, MN 55811", reservations: "none", popularDishes: ["Breakfast", "Pies", "American Classics"], hours: { "Monday": "Hours vary", "Tuesday": "Hours vary", "Wednesday": "Hours vary", "Thursday": "Hours vary", "Friday": "Hours vary", "Saturday": "Hours vary", "Sunday": "Hours vary" } },
     { name: "PhoHolic Taste of Vietnam (Central Entrance)", cuisine: "Asian • Vietnamese • Noodle", price: "$", rating: "4.4", reviews: "1,567", description: "A cozy Vietnamese restaurant on Duluth's Central Entrance specializing in pho, banh mi, and rice bowls.", location: "Kenwood", phone: "(218) 464-0312", website: "phoholicduluth.com", address: "309 E Central Entrance, Duluth, MN 55811", reservations: "none", popularDishes: ["Pho (#10 Special)", "Banh Mi", "Bun Bo Hue"], hours: { "Monday": "11:00 AM - 9:00 PM", "Tuesday": "11:00 AM - 9:00 PM", "Wednesday": "Closed", "Thursday": "11:00 AM - 9:00 PM", "Friday": "11:00 AM - 9:00 PM", "Saturday": "11:00 AM - 9:00 PM", "Sunday": "11:00 AM - 8:00 PM" } },
     { name: "PhoHolic Taste of Vietnam (London Road)", cuisine: "Asian • Vietnamese • Noodle", price: "$", rating: "4.4", reviews: "1,234", description: "A second, larger location of PhoHolic in Duluth, serving pho, banh mi, noodle salads, and an expanded menu in a remodeled space.", location: "Kenwood / Central Entrance Corridor (London Road)", phone: "(218) 481-7595", website: "phoholicduluth.com", address: "1623 London Rd, Duluth, MN 55812", reservations: "none", popularDishes: ["Pho #10 Combination", "Banh Mi", "Chicken Curry"], hours: { "Monday": "11:00 AM - 9:00 PM", "Tuesday": "11:00 AM - 9:00 PM", "Wednesday": "11:00 AM - 9:00 PM", "Thursday": "11:00 AM - 9:00 PM", "Friday": "11:00 AM - 9:00 PM", "Saturday": "11:00 AM - 9:00 PM", "Sunday": "11:00 AM - 8:00 PM" } },
     { name: "Pho Hoa", cuisine: "Thai • Vietnamese", price: "$$", rating: "4.3", reviews: "987", description: "Local spot with pho, pad thai, fried rice, and spring rolls.", location: "Duluth, MN", phone: "(218) ?", website: "N/A", address: "309 E Central Entrance, Duluth, MN 55811", reservations: "none", popularDishes: ["Pho", "Pad Thai", "Fried Rice", "Spring Rolls"], hours: { "Monday": "Hours vary", "Tuesday": "Hours vary", "Wednesday": "Hours vary", "Thursday": "Hours vary", "Friday": "Hours vary", "Saturday": "Hours vary", "Sunday": "Hours vary" } },
@@ -156,18 +154,18 @@ const restaurantPhotos = {
         filename: "Screenshot 2025-12-02 at 7.10.32\u202FAM.png",
         allPhotos: [
             "584424347_18491885107072492_1305928869302613271_nfull.webp",
-            "Screenshot 2025-12-02 at 7.08.53\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.08.57\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.09.12\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.09.32\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.10.04\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.10.32\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.11.31\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.11.55\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.12.12\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.13.57\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.14.28\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.15.10\u202FAM.png"
+            "Screenshot 2025-12-02 at 7.08.53 AM.png",
+            "Screenshot 2025-12-02 at 7.08.57 AM.png",
+            "Screenshot 2025-12-02 at 7.09.12 AM.png",
+            "Screenshot 2025-12-02 at 7.09.32 AM.png",
+            "Screenshot 2025-12-02 at 7.10.04 AM.png",
+            "Screenshot 2025-12-02 at 7.10.32 AM.png",
+            "Screenshot 2025-12-02 at 7.11.31 AM.png",
+            "Screenshot 2025-12-02 at 7.11.55 AM.png",
+            "Screenshot 2025-12-02 at 7.12.12 AM.png",
+            "Screenshot 2025-12-02 at 7.13.57 AM.png",
+            "Screenshot 2025-12-02 at 7.14.28 AM.png",
+            "Screenshot 2025-12-02 at 7.15.10 AM.png"
         ]
     },
     "7 West Tap House(Miller Hill)": {
@@ -186,40 +184,40 @@ const restaurantPhotos = {
         folderNumber: 5,
         filename: "Screenshot 2025-12-02 at 7.19.08\u202FAM.png",
         allPhotos: [
-            "Screenshot 2025-12-02 at 7.17.08\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.17.15\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.17.31\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.18.19\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.18.27\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.18.46\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.18.58\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.19.08\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.19.27\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.19.33\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.19.52\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.20.13\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.20.56\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.21.09\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.21.30\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.22.01\u202FAM.png"
+            "Screenshot 2025-12-02 at 7.17.08 AM.png",
+            "Screenshot 2025-12-02 at 7.17.15 AM.png",
+            "Screenshot 2025-12-02 at 7.17.31 AM.png",
+            "Screenshot 2025-12-02 at 7.18.19 AM.png",
+            "Screenshot 2025-12-02 at 7.18.27 AM.png",
+            "Screenshot 2025-12-02 at 7.18.46 AM.png",
+            "Screenshot 2025-12-02 at 7.18.58 AM.png",
+            "Screenshot 2025-12-02 at 7.19.08 AM.png",
+            "Screenshot 2025-12-02 at 7.19.27 AM.png",
+            "Screenshot 2025-12-02 at 7.19.33 AM.png",
+            "Screenshot 2025-12-02 at 7.19.52 AM.png",
+            "Screenshot 2025-12-02 at 7.20.13 AM.png",
+            "Screenshot 2025-12-02 at 7.20.56 AM.png",
+            "Screenshot 2025-12-02 at 7.21.09 AM.png",
+            "Screenshot 2025-12-02 at 7.21.30 AM.png",
+            "Screenshot 2025-12-02 at 7.22.01 AM.png"
         ]
     },
     "Va Bene": {
         folderNumber: 98,
         filename: "Screenshot 2025-12-02 at 7.26.11\u202FAM.png",
         allPhotos: [
-            "Screenshot 2025-12-02 at 7.25.25\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.25.52\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.25.59\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.26.11\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.26.27\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.26.57\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.27.23\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.27.39\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.27.53\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.28.39\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.29.40\u202FAM.png",
-            "Screenshot 2025-12-02 at 7.30.13\u202FAM.png",
+            "Screenshot 2025-12-02 at 7.25.25 AM.png",
+            "Screenshot 2025-12-02 at 7.25.52 AM.png",
+            "Screenshot 2025-12-02 at 7.25.59 AM.png",
+            "Screenshot 2025-12-02 at 7.26.11 AM.png",
+            "Screenshot 2025-12-02 at 7.26.27 AM.png",
+            "Screenshot 2025-12-02 at 7.26.57 AM.png",
+            "Screenshot 2025-12-02 at 7.27.23 AM.png",
+            "Screenshot 2025-12-02 at 7.27.39 AM.png",
+            "Screenshot 2025-12-02 at 7.27.53 AM.png",
+            "Screenshot 2025-12-02 at 7.28.39 AM.png",
+            "Screenshot 2025-12-02 at 7.29.40 AM.png",
+            "Screenshot 2025-12-02 at 7.30.13 AM.png",
             "enclosed_solarium_duluth_lake_views_italian_restaurant-290x160.jpg"
         ]
     },
@@ -227,8 +225,6 @@ const restaurantPhotos = {
         folderNumber: 64,
         filename: "Storefront+Patio+06-2024.webp",
         allPhotos: [
-            "Storefront+Patio+06-2024.webp",
-            "Sandwich+Signs.webp",
             "482707297_18486363781046676_5665944392773207498_n.jpg",
             "482759316_18486363790046676_3586932510239256777_n.jpg",
             "482810328_18486363760046676_4968769468087598003_n.jpg",
@@ -245,21 +241,23 @@ const restaurantPhotos = {
             "483165461_18486363901046676_597191609838979606_n.jpg",
             "483211467_18486363880046676_6958789782752508152_n.jpg",
             "483234434_18486363889046676_6508564336636427039_n.jpg",
-            "483236306_18486363721046676_1770433575087502106_n.jpg"
+            "483236306_18486363721046676_1770433575087502106_n.jpg",
+            "Sandwich+Signs.webp",
+            "Storefront+Patio+06-2024.webp"
         ]
     },
     "Fitger's Brewhouse Brewery & Grille": {
         folderNumber: 37,
         filename: "Screenshot 2025-12-02 at 6.32.02\u202FPM.png",
         allPhotos: [
-            "Screenshot 2025-12-02 at 6.32.02\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.32.16\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.32.24\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.32.36\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.32.59\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.33.28\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.33.39\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.35.00\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.32.02 PM.png",
+            "Screenshot 2025-12-02 at 6.32.16 PM.png",
+            "Screenshot 2025-12-02 at 6.32.24 PM.png",
+            "Screenshot 2025-12-02 at 6.32.36 PM.png",
+            "Screenshot 2025-12-02 at 6.32.59 PM.png",
+            "Screenshot 2025-12-02 at 6.33.28 PM.png",
+            "Screenshot 2025-12-02 at 6.33.39 PM.png",
+            "Screenshot 2025-12-02 at 6.35.00 PM.png",
             "SnapInsta.to_341950893_890968438640983_2798447449730338209_n.jpg",
             "SnapInsta.to_347642345_243268098294591_3479674226272742245_n.png",
             "SnapInsta.to_347788431_812839336940452_585392745251085561_n.png"
@@ -289,38 +287,38 @@ const restaurantPhotos = {
         folderNumber: 63,
         filename: "Screenshot 2025-12-02 at 6.14.43\u202FPM.png",
         allPhotos: [
-            "Screenshot 2025-12-02 at 6.14.43\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.15.59\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.16.18\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.16.26\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.16.37\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.16.57\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.17.09\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.17.33\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.17.59\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.18.10\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.18.24\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.18.44\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.19.13\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.19.49\u202FPM.png"
+            "Screenshot 2025-12-02 at 6.14.43 PM.png",
+            "Screenshot 2025-12-02 at 6.15.59 PM.png",
+            "Screenshot 2025-12-02 at 6.16.18 PM.png",
+            "Screenshot 2025-12-02 at 6.16.26 PM.png",
+            "Screenshot 2025-12-02 at 6.16.37 PM.png",
+            "Screenshot 2025-12-02 at 6.16.57 PM.png",
+            "Screenshot 2025-12-02 at 6.17.09 PM.png",
+            "Screenshot 2025-12-02 at 6.17.33 PM.png",
+            "Screenshot 2025-12-02 at 6.17.59 PM.png",
+            "Screenshot 2025-12-02 at 6.18.10 PM.png",
+            "Screenshot 2025-12-02 at 6.18.24 PM.png",
+            "Screenshot 2025-12-02 at 6.18.44 PM.png",
+            "Screenshot 2025-12-02 at 6.19.13 PM.png",
+            "Screenshot 2025-12-02 at 6.19.49 PM.png"
         ]
     },
     "Cloud 9 Sushi & Hibachi": {
         folderNumber: 28,
         filename: "Screenshot 2025-12-02 at 6.43.59\u202FPM.png",
         allPhotos: [
-            "Screenshot 2025-12-02 at 6.41.26\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.41.45\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.42.32\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.42.54\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.43.06\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.43.29\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.43.44\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.43.59\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.44.09\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.44.31\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.44.52\u202FPM.png",
-            "Screenshot 2025-12-02 at 6.45.46\u202FPM.png",
+            "Screenshot 2025-12-02 at 6.41.26 PM.png",
+            "Screenshot 2025-12-02 at 6.41.45 PM.png",
+            "Screenshot 2025-12-02 at 6.42.32 PM.png",
+            "Screenshot 2025-12-02 at 6.42.54 PM.png",
+            "Screenshot 2025-12-02 at 6.43.06 PM.png",
+            "Screenshot 2025-12-02 at 6.43.29 PM.png",
+            "Screenshot 2025-12-02 at 6.43.44 PM.png",
+            "Screenshot 2025-12-02 at 6.43.59 PM.png",
+            "Screenshot 2025-12-02 at 6.44.09 PM.png",
+            "Screenshot 2025-12-02 at 6.44.31 PM.png",
+            "Screenshot 2025-12-02 at 6.44.52 PM.png",
+            "Screenshot 2025-12-02 at 6.45.46 PM.png",
             "download.jpg"
         ]
     },
@@ -771,6 +769,741 @@ const restaurantPhotos = {
             "download-3.jpg",
             "download.jpg"
         ]
+    },
+    "Corktown Eatery and Bar": {
+        folderNumber: 31,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download-7.jpg",
+        "download.jpg"
+        ]
+    },
+    "Crooked Pint Ale House": {
+        folderNumber: 32,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download.jpg"
+        ]
+    },
+    "Dovetail Café": {
+        folderNumber: 33,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download.jpg",
+        "images-1.jpg",
+        "images.jpg"
+        ]
+    },
+    "Dubh Linn Irish Brew Pub": {
+        folderNumber: 34,
+        filename: "Screenshot 2025-12-03 at 10.23.31 PM.png",
+        allPhotos: [
+            "Screenshot 2025-12-03 at 10.23.31 PM.png",
+        "download-1.jpg",
+        "download.jpg"
+        ]
+    },
+    "Duluth Coffee Kitchen": {
+        folderNumber: 35,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg",
+        "images-1.jpg",
+        "images.jpg"
+        ]
+    },
+    "Gopher Bar & Grill": {
+        folderNumber: 38,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download.jpg"
+        ]
+    },
+    "Grand View Grill and bar": {
+        folderNumber: 39,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg"
+        ]
+    },
+    "Grandma's Saloon & Grill (Canal Park)": {
+        folderNumber: 40,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg",
+        "images.jpg"
+        ]
+    },
+    "Grandma's Saloon & Grill (Miller Hill)": {
+        folderNumber: 41,
+        filename: "download-1 copy.jpg",
+        allPhotos: [
+            "download-1 copy.jpg",
+        "download.png",
+        "images copy.jpg",
+        "images.jpg"
+        ]
+    },
+    "Great Harvest Bread Co": {
+        folderNumber: 42,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download.jpg"
+        ]
+    },
+    "Harbor 360": {
+        folderNumber: 44,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download-7.jpg",
+        "download.jpg"
+        ]
+    },
+    "Hungry Hippie Tacos": {
+        folderNumber: 46,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download.jpg"
+        ]
+    },
+    "Incline Station Bowling & Banquet Facilities": {
+        folderNumber: 47,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download.jpg"
+        ]
+    },
+    "Jade Fountain Cocktail Lounge": {
+        folderNumber: 49,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg"
+        ]
+    },
+    "Juice Pharm": {
+        folderNumber: 50,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download.jpg"
+        ]
+    },
+    "Kosta's Gyros": {
+        folderNumber: 51,
+        filename: "528229010_2592888414396767_7273969276567954221_n.jpg",
+        allPhotos: [
+            "528229010_2592888414396767_7273969276567954221_n.jpg",
+        "download-1.jpg",
+        "download.jpg"
+        ]
+    },
+    "Lake Avenue Restaurant & Bar": {
+        folderNumber: 52,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-10.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download-7.jpg",
+        "download-8.jpg",
+        "download-9.jpg",
+        "download.jpg"
+        ]
+    },
+    "Lake Effect Restaurant & Bar": {
+        folderNumber: 53,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download.jpg"
+        ]
+    },
+    "Lake Superior Brewing Co.": {
+        folderNumber: 54,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download.jpg",
+        "images-1.jpg",
+        "images.jpg"
+        ]
+    },
+    "Lakewalk Galley": {
+        folderNumber: 55,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg"
+        ]
+    },
+    "Little Angie's Cantina & Grill": {
+        folderNumber: 56,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg"
+        ]
+    },
+    "LuLu's Pizza": {
+        folderNumber: 57,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download.jpg"
+        ]
+    },
+    "Lyric Kitchen · Bar": {
+        folderNumber: 58,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download.jpg"
+        ]
+    },
+    "Margarita's Bar & Grill": {
+        folderNumber: 59,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download.jpg"
+        ]
+    },
+    "McKenzie's Bar & Grill": {
+        folderNumber: 60,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download.jpg"
+        ]
+    },
+    "Mexico Lindo": {
+        folderNumber: 61,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download.jpg"
+        ]
+    },
+    "Mr. D's Bar & Grill": {
+        folderNumber: 62,
+        filename: "138593243_4296059507076547_1594962043747067947_n.jpg",
+        allPhotos: [
+            "138593243_4296059507076547_1594962043747067947_n.jpg",
+        "161226383_4478476828834813_5461107553416913324_n.jpg",
+        "487134397_1211890614280009_1178220921830521004_n.jpg",
+        "488935412_1217215203747550_6150902457729353264_n.jpg",
+        "495352677_1246790767456660_3792181476813999749_n.jpg",
+        "495379706_1254545986681138_7606154255330074892_n.jpg",
+        "497449752_1254934819975588_4689869209477544904_n.jpg"
+        ]
+    },
+    "Oasis Del Norte": {
+        folderNumber: 65,
+        filename: "493084056_1477251996947530_3519336786385463825_n.jpg",
+        allPhotos: [
+            "493084056_1477251996947530_3519336786385463825_n.jpg",
+        "530613756_1567432694596126_6929353935297095817_n.jpg",
+        "533243752_1570107704328625_2169616745016099893_n.jpg",
+        "537020959_1578385726834156_3081560731314793346_n.jpg",
+        "540963242_1583745739631488_8623683359179837563_n.jpg",
+        "546157515_1596145678391494_5218391920961069225_n.jpg",
+        "549527480_1600465801292815_566644022093282755_n.jpg",
+        "556023990_1611465973526131_408915102716548681_n.jpg",
+        "558882744_1614467329892662_6631899265772393120_n.jpg",
+        "558888052_1617721482900580_4020097267543041407_n.jpg",
+        "558947035_1622779762394752_7557316907223786285_n.jpg",
+        "569049090_1634366744569387_6645362479906324745_n.jpg",
+        "571785179_1638164134189648_6242676652819251938_n.jpg"
+        ]
+    },
+    "Old Chicago Pizza & Taproom": {
+        folderNumber: 66,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download-7.jpg",
+        "download-8.jpg",
+        "download.jpg"
+        ]
+    },
+    "Osaka Sushi & Hibachi": {
+        folderNumber: 69,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download.jpg"
+        ]
+    },
+    "Perk Place Coffeehouse": {
+        folderNumber: 70,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download.jpg"
+        ]
+    },
+    "Pho Hoa": {
+        folderNumber: 72,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download.jpg",
+        "images.jpg"
+        ]
+    },
+    "PhoHolic Taste of Vietnam (London Road)": {
+        folderNumber: 74,
+        filename: "Screenshot 2025-12-04 at 2.14.20 PM.png",
+        allPhotos: [
+            "Screenshot 2025-12-04 at 2.14.20 PM.png",
+        "download-1 copy.jpg",
+        "download-1.jpg",
+        "download-2 copy.jpg",
+        "download-3 copy.jpg",
+        "download-4 copy.jpg",
+        "download-5 copy.jpg",
+        "download-6 copy.jpg",
+        "download.jpg"
+        ]
+    },
+    "Pickwick Restaurant & Pub": {
+        folderNumber: 75,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download.jpg"
+        ]
+    },
+    "Ritual Salad": {
+        folderNumber: 78,
+        filename: "474490740_122186939000054464_7474313916907179397_n.jpg",
+        allPhotos: [
+            "474490740_122186939000054464_7474313916907179397_n.jpg",
+        "474700108_122187204254054464_75688573652221268_n.jpg",
+        "475036904_122187404372054464_183881094837202137_n.jpg",
+        "475064050_122187121466054464_4982640234635319942_n.jpg",
+        "476614710_17924614062010881_1003109166710470595_n.jpg",
+        "487282035_17930658351010881_9040622086261198600_n.jpg",
+        "487423219_122195217884054464_90638316944043958_n.jpg",
+        "518233513_17941939638010881_8695090994648452540_n.jpg",
+        "574018689_122220081080054464_4687543232560025927_n.jpg",
+        "download.jpg"
+        ]
+    },
+    "Silos Restaurant & Bar": {
+        folderNumber: 79,
+        filename: "494158125_1239104324885579_4321121104285580502_n.jpg",
+        allPhotos: [
+            "494158125_1239104324885579_4321121104285580502_n.jpg",
+        "515442025_1339425841520093_7167037773726759423_n.jpg",
+        "524134949_1315214317274579_7774738636821502350_n.jpg",
+        "524805359_1318715516924459_3375788689559167811_n.jpg",
+        "539222894_1344611167668227_3481735869224717069_n.jpg",
+        "540435793_1351685020294175_2769697613952492091_n.jpg",
+        "540442382_1350035497125794_6894050189970648926_n.jpg",
+        "557585211_1383221103807233_6012027849616755146_n.jpg",
+        "558173138_1384447823684561_8433494800275095511_n.jpg",
+        "558664280_1386048590191151_1287955964574504063_n.jpg",
+        "559325174_1389653853163958_5525251390593222111_n.jpg",
+        "559368188_1388636629932347_6120658217512846262_n.jpg",
+        "565256763_1392716506191026_5567581430043908100_n.jpg",
+        "574590446_1407792861350057_673710890401557539_n.jpg",
+        "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg"
+        ]
+    },
+    "Sir Benedict's Tavern on the Lake": {
+        folderNumber: 80,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download.jpg",
+        "images.jpg"
+        ]
+    },
+    "Skyline Social & Games": {
+        folderNumber: 81,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-4.jpg",
+        "download.jpg",
+        "download.png"
+        ]
+    },
+    "Studio Café": {
+        folderNumber: 82,
+        filename: "473286236_122136684116503065_9133155628687136531_n.jpg",
+        allPhotos: [
+            "473286236_122136684116503065_9133155628687136531_n.jpg",
+        "484898167_122150879546503065_1807074955108875100_n.jpg",
+        "487399115_122153992670503065_5948135259552173081_n.jpg",
+        "487530785_17877287994290401_4006145927487909722_n.jpg",
+        "516748889_17888909304290401_2827374773067349590_n.jpg",
+        "529300551_122175990194503065_4792404565859421482_n.jpg",
+        "529967253_122176956128503065_6413145650372958104_n.jpg",
+        "530244627_122176956122503065_4273219824488615581_n.jpg",
+        "download-1.jpg",
+        "download-2.jpg",
+        "download.jpg"
+        ]
+    },
+    "T-Bonz Bar & Grill": {
+        folderNumber: 83,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download-7.jpg",
+        "download-8.jpg",
+        "download.jpg"
+        ]
+    },
+    "Tappa Keg Inn": {
+        folderNumber: 84,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download-7.jpg",
+        "download.jpg"
+        ]
+    },
+    "Tavern on the Hill": {
+        folderNumber: 85,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download-7.jpg",
+        "download-8.jpg",
+        "download.jpg"
+        ]
+    },
+    "The Breeze Inn": {
+        folderNumber: 87,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download.jpg",
+        "images-1.jpg",
+        "images-2.jpg",
+        "images-3.jpg",
+        "images-4.jpg",
+        "images.jpg"
+        ]
+    },
+    "The Fitger's Barrel Room": {
+        folderNumber: 88,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg"
+        ]
+    },
+    "The Greenery Café & Bakery": {
+        folderNumber: 89,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download.jpg"
+        ]
+    },
+    "The King of Creams": {
+        folderNumber: 90,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download.jpg"
+        ]
+    },
+    "The Loch Café & Games": {
+        folderNumber: 91,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg",
+        "images-1.jpg",
+        "images.jpg"
+        ]
+    },
+    "The Other Place Bar & Grill": {
+        folderNumber: 92,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download.jpg"
+        ]
+    },
+    "The Social House": {
+        folderNumber: 93,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download.jpg"
+        ]
+    },
+    "The Spot Sports Bar & Grill": {
+        folderNumber: 94,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download.jpg"
+        ]
+    },
+    "Toasty's Sandwich Shop": {
+        folderNumber: 95,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download-6.jpg",
+        "download-7.jpg",
+        "download-8.jpg",
+        "download.jpg"
+        ]
+    },
+    "Trophy Café": {
+        folderNumber: 96,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download.jpg"
+        ]
+    },
+    "Uncle Loui's Cafe": {
+        folderNumber: 97,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download.jpg"
+        ]
+    },
+    "Vitta Pizza (Canal Park)": {
+        folderNumber: 99,
+        filename: "download copy.jpg",
+        allPhotos: [
+            "download copy.jpg",
+        "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "download.jpg"
+        ]
+    },
+    "Vitta Pizza (Central Entrance)": {
+        folderNumber: 100,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download-4.jpg",
+        "download-5.jpg",
+        "images-1.jpg",
+        "images-2.jpg",
+        "images.jpg"
+        ]
+    },
+    "Wired Whiskers": {
+        folderNumber: 102,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download.jpg",
+        "images-1.jpg",
+        "images-2.jpg",
+        "images-3.jpg",
+        "images-4.jpg",
+        "images.jpg"
+        ]
+    },
+    "Wussow's Concert Cafe": {
+        folderNumber: 103,
+        filename: "118702814_3210303739085011_6144810948817633191_n.jpg",
+        allPhotos: [
+            "118702814_3210303739085011_6144810948817633191_n.jpg",
+        "124824767_3423568124425237_5543723002760668898_n.jpg",
+        "128622587_3476826795766036_6211919663012998017_n.jpg",
+        "149767607_3659534540828593_4496047041319665345_n.jpg",
+        "460269129_18422694856075569_508474895825611350_n.jpg",
+        "468850023_18435943366075569_2827819322319447150_n.jpg",
+        "474249402_18444490225075569_2087009316121112205_n.jpg",
+        "481021450_18449979118075569_4846543299779423351_n.jpg",
+        "487313755_1228544085943576_4762385609440690374_n.jpg",
+        "491461486_18460518943075569_3084928163005051624_n.jpg",
+        "504203837_18468671011075569_3124070340003847786_n.jpg",
+        "540531682_18482142445075569_3860988601637755258_n.jpg",
+        "571466406_18491323978075569_1028772794861616294_n.jpg",
+        "571995994_18491329132075569_5582393570897587974_n.jpg",
+        "582428389_18495501244075569_2395931867006970877_n.jpg",
+        "download-1.jpg",
+        "download-2.jpg",
+        "download.jpg"
+        ]
+    },
+    "Zeitgeist Arts Café": {
+        folderNumber: 104,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg"
+        ]
+    },
+    "Zhong Hua": {
+        folderNumber: 106,
+        filename: "download-1.jpg",
+        allPhotos: [
+            "download-1.jpg",
+        "download-2.jpg",
+        "download-3.jpg",
+        "download.jpg"
+        ]
     }
 };
 
@@ -784,6 +1517,65 @@ function encodePhotoPath(folderNumber, slug, filename) {
 }
 
 // Helper function to get photo path from "Restaurant Photos" folder
+// Helper function to select the best food dish photo from available photos
+function selectBestFoodPhoto(photos) {
+    if (!photos || photos.length === 0) {
+        return null;
+    }
+    
+    // Keywords that indicate restaurant/menu photos (to avoid)
+    const avoidKeywords = ['menu', 'restaurant', 'exterior', 'outside', 'building', 'sign', 'front', 'entrance', 'store', 'shop', 'facade', 'storefront', 'bar', 'interior', 'inside', 'location'];
+    
+    // First, check if we have any Screenshot files (almost always food photos)
+    const screenshotPhotos = photos.filter(photo => photo.toLowerCase().includes('screenshot'));
+    if (screenshotPhotos.length > 0) {
+        // Prefer middle screenshot photos (first might be menu, later ones are usually food)
+        if (screenshotPhotos.length > 1) {
+            // Return a screenshot from the middle of the list
+            const midIndex = Math.floor(screenshotPhotos.length / 2);
+            return screenshotPhotos[midIndex];
+        }
+        return screenshotPhotos[0];
+    }
+    
+    // If no screenshots, always skip first photo and prefer photos from positions 2-5
+    // (first photo is almost always restaurant/menu, food photos usually start from position 2-3)
+    
+    // Skip first photo, prefer positions 2-5 (indices 1-4)
+    const candidatePhotos = photos.slice(1); // Skip first photo
+    
+    if (candidatePhotos.length === 0) {
+        return photos[0]; // Only one photo available
+    }
+    
+    // Filter out obvious restaurant photos
+    const filteredPhotos = candidatePhotos.filter((photo, index) => {
+        const lower = photo.toLowerCase();
+        // Skip photos with avoid keywords
+        for (const keyword of avoidKeywords) {
+            if (lower.includes(keyword)) {
+                return false;
+            }
+        }
+        return true;
+    });
+    
+    // Use filtered list if we have candidates
+    const photosToChooseFrom = filteredPhotos.length > 0 ? filteredPhotos : candidatePhotos;
+    
+    // Prefer photos from positions 2-5 (indices 1-4 in original, 0-3 in sliced)
+    // This targets the sweet spot where food photos usually are
+    if (photosToChooseFrom.length >= 2) {
+        // Prefer index 1-3 (positions 2-4 in original list)
+        const preferredRange = photosToChooseFrom.slice(0, Math.min(4, photosToChooseFrom.length));
+        const midIndex = Math.floor(preferredRange.length / 2);
+        return preferredRange[midIndex];
+    }
+    
+    // Fallback to first available candidate
+    return photosToChooseFrom[0];
+}
+
 function getRestaurantPhotoPath(restaurantName) {
     // Safety check - ensure restaurantPhotos exists
     if (typeof restaurantPhotos === 'undefined' || !restaurantPhotos) {
@@ -793,12 +1585,19 @@ function getRestaurantPhotoPath(restaurantName) {
     // Check if restaurant has a specific photo mapped
     if (restaurantPhotos[restaurantName]) {
         const photoInfo = restaurantPhotos[restaurantName];
-        // Return null if filename is null (no photos available yet)
-        if (!photoInfo || !photoInfo.filename) {
+        // Return null if no photos available
+        if (!photoInfo || !photoInfo.allPhotos || photoInfo.allPhotos.length === 0) {
             return null;
         }
+        
+        // Select the best food dish photo instead of using filename
+        const bestPhoto = selectBestFoodPhoto(photoInfo.allPhotos);
+        if (!bestPhoto) {
+            return null;
+        }
+        
         const slug = nameToSlug(restaurantName);
-        const path = encodePhotoPath(photoInfo.folderNumber, slug, photoInfo.filename);
+        const path = encodePhotoPath(photoInfo.folderNumber, slug, bestPhoto);
         return path;
     }
     return null;

@@ -1446,93 +1446,181 @@
                 var term = searchTerm.toLowerCase();
                 
                 if (category) {
-                    // Filter by cuisine category
-                    allFilteredRestaurants = allRestaurants.filter(function(restaurant) {
+                    // Filter by cuisine category with scoring
+                    var scoredRestaurants = allRestaurants.map(function(restaurant) {
                         var cuisineLower = restaurant.cuisine.toLowerCase();
                         var nameLower = restaurant.name.toLowerCase();
                         var descLower = restaurant.description.toLowerCase();
                         
-                        // Check if restaurant matches category
+                        var score = 0;
                         var matchesCategory = false;
+                        
+                        // Check if restaurant matches category keywords
                         for (var i = 0; i < category.keywords.length; i++) {
-                            if (cuisineLower.indexOf(category.keywords[i]) !== -1 ||
-                                nameLower.indexOf(category.keywords[i]) !== -1 ||
-                                descLower.indexOf(category.keywords[i]) !== -1) {
+                            var keyword = category.keywords[i].toLowerCase();
+                            
+                            // Name contains keyword (highest priority - 600 points)
+                            if (nameLower.indexOf(keyword) !== -1) {
+                                score += 600;
                                 matchesCategory = true;
-                                break;
+                            }
+                            // Cuisine contains keyword (high priority - 400 points)
+                            if (cuisineLower.indexOf(keyword) !== -1) {
+                                score += 400;
+                                matchesCategory = true;
+                            }
+                            // Description contains keyword (lower priority - 100 points)
+                            if (descLower.indexOf(keyword) !== -1) {
+                                score += 100;
+                                matchesCategory = true;
                             }
                         }
-                        return matchesCategory;
+                        
+                        if (matchesCategory) {
+                            return {
+                                restaurant: restaurant,
+                                score: score
+                            };
+                        }
+                        return null;
+                    }).filter(function(item) {
+                        return item !== null;
+                    });
+                    
+                    // Sort by score (highest first), then by rating
+                    scoredRestaurants.sort(function(a, b) {
+                        // First sort by score
+                        if (b.score !== a.score) {
+                            return b.score - a.score;
+                        }
+                        // If scores are equal, sort by rating
+                        var ratingA = parseFloat(a.restaurant.rating) || 0;
+                        var ratingB = parseFloat(b.restaurant.rating) || 0;
+                        if (ratingB !== ratingA) {
+                            return ratingB - ratingA;
+                        }
+                        // If ratings are equal, sort by number of reviews
+                        var reviewsA = parseInt(a.restaurant.reviews.replace(/,/g, '')) || 0;
+                        var reviewsB = parseInt(b.restaurant.reviews.replace(/,/g, '')) || 0;
+                        return reviewsB - reviewsA;
+                    });
+                    
+                    // Extract just the restaurants
+                    allFilteredRestaurants = scoredRestaurants.map(function(item) {
+                        return item.restaurant;
                     });
                 } else {
-                    // Regular search with improved matching
-                    allFilteredRestaurants = allRestaurants.filter(function(restaurant) {
+                    // Regular search with scoring-based ranking
+                    // First, filter and score restaurants
+                    var scoredRestaurants = allRestaurants.map(function(restaurant) {
                         var nameLower = restaurant.name.toLowerCase();
                         var cuisineLower = restaurant.cuisine.toLowerCase();
                         var locationLower = restaurant.location.toLowerCase();
                         var descLower = restaurant.description.toLowerCase();
                         
-                        // Exact substring match
-                        var nameMatch = nameLower.indexOf(term) !== -1;
-                        var cuisineMatch = cuisineLower.indexOf(term) !== -1;
-                        var locationMatch = locationLower.indexOf(term) !== -1;
-                        var descMatch = descLower.indexOf(term) !== -1;
+                        var score = 0;
+                        var matched = false;
                         
-                        // Word-based matching (check if search term matches any word in name)
-                        if (!nameMatch && term.length >= 3) {
+                        // Exact name match (highest priority - 1000 points)
+                        if (nameLower === term) {
+                            score += 1000;
+                            matched = true;
+                        }
+                        // Name starts with term (very high priority - 800 points)
+                        else if (nameLower.indexOf(term) === 0) {
+                            score += 800;
+                            matched = true;
+                        }
+                        // Name contains term (high priority - 600 points)
+                        else if (nameLower.indexOf(term) !== -1) {
+                            score += 600;
+                            matched = true;
+                        }
+                        // Word-based matching in name (check if search term matches any word)
+                        else if (term.length >= 3) {
                             var nameWords = nameLower.split(/[\s\(\)]+/);
                             for (var i = 0; i < nameWords.length; i++) {
                                 var word = nameWords[i];
-                                // Exact match or substring match
-                                if (word.indexOf(term) !== -1 || term.indexOf(word) !== -1) {
-                                    nameMatch = true;
+                                // Exact word match
+                                if (word === term) {
+                                    score += 500;
+                                    matched = true;
                                     break;
                                 }
-                                // Check if word starts with term (allowing for small differences)
-                                if (word.length >= term.length - 1 && word.length <= term.length + 2) {
-                                    // Check if first few characters match (fuzzy)
-                                    var minLen = Math.min(term.length, word.length);
-                                    var matchChars = 0;
-                                    for (var k = 0; k < minLen; k++) {
-                                        if (term[k] === word[k]) {
-                                            matchChars++;
-                                        }
-                                    }
-                                    // If at least 75% of characters match at the start, it's a match
-                                    if (matchChars >= Math.floor(term.length * 0.75)) {
-                                        nameMatch = true;
-                                        break;
-                                    }
-                                    // Also check if word starts with term (with 1 char tolerance)
-                                    if (word.indexOf(term.substring(0, Math.max(3, term.length - 1))) === 0) {
-                                        nameMatch = true;
-                                        break;
-                                    }
+                                // Word starts with term
+                                else if (word.indexOf(term) === 0) {
+                                    score += 400;
+                                    matched = true;
+                                    break;
+                                }
+                                // Word contains term
+                                else if (word.indexOf(term) !== -1) {
+                                    score += 300;
+                                    matched = true;
+                                    break;
                                 }
                             }
                         }
                         
-                        // Additional fuzzy matching for the full name
-                        if (!nameMatch && term.length >= 3) {
-                            var nameWithoutSpaces = nameLower.replace(/\s+/g, '');
-                            var termWithoutSpaces = term.replace(/\s+/g, '');
-                            
-                            // Check if name starts with term (allowing 1-2 char difference)
-                            if (nameWithoutSpaces.length >= termWithoutSpaces.length - 1) {
-                                var prefixLen = Math.max(3, termWithoutSpaces.length - 1);
-                                if (nameWithoutSpaces.substring(0, prefixLen).indexOf(termWithoutSpaces.substring(0, prefixLen)) !== -1) {
-                                    nameMatch = true;
-                                }
-                            }
+                        // Cuisine contains term (medium-high priority - 200 points)
+                        if (cuisineLower.indexOf(term) !== -1) {
+                            score += 200;
+                            matched = true;
                         }
                         
-                        return nameMatch || cuisineMatch || locationMatch || descMatch;
+                        // Description contains term (lower priority - 50 points)
+                        if (descLower.indexOf(term) !== -1) {
+                            score += 50;
+                            matched = true;
+                        }
+                        
+                        // Location contains term (lowest priority - 25 points)
+                        if (locationLower.indexOf(term) !== -1) {
+                            score += 25;
+                            matched = true;
+                        }
+                        
+                        // Only return restaurants that matched
+                        if (matched) {
+                            return {
+                                restaurant: restaurant,
+                                score: score
+                            };
+                        }
+                        return null;
+                    }).filter(function(item) {
+                        return item !== null;
+                    });
+                    
+                    // Sort by score (highest first), then by rating
+                    scoredRestaurants.sort(function(a, b) {
+                        // First sort by score
+                        if (b.score !== a.score) {
+                            return b.score - a.score;
+                        }
+                        // If scores are equal, sort by rating
+                        var ratingA = parseFloat(a.restaurant.rating) || 0;
+                        var ratingB = parseFloat(b.restaurant.rating) || 0;
+                        if (ratingB !== ratingA) {
+                            return ratingB - ratingA;
+                        }
+                        // If ratings are equal, sort by number of reviews
+                        var reviewsA = parseInt(a.restaurant.reviews.replace(/,/g, '')) || 0;
+                        var reviewsB = parseInt(b.restaurant.reviews.replace(/,/g, '')) || 0;
+                        return reviewsB - reviewsA;
+                    });
+                    
+                    // Extract just the restaurants
+                    allFilteredRestaurants = scoredRestaurants.map(function(item) {
+                        return item.restaurant;
                     });
                 }
             }
             
-            // Sort by rating (highest first)
-            allFilteredRestaurants = sortRestaurantsByRating(allFilteredRestaurants);
+            // Sort by rating (highest first) - only if no search term (already sorted in search)
+            if (!searchTerm) {
+                allFilteredRestaurants = sortRestaurantsByRating(allFilteredRestaurants);
+            }
             
             // If we're restoring a page, make sure it's valid for the filtered results
             if (skipPageReset) {
