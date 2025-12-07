@@ -1378,9 +1378,9 @@
             
             if (category) {
                 // SEO-optimized category page (only for food-related categories)
-                pageTitle = 'Locals Guide to 10 Best ' + category.plural + ' Restaurants in Duluth Minnesota | YourDuluthGuide';
+                pageTitle = 'Locals Guide to 10 Best ' + category.plural + ' in Duluth Minnesota | YourDuluthGuide';
                 pageDescription = 'Discover the top rated ' + category.plural.toLowerCase() + ' in Duluth, Minnesota. Find the best ' + category.name.toLowerCase() + ' restaurants with reviews, ratings, and photos.';
-                headerTitle = 'Locals Guide to 10 Best ' + category.plural + ' Restaurants in Duluth Minnesota';
+                headerTitle = 'Locals Guide to 10 Best ' + category.plural + ' in Duluth Minnesota';
                 headerDescription = 'Discover the highest-rated ' + category.plural.toLowerCase() + ' with reviews, ratings, and photos';
                 
                 // Update URL
@@ -1390,12 +1390,12 @@
                     window.history.pushState({ path: newUrl }, '', newUrl);
                 }
             } else if (searchTerm) {
-                // Generic search results - keep default title, don't change header
-                pageTitle = 'Restaurants in Duluth Minnesota | Search Results | YourDuluthGuide';
-                pageDescription = 'Search results for restaurants in Duluth, Minnesota. Browse top-rated dining options with reviews and ratings.';
-                // Keep default header for non-food searches
-                headerTitle = 'All Restaurants in Duluth';
-                headerDescription = 'Search results for "' + searchTerm + '" - Discover over 100 restaurants, cafes, and dining experiences throughout Duluth, Minnesota';
+                // Generic search results - use Locals Guide format
+                var capitalizedTerm = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1).toLowerCase();
+                pageTitle = 'Locals Guide to 10 Best ' + capitalizedTerm + ' Restaurants in Duluth Minnesota | YourDuluthGuide';
+                pageDescription = 'Discover the top rated ' + searchTerm.toLowerCase() + ' restaurants in Duluth, Minnesota. Find the best ' + searchTerm.toLowerCase() + ' dining options with reviews, ratings, and photos.';
+                headerTitle = 'Locals Guide to 10 Best ' + capitalizedTerm + ' Restaurants in Duluth Minnesota';
+                headerDescription = 'Discover the highest-rated ' + searchTerm.toLowerCase() + ' restaurants with reviews, ratings, and photos';
             } else {
                 // Default page
                 pageTitle = 'Top 10 Best Restaurants Near Duluth Minnesota | YourDuluthGuide';
@@ -1409,6 +1409,16 @@
             var metaDescription = document.querySelector('meta[name="description"]');
             if (metaDescription) {
                 metaDescription.setAttribute('content', pageDescription);
+            }
+            
+            // Update Open Graph tags for Google
+            var ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) {
+                ogTitle.setAttribute('content', pageTitle);
+            }
+            var ogDescription = document.querySelector('meta[property="og:description"]');
+            if (ogDescription) {
+                ogDescription.setAttribute('content', pageDescription);
             }
             
             // Update header
