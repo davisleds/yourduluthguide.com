@@ -1378,9 +1378,9 @@
             
             if (category) {
                 // SEO-optimized category page (only for food-related categories)
-                pageTitle = 'Top 10 Best ' + category.plural + ' in Duluth Minnesota | YourDuluthGuide';
+                pageTitle = 'Locals Guide to 10 Best ' + category.plural + ' Restaurants in Duluth Minnesota | YourDuluthGuide';
                 pageDescription = 'Discover the top rated ' + category.plural.toLowerCase() + ' in Duluth, Minnesota. Find the best ' + category.name.toLowerCase() + ' restaurants with reviews, ratings, and photos.';
-                headerTitle = 'Top 10 Best ' + category.plural + ' in Duluth Minnesota';
+                headerTitle = 'Locals Guide to 10 Best ' + category.plural + ' Restaurants in Duluth Minnesota';
                 headerDescription = 'Discover the highest-rated ' + category.plural.toLowerCase() + ' with reviews, ratings, and photos';
                 
                 // Update URL
@@ -1634,6 +1634,9 @@
                     currentPage = 1;
                 }
             }
+            
+            // Reset map interaction flag so map can auto-zoom to new results
+            mapUserInteracted = false;
             
             // Render results
             renderRestaurants();
@@ -1915,12 +1918,15 @@
             if (googleMarkers.length > 0) {
                 // Only auto-zoom if user hasn't manually interacted with the map
                 if (!mapUserInteracted) {
-                map.fitBounds(bounds, { padding: 40 });
-                google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-                    if (map.getZoom() > 15) {
-                        map.setZoom(15);
+                    // Fit bounds to show all markers with minimal padding to zoom in as much as possible
+                    if (googleMarkers.length === 1) {
+                        // Single marker - zoom in very close
+                        map.setCenter(bounds.getCenter());
+                        map.setZoom(17);
+                    } else {
+                        // Multiple markers - fit bounds with minimal padding for maximum zoom
+                        map.fitBounds(bounds, { padding: 20 });
                     }
-                });
                 }
             }
         }
@@ -2003,7 +2009,15 @@
             if (bounds.length > 0) {
                 // Only auto-zoom if user hasn't manually interacted with the map
                 if (!mapUserInteracted) {
-                map.fitBounds(bounds, { padding: [40, 40] });
+                    // Fit bounds to show all markers with minimal padding for maximum zoom
+                    if (bounds.length === 1) {
+                        // Single marker - zoom in very close
+                        map.setView(bounds[0], 17);
+                    } else {
+                        // Multiple markers - fit bounds with minimal padding for maximum zoom
+                        var boundsObj = L.latLngBounds(bounds);
+                        map.fitBounds(boundsObj, { padding: [20, 20] });
+                    }
                 }
             }
         }

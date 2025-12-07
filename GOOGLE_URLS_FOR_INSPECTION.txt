@@ -1,0 +1,82 @@
+MAIN URLS FOR GOOGLE SEARCH CONSOLE URL INSPECTION
+==================================================
+
+Primary Domain (based on meta tags): duluthguide.com
+Alternative Domain (based on robots.txt): duluthstay.com
+
+MAIN PAGES:
+-----------
+
+Homepage:
+https://duluthguide.com/
+https://duluthguide.com/index.html
+
+Restaurants Page:
+https://duluthguide.com/restaurants.html
+
+Dining Page:
+https://duluthguide.com/dining.html
+
+Travel Guide:
+https://duluthguide.com/travel-guide.html
+
+Key Assets:
+-----------
+Favicon:
+https://duluthguide.com/GoogleIcon.png
+
+Logo:
+https://duluthguide.com/logo.svg
+
+Sitemap:
+https://duluthguide.com/sitemap.xml
+(or https://duluthstay.com/sitemap.xml if that's the actual domain)
+
+Robots.txt:
+https://duluthguide.com/robots.txt
+
+
+IF USING duluthstay.com DOMAIN INSTEAD:
+---------------------------------------
+
+Homepage:
+https://duluthstay.com/
+https://duluthstay.com/index.html
+
+Restaurants Page:
+https://duluthstay.com/restaurants.html
+
+Dining Page:
+https://duluthstay.com/dining.html
+
+Travel Guide:
+https://duluthstay.com/travel-guide.html
+
+Key Assets:
+https://duluthstay.com/GoogleIcon.png
+https://duluthstay.com/logo.svg
+https://duluthstay.com/sitemap.xml
+https://duluthstay.com/robots.txt
+
+
+HOW TO USE IN GOOGLE SEARCH CONSOLE:
+------------------------------------
+1. Go to https://search.google.com/search-console
+2. Select your property (duluthguide.com or duluthstay.com)
+3. Use the URL Inspection tool at the top
+4. Paste each URL and click "Request Indexing"
+5. Wait for Google to process (can take a few minutes to days)
+
+PRIORITY ORDER FOR INSPECTION:
+-------------------------------
+1. Homepage (index.html or /)
+2. Restaurants page (main content page)
+3. Favicon (GoogleIcon.png)
+4. Dining page
+5. Travel guide page
+6. Sitemap.xml
+7. Logo.svg (if needed)
+
+NOTE: After requesting indexing for the favicon URL specifically, 
+it may help speed up Google recognizing the new favicon.
+
