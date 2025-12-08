@@ -630,7 +630,7 @@
                             <li><a href="explore.html?filter=parks-trails">Parks & Trails</a></li>
                             <li><a href="#neighborhoods">Neighborhoods</a></li>
                             <li><a href="#lake-superior">Lake Superior</a></li>
-                        </ul>
+                </ul>
                     </li>
                     <li class="nav-item-dropdown">
                         <a href="restaurants.html" title="Restaurants, cafés, breweries, and local favorites">Eat & Drink</a>
@@ -2157,13 +2157,17 @@
             return slug + locationSuffix;
         }
         
-        // Restaurant detail page function - now uses short slug URLs
+        // Restaurant detail page function - uses query parameter (works everywhere)
         window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image, location, phone, website, address, reservations, popularDishes, hours, type, nicheKeywords) {
             // Create short slug URL
             var slug = createRestaurantSlug(name, location);
             
-            // Use short URL format: /restaurant/[slug]
-            window.location.href = 'restaurant/' + slug;
+            // Use query parameter format - reliable and works on all servers
+            // Format: /restaurant/index.html?slug=restaurant-slug
+            // This avoids Vercel rewrite issues and works everywhere
+            var url = '/restaurant/index.html?slug=' + encodeURIComponent(slug);
+            
+            window.location.href = url;
         };
         
         // Initialize page when DOM is ready

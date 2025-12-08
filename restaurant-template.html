@@ -31,6 +31,66 @@
         })();
     </script>
     
+    <script src="restaurants-data.js"></script>
+    <script src="adventures-data.js"></script>
+    <script>
+        // REDIRECT OLD URLS TO NEW SLUG FORMAT (301 redirect for SEO)
+        (function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var hasOldParams = urlParams.has('name') && urlParams.has('rating');
+            
+            if (hasOldParams) {
+                // We have old URL format with query params - redirect to new slug format
+                var restaurantName = urlParams.get('name');
+                var location = urlParams.get('location') || 'Duluth';
+                
+                // Create slug from name and location (exact same logic as restaurants.html)
+                function createRestaurantSlug(name, location) {
+                    var slug = name.toLowerCase();
+                    
+                    // Handle location suffixes in parentheses
+                    var locationSuffix = '';
+                    if (name.includes('(Miller Hill)')) {
+                        locationSuffix = '-miller-hill';
+                        slug = slug.replace(/\s*\(miller hill\)\s*/g, '');
+                    } else if (name.includes('(Canal Park)')) {
+                        locationSuffix = '-canal-park';
+                        slug = slug.replace(/\s*\(canal park\)\s*/g, '');
+                    } else if (name.includes('(Central Entrance)')) {
+                        locationSuffix = '-central-entrance';
+                        slug = slug.replace(/\s*\(central entrance\)\s*/g, '');
+                    } else if (name.includes('(London Road)')) {
+                        locationSuffix = '-london-road';
+                        slug = slug.replace(/\s*\(london road\)\s*/g, '');
+                    } else if (location && location !== 'Duluth, MN' && location !== 'Duluth') {
+                        var locSlug = location.toLowerCase()
+                            .replace(/\s+/g, '-')
+                            .replace(/[^a-z0-9-]/g, '')
+                            .replace(/-+/g, '-')
+                            .replace(/^-|-$/g, '');
+                        if (locSlug) locationSuffix = '-' + locSlug;
+                    }
+                    
+                    slug = slug.replace(/[^a-z0-9 -]/g, '');
+                    slug = slug.replace(/\s+/g, '-');
+                    slug = slug.replace(/-+/g, '-');
+                    slug = slug.replace(/^-|-$/g, '');
+                    return slug + locationSuffix;
+                }
+                
+                var slug = createRestaurantSlug(restaurantName, location);
+                var newUrl = '/restaurant/index.html?slug=' + encodeURIComponent(slug);
+                
+                // Use replace for permanent redirect (301-like behavior)
+                window.location.replace(newUrl);
+                return; // Stop execution, redirect is happening
+            } else if (!hasOldParams && window.location.pathname.includes('restaurant-template.html')) {
+                // No query params - redirect to restaurants list page
+                window.location.replace('/restaurants.html');
+                return;
+            }
+        })();
+    </script>
     <script>
         var restaurantGoogleMapsKey = 'YOUR_API_KEY';
         var restaurantUseGoogleMaps = true;

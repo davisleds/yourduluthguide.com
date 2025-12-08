@@ -858,27 +858,62 @@
 
     <script>
         // Function to open restaurant page
+        // Create slug from restaurant name and location (same logic as restaurants.html)
+        function createRestaurantSlug(name, location) {
+            var slug = name.toLowerCase();
+            
+            // Handle location suffixes in parentheses
+            var locationSuffix = '';
+            if (name.includes('(Miller Hill)')) {
+                locationSuffix = '-miller-hill';
+                slug = slug.replace(/\s*\(miller hill\)\s*/g, '');
+            } else if (name.includes('(Canal Park)')) {
+                locationSuffix = '-canal-park';
+                slug = slug.replace(/\s*\(canal park\)\s*/g, '');
+            } else if (name.includes('(Central Entrance)')) {
+                locationSuffix = '-central-entrance';
+                slug = slug.replace(/\s*\(central entrance\)\s*/g, '');
+            } else if (name.includes('(London Road)')) {
+                locationSuffix = '-london-road';
+                slug = slug.replace(/\s*\(london road\)\s*/g, '');
+            } else if (location && location !== 'Duluth, MN' && location !== 'Duluth') {
+                var locSlug = location.toLowerCase()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^a-z0-9-]/g, '')
+                    .replace(/-+/g, '-')
+                    .replace(/^-|-$/g, '');
+                if (locSlug) {
+                    locationSuffix = '-' + locSlug;
+                }
+            }
+            
+            slug = slug.replace(/[^a-z0-9 -]/g, '');
+            slug = slug.replace(/\s+/g, '-');
+            slug = slug.replace(/-+/g, '-');
+            slug = slug.replace(/^-|-$/g, '');
+            return slug + locationSuffix;
+        }
+        
         function openRestaurant(name, number, rating, reviews, price, cuisine, description, image, address) {
             console.log('Opening restaurant:', name);
             
-            // Pass restaurant data via URL parameters
-            const params = new URLSearchParams({
-                name: name,
-                number: number,
-                rating: rating,
-                reviews: reviews,
-                price: price,
-                cuisine: cuisine,
-                description: description,
-                image: image
-            });
-            
+            // Extract location from address or use default
+            var location = 'Duluth';
             if (address) {
-                params.set('address', address);
+                // Try to extract neighborhood from address
+                if (address.includes('Canal Park')) location = 'Canal Park';
+                else if (address.includes('Lincoln Park')) location = 'Lincoln Park';
+                else if (address.includes('Miller Hill')) location = 'Miller Hill';
+                else if (address.includes('Downtown')) location = 'Downtown';
+                else if (address.includes('Lakewalk')) location = 'Lakewalk';
             }
             
-            console.log('Navigating to:', `restaurant-template.html?${params.toString()}`);
-            window.open(`restaurant-template.html?${params.toString()}`, '_blank');
+            // Create slug and use new URL format
+            var slug = createRestaurantSlug(name, location);
+            var newUrl = '/restaurant/index.html?slug=' + encodeURIComponent(slug);
+            
+            console.log('Navigating to:', newUrl);
+            window.open(newUrl, '_blank');
         }
 
         // Hours toggle functionality
@@ -1443,25 +1478,23 @@
 
 
         // Function to open restaurant page
-        function openRestaurant(name, number, rating, reviews, price, cuisine, description, image) {
+        // Second openRestaurant function (duplicate - using same slug logic)
+        function openRestaurant2(name, number, rating, reviews, price, cuisine, description, image) {
             console.log('Opening restaurant:', name);
-            alert('openRestaurant function called for: ' + name);
             
-            // Pass restaurant data via URL parameters
-            const params = new URLSearchParams({
-                name: name,
-                number: number,
-                rating: rating,
-                reviews: reviews,
-                price: price,
-                cuisine: cuisine,
-                description: description,
-                image: image
-            });
+            // Extract location from name or use default
+            var location = 'Duluth';
+            if (name.includes('(Miller Hill)')) location = 'Miller Hill';
+            else if (name.includes('(Canal Park)')) location = 'Canal Park';
+            else if (name.includes('(Central Entrance)')) location = 'Central Entrance';
+            else if (name.includes('(London Road)')) location = 'London Road';
             
-            console.log('Navigating to:', `restaurant-template.html?${params.toString()}`);
-            alert('About to open: restaurant-template.html?${params.toString()}');
-            window.open(`restaurant-template.html?${params.toString()}`, '_blank');
+            // Create slug and use new URL format
+            var slug = createRestaurantSlug(name, location);
+            var newUrl = '/restaurant/index.html?slug=' + encodeURIComponent(slug);
+            
+            console.log('Navigating to:', newUrl);
+            window.open(newUrl, '_blank');
         }
         
         // Test function to verify click functionality

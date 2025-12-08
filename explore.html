@@ -630,7 +630,7 @@
                             <li><a href="explore.html?filter=parks-trails">Parks & Trails</a></li>
                             <li><a href="#neighborhoods">Neighborhoods</a></li>
                             <li><a href="#lake-superior">Lake Superior</a></li>
-                        </ul>
+                </ul>
                     </li>
                     <li class="nav-item-dropdown">
                         <a href="restaurants.html" title="Restaurants, cafés, breweries, and local favorites">Eat & Drink</a>
@@ -2180,47 +2180,60 @@
         // Make doSearch globally accessible
         window.doSearch = doSearch;
         
-        // Restaurant detail page function
+        // Helper function to create URL-friendly slug from restaurant name and location
+        function createRestaurantSlug(name, location) {
+            // Clean the name
+            var slug = name.toLowerCase();
+            
+            // Handle location suffixes in parentheses
+            var locationSuffix = '';
+            if (name.includes('(Miller Hill)')) {
+                locationSuffix = '-miller-hill';
+                slug = slug.replace(/\s*\(miller hill\)\s*/g, '');
+            } else if (name.includes('(Canal Park)')) {
+                locationSuffix = '-canal-park';
+                slug = slug.replace(/\s*\(canal park\)\s*/g, '');
+            } else if (name.includes('(Central Entrance)')) {
+                locationSuffix = '-central-entrance';
+                slug = slug.replace(/\s*\(central entrance\)\s*/g, '');
+            } else if (name.includes('(London Road)')) {
+                locationSuffix = '-london-road';
+                slug = slug.replace(/\s*\(london road\)\s*/g, '');
+            } else {
+                // Add location to slug if not in name
+                if (location && location !== 'Duluth, MN' && location !== 'Duluth') {
+                    var locSlug = location.toLowerCase()
+                        .replace(/\s+/g, '-')
+                        .replace(/[^a-z0-9-]/g, '')
+                        .replace(/-+/g, '-')
+                        .replace(/^-|-$/g, '');
+                    if (locSlug) {
+                        locationSuffix = '-' + locSlug;
+                    }
+                }
+            }
+            
+            // Remove special characters, keep only letters, numbers, spaces, and hyphens
+            slug = slug.replace(/[^a-z0-9 -]/g, '');
+            // Replace spaces with hyphens
+            slug = slug.replace(/\s+/g, '-');
+            // Remove multiple consecutive hyphens
+            slug = slug.replace(/-+/g, '-');
+            // Remove leading/trailing hyphens
+            slug = slug.replace(/^-|-$/g, '');
+            
+            return slug + locationSuffix;
+        }
+        
+        // Restaurant detail page function - uses query parameter (works everywhere)
         window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image, location, phone, website, address, reservations, popularDishes, hours, type) {
-            var params = new URLSearchParams();
-            params.set('type', type || 'restaurant');
-            params.set('name', name);
-            params.set('number', number);
-            params.set('rating', rating);
-            params.set('reviews', reviews);
-            // Support both old and new field names
-            if (price) {
-                params.set('price', price);
-                params.set('cost', price);
-            }
-            if (cuisine) {
-                params.set('cuisine', cuisine);
-                params.set('category', cuisine);
-            }
-            params.set('description', description);
-            params.set('image', image);
-            params.set('location', location || 'Duluth');
-            if (phone) params.set('phone', phone);
-            if (website) params.set('website', website);
-            if (address) params.set('address', address);
-            if (reservations) {
-                params.set('reservations', reservations);
-                params.set('timeNeeded', reservations);
-            }
-            if (popularDishes) {
-                params.set('popularDishes', popularDishes);
-                params.set('highlights', popularDishes);
-            }
-            if (hours) params.set('hours', hours); // Already encoded
+            // Create short slug URL
+            var slug = createRestaurantSlug(name, location);
             
-            // Preserve current page and search term
-            params.set('returnPage', currentPage);
-            var searchInput = document.getElementById('restaurantSearch');
-            if (searchInput && searchInput.value.trim()) {
-                params.set('returnSearch', searchInput.value.trim());
-            }
+            // Use query parameter format - reliable and works on all servers
+            var url = '/restaurant/index.html?slug=' + encodeURIComponent(slug);
             
-            window.location.href = 'restaurant-template.html?' + params.toString();
+            window.location.href = url;
         };
         
         // Initialize page when DOM is ready
