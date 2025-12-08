@@ -609,11 +609,58 @@
                     <h1><a href="index.html">YourDuluthGuide</a></h1>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="restaurants.html">All Restaurants</a></li>
-                    <li><a href="dining.html">Dining</a></li>
-                    <li><a href="explore.html">Explore</a></li>
+                    <li class="nav-item-dropdown">
+                        <a href="explore.html" title="Attractions, trails, neighborhoods, and sights">Explore</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="explore.html">All Adventures</a></li>
+                            <li><a href="#attractions">Attractions</a></li>
+                            <li><a href="explore.html?filter=parks-trails">Parks & Trails</a></li>
+                            <li><a href="#neighborhoods">Neighborhoods</a></li>
+                            <li><a href="#lake-superior">Lake Superior</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="restaurants.html" title="Restaurants, cafés, breweries, and local favorites">Eat & Drink</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="restaurants.html">Top Restaurants</a></li>
+                            <li><a href="restaurants.html?cuisine=coffee">Cafés & Coffee</a></li>
+                            <li><a href="restaurants.html?cuisine=brewery">Breweries & Bars</a></li>
+                            <li><a href="restaurants.html?cuisine=breakfast">Breakfast & Brunch</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#stay" title="Hotels, cabins, and vacation rentals">Stay</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#hotels">Hotels</a></li>
+                            <li><a href="#cabins-lodges">Cabins & Lodges</a></li>
+                            <li><a href="#vacation-rentals">Vacation Rentals</a></li>
+                            <li><a href="#pet-friendly">Pet-Friendly</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#events" title="Festivals, concerts, and seasonal activities">Events</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#this-weekend">This Weekend</a></li>
+                            <li><a href="#festivals">Festivals</a></li>
+                            <li><a href="#live-music">Live Music</a></li>
+                            <li><a href="#seasonal-highlights">Seasonal Highlights</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#plan" title="Itineraries, maps, and travel tips">Plan</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#itineraries">Itineraries</a></li>
+                            <li><a href="#maps-parking">Maps & Parking</a></li>
+                            <li><a href="#transportation">Transportation</a></li>
+                            <li><a href="#travel-tips">Travel Tips</a></li>
+                        </ul>
+                    </li>
                 </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </nav>
     </header>
@@ -1480,6 +1527,57 @@
             currentPage = 1;
             }
             
+            // Check for filter parameter in URL (e.g., parks-trails) - check this FIRST
+            var urlParams = new URLSearchParams(window.location.search);
+            var filterParam = urlParams.get('filter');
+            
+            // If filter is parks-trails, automatically filter to parks and trails
+            if (filterParam === 'parks-trails') {
+                allFilteredRestaurants = allRestaurants.filter(function(restaurant) {
+                    var categoryLower = (restaurant.category || restaurant.cuisine || '').toLowerCase();
+                    var nameLower = restaurant.name.toLowerCase();
+                    var descLower = restaurant.description.toLowerCase();
+                    
+                    // Match parks and trails related keywords
+                    var parksTrailsKeywords = ['park', 'trail', 'hiking', 'hike', 'nature', 'walking', 'biking', 'bike', 'outdoor', 'forest', 'path', 'walkway'];
+                    
+                    for (var i = 0; i < parksTrailsKeywords.length; i++) {
+                        var keyword = parksTrailsKeywords[i];
+                        if (categoryLower.indexOf(keyword) !== -1 || 
+                            nameLower.indexOf(keyword) !== -1 || 
+                            descLower.indexOf(keyword) !== -1) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+                
+                // Update SEO for parks & trails
+                updatePageSEO(null, 'parks and trails');
+                
+                // Sort by rating
+                allFilteredRestaurants = sortRestaurantsByRating(allFilteredRestaurants);
+                
+                // Update page header
+                var headerH1 = document.querySelector('.restaurants-header h1');
+                var headerP = document.querySelector('.restaurants-header p');
+                if (headerH1) headerH1.textContent = 'Parks & Trails in Duluth';
+                if (headerP) headerP.textContent = 'Discover the best parks, trails, and hiking adventures in Duluth, Minnesota';
+                
+                // Update document title and meta for parks & trails
+                document.title = 'Parks & Trails in Duluth, Minnesota | YourDuluthGuide';
+                var metaDescription = document.querySelector('meta[name="description"]');
+                if (metaDescription) {
+                    metaDescription.setAttribute('content', 'Discover the best parks, trails, and hiking adventures in Duluth, Minnesota. Find top-rated outdoor experiences with reviews, ratings, and photos.');
+                }
+                
+                // Skip rest of search logic since filter is applied
+                // Reset map interaction flag so map can auto-zoom to new results
+                mapUserInteracted = false;
+                renderRestaurants();
+                return;
+            }
+            
             // Detect cuisine category
             var category = detectCuisineCategory(searchTerm);
             
@@ -2169,8 +2267,17 @@
             var urlParams = new URLSearchParams(window.location.search);
             var searchParam = urlParams.get('search');
             var cuisineParam = urlParams.get('cuisine');
+            var filterParam = urlParams.get('filter'); // Check for filter parameter (e.g., parks-trails)
             var returnPage = urlParams.get('returnPage');
             var returnSearch = urlParams.get('returnSearch');
+            
+            // Handle filter parameter for Parks & Trails
+            if (filterParam === 'parks-trails') {
+                // Set the search input to filter parks and trails
+                if (searchInput) {
+                    searchInput.value = 'park trail hiking nature';
+                }
+            }
             
             // Restore page number if returning from restaurant detail page
             var isRestoringPage = false;
@@ -2186,6 +2293,9 @@
                 // Restore search term and page when returning from restaurant detail
                 searchInput.value = returnSearch;
                 doSearch(true); // Skip page reset since we're restoring
+            } else if (filterParam === 'parks-trails') {
+                // Handle parks-trails filter - don't set search input, filter is handled in doSearch
+                doSearch(isRestoringPage); // Filter will be applied in doSearch function
             } else if (searchParam) {
                 searchInput.value = searchParam;
                 doSearch(isRestoringPage); // Preserve page if restoring

@@ -609,10 +609,58 @@
                     <h1><a href="index.html">YourDuluthGuide</a></h1>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="restaurants.html">All Restaurants</a></li>
-                    <li><a href="dining.html">Dining</a></li>
+                    <li class="nav-item-dropdown">
+                        <a href="explore.html" title="Attractions, trails, neighborhoods, and sights">Explore</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="explore.html">All Adventures</a></li>
+                            <li><a href="#attractions">Attractions</a></li>
+                            <li><a href="explore.html?filter=parks-trails">Parks & Trails</a></li>
+                            <li><a href="#neighborhoods">Neighborhoods</a></li>
+                            <li><a href="#lake-superior">Lake Superior</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="restaurants.html" title="Restaurants, cafés, breweries, and local favorites">Eat & Drink</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="restaurants.html">Top Restaurants</a></li>
+                            <li><a href="restaurants.html?cuisine=coffee">Cafés & Coffee</a></li>
+                            <li><a href="restaurants.html?cuisine=brewery">Breweries & Bars</a></li>
+                            <li><a href="restaurants.html?cuisine=breakfast">Breakfast & Brunch</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#stay" title="Hotels, cabins, and vacation rentals">Stay</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#hotels">Hotels</a></li>
+                            <li><a href="#cabins-lodges">Cabins & Lodges</a></li>
+                            <li><a href="#vacation-rentals">Vacation Rentals</a></li>
+                            <li><a href="#pet-friendly">Pet-Friendly</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#events" title="Festivals, concerts, and seasonal activities">Events</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#this-weekend">This Weekend</a></li>
+                            <li><a href="#festivals">Festivals</a></li>
+                            <li><a href="#live-music">Live Music</a></li>
+                            <li><a href="#seasonal-highlights">Seasonal Highlights</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#plan" title="Itineraries, maps, and travel tips">Plan</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#itineraries">Itineraries</a></li>
+                            <li><a href="#maps-parking">Maps & Parking</a></li>
+                            <li><a href="#transportation">Transportation</a></li>
+                            <li><a href="#travel-tips">Travel Tips</a></li>
+                        </ul>
+                    </li>
                 </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </nav>
     </header>
@@ -1044,6 +1092,7 @@
                 // Support both old and new field names
                 var reservationsParam = (restaurant.reservations || restaurant.timeNeeded) ? '\'' + (restaurant.reservations || restaurant.timeNeeded).replace(/'/g, "\\'") + '\'' : 'null';
                 var popularDishesParam = (restaurant.popularDishes || restaurant.highlights) ? '\'' + (restaurant.popularDishes || restaurant.highlights).join(',').replace(/'/g, "\\'") + '\'' : 'null';
+                var nicheKeywordsParam = restaurant.niche_keywords ? '\'' + restaurant.niche_keywords.join(',').replace(/'/g, "\\'") + '\'' : 'null';
                 var placeType = restaurant.type || 'restaurant';
                 var hoursParam = restaurant.hours ? '\'' + encodeURIComponent(JSON.stringify(restaurant.hours)).replace(/'/g, "\\'") + '\'' : 'null';
                 
@@ -1066,7 +1115,8 @@
                     reservationsParam + ',' +
                     popularDishesParam + ',' +
                     hoursParam + ',\'' +
-                    placeType + '\')">' +
+                    placeType + '\',' +
+                    nicheKeywordsParam + ')">' +
                     '<img src="' + imagePath + '" alt="' + name + '" class="restaurant-card-image" loading="lazy" onerror="console.error(\'Image failed to load:\', this.src); this.onerror=null; this.src=\'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop\';">' +
                     '<div class="restaurant-card-body">' +
                     '<h3 class="restaurant-card-name"><span class="restaurant-card-number">' + restaurantNumber + '.</span>' + name + '</h3>' +
@@ -2050,7 +2100,7 @@
         window.doSearch = doSearch;
         
         // Restaurant detail page function
-        window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image, location, phone, website, address, reservations, popularDishes, hours, type) {
+        window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image, location, phone, website, address, reservations, popularDishes, hours, type, nicheKeywords) {
             var params = new URLSearchParams();
             params.set('type', type || 'restaurant');
             params.set('name', name);
@@ -2081,6 +2131,9 @@
                 params.set('highlights', popularDishes);
             }
             if (hours) params.set('hours', hours); // Already encoded
+            if (nicheKeywords && nicheKeywords !== 'null') {
+                params.set('nicheKeywords', nicheKeywords);
+            }
             
             // Preserve current page and search term
             params.set('returnPage', currentPage);

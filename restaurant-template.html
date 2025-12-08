@@ -1733,7 +1733,7 @@
                 <div class="nav-logo">
                     <h1><a href="index.html">YourDuluthGuide</a></h1>
                 </div>
-                <a href="restaurants.html" class="back-button">← Back to Restaurants</a>
+                <a href="restaurants.html" class="back-button" id="backButton">← Back to Restaurants</a>
             </div>
         </nav>
     </header>
@@ -1972,6 +1972,7 @@
             const restaurantAddress = urlParams.get('address') || null;
             const restaurantReservations = urlParams.get('reservations') || urlParams.get('timeNeeded') || null;
             const restaurantPopularDishes = urlParams.get('popularDishes') ? urlParams.get('popularDishes').split(',') : (urlParams.get('highlights') ? urlParams.get('highlights').split(',') : null);
+            const restaurantNicheKeywords = urlParams.get('nicheKeywords') ? urlParams.get('nicheKeywords').split(',') : null;
             let restaurantHours = null;
             const hoursParam = urlParams.get('hours');
             if (hoursParam) {
@@ -1985,6 +1986,13 @@
             // Update labels dynamically based on type
             function updateLabelsForType(type) {
                 const isAdventure = type === 'adventure';
+                
+                // Update Back button text and link
+                const backButton = document.getElementById('backButton');
+                if (backButton) {
+                    backButton.textContent = isAdventure ? '← Back to Exploration' : '← Back to Restaurants';
+                    backButton.href = isAdventure ? 'explore.html' : 'restaurants.html';
+                }
                 
                 // Update Category/Cuisine label
                 const labelCategory = document.getElementById('labelCategory');
@@ -2028,8 +2036,35 @@
                 ? getRestaurantAllPhotos(restaurantName) 
                 : null;
             
-            // Update page title
-            document.title = `${restaurantName} - YourDuluthGuide`;
+            // Update page title with first niche keyword if available
+            let pageTitle;
+            if (restaurantNicheKeywords && restaurantNicheKeywords.length > 0) {
+                const firstKeyword = restaurantNicheKeywords[0].trim();
+                pageTitle = `${restaurantName}: ${firstKeyword} | YourDuluthGuide`;
+            } else {
+                pageTitle = `${restaurantName} - YourDuluthGuide`;
+            }
+            document.title = pageTitle;
+            
+            // Update meta description with niche keyword
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription && restaurantNicheKeywords && restaurantNicheKeywords.length > 0) {
+                const firstKeyword = restaurantNicheKeywords[0].trim();
+                metaDescription.setAttribute('content', `${restaurantName} - ${firstKeyword}. ${restaurantDescription || 'Discover this restaurant in Duluth, Minnesota with reviews, ratings, and photos.'}`);
+            }
+            
+            // Update Open Graph title
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) {
+                ogTitle.setAttribute('content', pageTitle);
+            }
+            
+            // Update Open Graph description
+            const ogDescription = document.querySelector('meta[property="og:description"]');
+            if (ogDescription && restaurantNicheKeywords && restaurantNicheKeywords.length > 0) {
+                const firstKeyword = restaurantNicheKeywords[0].trim();
+                ogDescription.setAttribute('content', `${restaurantName} - ${firstKeyword}. ${restaurantDescription || 'Discover this restaurant in Duluth, Minnesota.'}`);
+            }
             
             // Update restaurant name
             setTextIfExists('restaurantName', restaurantName);
