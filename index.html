@@ -56,6 +56,19 @@
     
     <!-- Booking.com affiliate integration -->
     <!-- <script type="text/javascript" src="https://www.booking.com/affiliate/widget.js"></script> -->
+    
+    <!-- Vercel Analytics -->
+    <script>
+        (function() {
+            if (typeof window !== 'undefined') {
+                var script = document.createElement('script');
+                script.src = 'https://va.vercel-scripts.com/v1/script.js';
+                script.defer = true;
+                script.setAttribute('data-domain', window.location.hostname);
+                document.head.appendChild(script);
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- Header -->

@@ -17,6 +17,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Vercel Analytics -->
+    <script>
+        (function() {
+            if (typeof window !== 'undefined') {
+                var script = document.createElement('script');
+                script.src = 'https://va.vercel-scripts.com/v1/script.js';
+                script.defer = true;
+                script.setAttribute('data-domain', window.location.hostname);
+                document.head.appendChild(script);
+            }
+        })();
+    </script>
+    
     <script>
         var restaurantGoogleMapsKey = 'YOUR_API_KEY';
         var restaurantUseGoogleMaps = true;
@@ -1935,6 +1949,18 @@
             
             const urlParams = new URLSearchParams(window.location.search);
             
+            // Load restaurant data if not already loaded (for slug-based routing)
+            if (typeof allRestaurants === 'undefined') {
+                var script = document.createElement('script');
+                script.src = 'restaurants-data.js';
+                script.onload = function() {
+                    // Retry loading after data is loaded
+                    setTimeout(loadRestaurantData, 100);
+                };
+                document.head.appendChild(script);
+                return;
+            }
+            
             // Get return parameters for back button
             const returnPage = urlParams.get('returnPage');
             const returnSearch = urlParams.get('returnSearch');
@@ -1956,30 +1982,111 @@
                 backButton.href = backUrl;
             }
             
-            // Get all place data from URL parameters (supports both Restaurant and Adventure)
-            const placeType = urlParams.get('type') || 'restaurant'; // 'restaurant' or 'adventure'
-            const restaurantName = urlParams.get('name') || 'Restaurant Name';
-            const restaurantNumber = urlParams.get('number') || '1';
-            const restaurantRating = parseFloat(urlParams.get('rating')) || 4.5;
-            const restaurantReviews = urlParams.get('reviews') || '1,234';
-            const restaurantPrice = urlParams.get('price') || urlParams.get('cost') || '$$';
-            const restaurantCuisine = urlParams.get('cuisine') || urlParams.get('category') || 'Cuisine';
-            let restaurantDescription = urlParams.get('description') || '';
-            const restaurantImage = urlParams.get('image') || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop';
-            const restaurantLocation = urlParams.get('location') || 'Duluth';
-            const restaurantPhone = urlParams.get('phone') || null;
-            const restaurantWebsite = urlParams.get('website') || urlParams.get('websiteUrl') || null;
-            const restaurantAddress = urlParams.get('address') || null;
-            const restaurantReservations = urlParams.get('reservations') || urlParams.get('timeNeeded') || null;
-            const restaurantPopularDishes = urlParams.get('popularDishes') ? urlParams.get('popularDishes').split(',') : (urlParams.get('highlights') ? urlParams.get('highlights').split(',') : null);
-            const restaurantNicheKeywords = urlParams.get('nicheKeywords') ? urlParams.get('nicheKeywords').split(',') : null;
-            let restaurantHours = null;
-            const hoursParam = urlParams.get('hours');
-            if (hoursParam) {
-                try {
-                    restaurantHours = JSON.parse(decodeURIComponent(hoursParam));
-                } catch (e) {
-                    console.warn('Error parsing hours:', e);
+            // Check if we're using slug-based routing (from ?slug= parameter or /restaurant/[slug] path)
+            var restaurantData = null;
+            var slug = urlParams.get('slug'); // Check query parameter first
+            if (!slug) {
+                // Also check path for /restaurant/[slug] format
+                var path = window.location.pathname;
+                var slugMatch = path.match(/\/restaurant\/([^\/]+)/);
+                slug = slugMatch ? slugMatch[1] : null;
+            }
+            
+            // If slug exists and restaurant data is loaded, look up by slug
+            if (slug && typeof allRestaurants !== 'undefined') {
+                // Helper to create slug from restaurant
+                function createSlugFromRestaurant(rest) {
+                    var name = rest.name || '';
+                    var location = rest.location || '';
+                    var slug = name.toLowerCase();
+                    
+                    var locationSuffix = '';
+                    if (name.includes('(Miller Hill)')) {
+                        locationSuffix = '-miller-hill';
+                        slug = slug.replace(/\s*\(miller hill\)\s*/g, '');
+                    } else if (name.includes('(Canal Park)')) {
+                        locationSuffix = '-canal-park';
+                        slug = slug.replace(/\s*\(canal park\)\s*/g, '');
+                    } else if (name.includes('(Central Entrance)')) {
+                        locationSuffix = '-central-entrance';
+                        slug = slug.replace(/\s*\(central entrance\)\s*/g, '');
+                    } else if (name.includes('(London Road)')) {
+                        locationSuffix = '-london-road';
+                        slug = slug.replace(/\s*\(london road\)\s*/g, '');
+                    } else if (location && location !== 'Duluth, MN' && location !== 'Duluth') {
+                        var locSlug = location.toLowerCase()
+                            .replace(/\s+/g, '-')
+                            .replace(/[^a-z0-9-]/g, '')
+                            .replace(/-+/g, '-')
+                            .replace(/^-|-$/g, '');
+                        if (locSlug) locationSuffix = '-' + locSlug;
+                    }
+                    
+                    slug = slug.replace(/[^a-z0-9 -]/g, '');
+                    slug = slug.replace(/\s+/g, '-');
+                    slug = slug.replace(/-+/g, '-');
+                    slug = slug.replace(/^-|-$/g, '');
+                    return slug + locationSuffix;
+                }
+                
+                // Find restaurant by slug
+                for (var i = 0; i < allRestaurants.length; i++) {
+                    var rest = allRestaurants[i];
+                    if (createSlugFromRestaurant(rest) === slug) {
+                        restaurantData = rest;
+                        break;
+                    }
+                }
+            }
+            
+            // Get all place data from URL parameters OR from slug lookup
+            let placeType, restaurantName, restaurantNumber, restaurantRating, restaurantReviews, restaurantPrice, restaurantCuisine, restaurantDescription, restaurantImage, restaurantLocation, restaurantPhone, restaurantWebsite, restaurantAddress, restaurantReservations, restaurantPopularDishes, restaurantNicheKeywords, restaurantHours;
+            
+            if (restaurantData) {
+                // Use data from slug lookup
+                placeType = restaurantData.type || 'restaurant';
+                restaurantName = restaurantData.name || 'Restaurant Name';
+                restaurantRating = parseFloat(restaurantData.rating) || 4.5;
+                restaurantReviews = restaurantData.reviews || '1,234';
+                restaurantPrice = restaurantData.price || restaurantData.cost || '$$';
+                restaurantCuisine = restaurantData.cuisine || restaurantData.category || 'Cuisine';
+                restaurantDescription = restaurantData.description || '';
+                restaurantImage = restaurantData.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop';
+                restaurantLocation = restaurantData.location || 'Duluth';
+                restaurantPhone = restaurantData.phone || null;
+                restaurantWebsite = restaurantData.website || restaurantData.websiteUrl || null;
+                restaurantAddress = restaurantData.address || null;
+                restaurantReservations = restaurantData.reservations || restaurantData.timeNeeded || null;
+                restaurantPopularDishes = restaurantData.popularDishes || restaurantData.highlights || null;
+                restaurantNicheKeywords = restaurantData.niche_keywords || null;
+                restaurantHours = restaurantData.hours || null;
+                restaurantNumber = '1'; // Not used in slug routing
+            } else {
+                // Use URL parameters (backwards compatibility)
+                placeType = urlParams.get('type') || 'restaurant';
+                restaurantName = urlParams.get('name') || 'Restaurant Name';
+                restaurantNumber = urlParams.get('number') || '1';
+                restaurantRating = parseFloat(urlParams.get('rating')) || 4.5;
+                restaurantReviews = urlParams.get('reviews') || '1,234';
+                restaurantPrice = urlParams.get('price') || urlParams.get('cost') || '$$';
+                restaurantCuisine = urlParams.get('cuisine') || urlParams.get('category') || 'Cuisine';
+                restaurantDescription = urlParams.get('description') || '';
+                restaurantImage = urlParams.get('image') || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop';
+                restaurantLocation = urlParams.get('location') || 'Duluth';
+                restaurantPhone = urlParams.get('phone') || null;
+                restaurantWebsite = urlParams.get('website') || urlParams.get('websiteUrl') || null;
+                restaurantAddress = urlParams.get('address') || null;
+                restaurantReservations = urlParams.get('reservations') || urlParams.get('timeNeeded') || null;
+                restaurantPopularDishes = urlParams.get('popularDishes') ? urlParams.get('popularDishes').split(',') : (urlParams.get('highlights') ? urlParams.get('highlights').split(',') : null);
+                restaurantNicheKeywords = urlParams.get('nicheKeywords') ? urlParams.get('nicheKeywords').split(',') : null;
+                restaurantHours = null;
+                const hoursParam = urlParams.get('hours');
+                if (hoursParam) {
+                    try {
+                        restaurantHours = JSON.parse(decodeURIComponent(hoursParam));
+                    } catch (e) {
+                        console.warn('Error parsing hours:', e);
+                    }
                 }
             }
             

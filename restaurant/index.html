@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Restaurant...</title>
+    <script>
+        // Load restaurant data and redirect to template with slug
+        (function() {
+            // Get slug from URL path
+            var path = window.location.pathname;
+            var slugMatch = path.match(/\/restaurant\/([^\/]+)/);
+            var slug = slugMatch ? slugMatch[1] : null;
+            
+            if (!slug) {
+                window.location.href = '../restaurants.html';
+                return;
+            }
+            
+            // Update URL to clean format and redirect to template
+            var cleanUrl = '/restaurant/' + slug;
+            if (window.history && window.history.replaceState) {
+                window.history.replaceState({}, '', cleanUrl);
+            }
+            
+            // Redirect to template with just slug parameter
+            window.location.href = '../restaurant-template.html?slug=' + encodeURIComponent(slug);
+        })();
+    </script>
+</head>
+<body>
+    <p>Loading restaurant...</p>
+</body>
+</html>
+
