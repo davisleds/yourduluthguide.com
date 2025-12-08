@@ -1223,12 +1223,16 @@
             var stored = localStorage.getItem(key);
             if (stored) {
                 var data = JSON.parse(stored);
-                // Ensure we have at least 1 upvote (starting score of 1)
-                if (data.upvotes === 0 && data.downvotes === 0 && data.userVote === null) {
-                    data.upvotes = 1;
+                // Ensure we always have at least 1 upvote
+                // Calculate net score and adjust if needed
+                var netScore = data.upvotes - data.downvotes;
+                if (netScore < 1) {
+                    // Adjust downvotes to ensure net score is at least 1
+                    data.downvotes = Math.max(0, data.upvotes - 1);
                 }
                 return data;
             }
+            // Always start with 1 upvote
             return { upvotes: 1, downvotes: 0, userVote: null };
         }
         
@@ -1243,7 +1247,7 @@
             // If user already voted the same way, remove the vote
             if (voteData.userVote === voteType) {
                 if (voteType === 'up') {
-                    voteData.upvotes = Math.max(0, voteData.upvotes - 1);
+                    voteData.upvotes = Math.max(1, voteData.upvotes - 1); // Never go below 1
                 } else {
                     voteData.downvotes = Math.max(0, voteData.downvotes - 1);
                 }
@@ -1251,7 +1255,7 @@
             } else {
                 // Remove previous vote if exists
                 if (voteData.userVote === 'up') {
-                    voteData.upvotes = Math.max(0, voteData.upvotes - 1);
+                    voteData.upvotes = Math.max(1, voteData.upvotes - 1); // Never go below 1
                 } else if (voteData.userVote === 'down') {
                     voteData.downvotes = Math.max(0, voteData.downvotes - 1);
                 }
@@ -1263,6 +1267,12 @@
                     voteData.downvotes += 1;
                 }
                 voteData.userVote = voteType;
+            }
+            
+            // Ensure net score is always at least 1
+            var netScore = voteData.upvotes - voteData.downvotes;
+            if (netScore < 1) {
+                voteData.downvotes = Math.max(0, voteData.upvotes - 1);
             }
             
             saveRestaurantVoteData(restaurantName, voteData);
@@ -1304,8 +1314,8 @@
                 downButton.classList.add('voted-down');
             }
             
-            // Calculate net score (upvotes - downvotes)
-            var netScore = voteData.upvotes - voteData.downvotes;
+            // Calculate net score (upvotes - downvotes), ensure minimum of 1
+            var netScore = Math.max(1, voteData.upvotes - voteData.downvotes);
             voteCount.textContent = netScore;
             
             // Update count color based on positive/negative/zero

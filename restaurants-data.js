@@ -1609,10 +1609,14 @@ const restaurantPhotos = {
 
 // Helper function to encode a photo path for URL use
 function encodePhotoPath(folderNumber, slug, filename) {
-    // Build the path with literal spaces - browsers handle encoding automatically
+    // Build the path with proper URL encoding
     // Use absolute path starting with / for proper routing on Vercel
-    const fullPath = `/Restaurant Photos/${folderNumber}. ${slug}/${filename}`;
-    // Return path with literal spaces - browser will encode as needed
+    // Folder path with spaces is fine (browsers handle it), but filename needs encoding
+    // especially for special characters like + which must be encoded as %2B
+    const folderPath = `/Restaurant Photos/${folderNumber}. ${slug}`;
+    // URL encode the filename to handle special characters like +, spaces, etc.
+    const encodedFilename = encodeURIComponent(filename);
+    const fullPath = folderPath + '/' + encodedFilename;
     return fullPath;
 }
 
