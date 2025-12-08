@@ -12,14 +12,14 @@
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Top 10 best restaurants near Duluth, Minnesota. Discover the highest-rated dining experiences with reviews, ratings, and photos.">
-    <meta name="keywords" content="best restaurants Duluth MN, top restaurants Duluth, highest rated restaurants Duluth, Duluth dining guide">
+    <meta name="description" content="Explore Duluth's best hikes, museums, beaches, and attractions. Discover 100+ adventures and places to visit in Duluth, Minnesota.">
+    <meta name="keywords" content="Duluth attractions, Duluth hikes, Duluth museums, things to do Duluth, Duluth beaches, explore Duluth">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Top 10 Best Restaurants Near Duluth Minnesota | YourDuluthGuide">
-    <meta property="og:description" content="Top 10 best restaurants near Duluth, Minnesota. Discover the highest-rated dining experiences with reviews, ratings, and photos.">
+    <meta property="og:title" content="Explore Duluth: Hikes, Museums, Beaches & Attractions | YourDuluthGuide">
+    <meta property="og:description" content="Explore Duluth's best hikes, museums, beaches, and attractions. Discover 100+ adventures and places to visit in Duluth, Minnesota.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://duluthguide.com/restaurants.html">
+    <meta property="og:url" content="https://duluthguide.com/explore.html">
     <meta property="og:image" content="https://duluthguide.com/logo.svg">
     
     <!-- Favicon -->
@@ -29,7 +29,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/GoogleIcon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/GoogleIcon.png">
     
-    <title>Top 10 Best Restaurants Near Duluth Minnesota | YourDuluthGuide</title>
+    <title>Explore Duluth: Hikes, Museums, Beaches & Attractions | YourDuluthGuide</title>
     
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -612,16 +612,17 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="restaurants.html">All Restaurants</a></li>
                     <li><a href="dining.html">Dining</a></li>
+                    <li><a href="explore.html">Explore</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <!-- Restaurants Page Content -->
+    <!-- Explore Page Content -->
     <section class="restaurants-page">
         <div class="restaurants-header">
-            <h1>Top 10 Best Restaurants Near Duluth Minnesota</h1>
-            <p>Discover the highest-rated dining experiences with reviews, ratings, and photos from over 100 local restaurants</p>
+            <h1>Explore Duluth: Hikes, Museums, Beaches & More</h1>
+            <p>Discover the best places to visit in Duluth with 100+ adventures including hikes, museums, beaches, and attractions</p>
         </div>
         
         <div class="search-container">
@@ -630,7 +631,7 @@
                     type="text" 
                     id="restaurantSearch" 
                     class="restaurant-search-bar" 
-                    placeholder="Search restaurants by name, cuisine, or location..."
+                    placeholder="Search adventures by name, category, or location..."
                     autocomplete="off"
                 >
                 <button class="restaurant-search-btn" type="button" aria-label="Search" id="searchButton">
@@ -646,11 +647,11 @@
             <div class="restaurants-list">
                 <div id="resultsCount" class="results-count"></div>
                 <div id="restaurantsGrid" class="restaurants-list">
-                    <!-- Restaurants will be loaded here -->
+                    <!-- Adventures will be loaded here -->
                 </div>
                 <div id="noResults" class="no-results" style="display: none;">
-                    <h3>No restaurants found</h3>
-                    <p>Try adjusting your search terms or browse all restaurants below.</p>
+                    <h3>No adventures found</h3>
+                    <p>Try adjusting your search terms or browse all adventures below.</p>
                 </div>
                 
                 <!-- Pagination Controls -->
@@ -693,12 +694,42 @@
         </div>
     </footer>
 
-    <script src="restaurants-data.js"></script>
+    <script src="adventures-data.js"></script>
     <script>
         // Pagination state
         var currentPage = 1;
         var restaurantsPerPage = 10;
         var allFilteredRestaurants = [];
+        
+        // Map adventures data to use same variable name as restaurants for compatibility
+        if (typeof allAdventures !== 'undefined') {
+            var allRestaurants = allAdventures.map(function(adventure) {
+                // Map adventure fields to restaurant field names for compatibility
+                return {
+                    name: adventure.name,
+                    cuisine: adventure.category, // Map category to cuisine for compatibility
+                    price: adventure.cost, // Map cost to price for compatibility
+                    rating: adventure.rating,
+                    reviews: adventure.reviews,
+                    description: adventure.description,
+                    image: adventure.image,
+                    location: adventure.location || adventure.neighborhood,
+                    phone: adventure.phone,
+                    website: adventure.website || adventure.websiteUrl,
+                    address: adventure.address,
+                    reservations: adventure.timeNeeded, // Map timeNeeded to reservations
+                    popularDishes: adventure.highlights || [], // Map highlights to popularDishes
+                    hours: adventure.hours,
+                    type: 'adventure',
+                    id: adventure.id,
+                    // Keep new field names too
+                    category: adventure.category,
+                    cost: adventure.cost,
+                    timeNeeded: adventure.timeNeeded,
+                    highlights: adventure.highlights || []
+                };
+            });
+        }
         
         // Map instance
         var map = null;
@@ -1003,7 +1034,7 @@
             // Update results count
             var showingStart = startIndex + 1;
             var showingEnd = Math.min(endIndex, allFilteredRestaurants.length);
-            resultsCount.innerHTML = 'Showing <strong>' + showingStart + '-' + showingEnd + '</strong> of <strong>' + allFilteredRestaurants.length + '</strong> restaurants';
+            resultsCount.innerHTML = 'Showing <strong>' + showingStart + '-' + showingEnd + '</strong> of <strong>' + allFilteredRestaurants.length + '</strong> adventures';
             
             grid.style.display = 'block';
             noResults.style.display = 'none';
@@ -1065,8 +1096,7 @@
                     addressParam + ',' +
                     reservationsParam + ',' +
                     popularDishesParam + ',' +
-                    hoursParam + ',\'' +
-                    placeType + '\')">' +
+                    hoursParam + ',\'adventure\')">' +
                     '<img src="' + imagePath + '" alt="' + name + '" class="restaurant-card-image" loading="lazy" onerror="console.error(\'Image failed to load:\', this.src); this.onerror=null; this.src=\'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop\';">' +
                     '<div class="restaurant-card-body">' +
                     '<h3 class="restaurant-card-name"><span class="restaurant-card-number">' + restaurantNumber + '.</span>' + name + '</h3>' +
@@ -1078,9 +1108,9 @@
                     '<div class="restaurant-card-tags">' + cuisineTags + '</div>' +
                     '</div>' +
                     '<div class="restaurant-card-voting" data-restaurant="' + restaurant.name.replace(/'/g, "\\'") + '" data-restaurant-id="' + restaurant.name.replace(/[^a-zA-Z0-9]/g, '-') + '" onclick="event.stopPropagation();">' +
-                    '<button class="vote-button upvote" data-restaurant-name="' + restaurant.name.replace(/"/g, '&quot;').replace(/'/g, '&#39;') + '" data-vote-type="up" aria-label="Upvote this restaurant"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></button>' +
+                    '<button class="vote-button upvote" data-restaurant-name="' + restaurant.name.replace(/"/g, '&quot;').replace(/'/g, '&#39;') + '" data-vote-type="up" aria-label="Upvote this adventure"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></button>' +
                     '<span class="vote-count positive" id="vote-' + restaurant.name.replace(/[^a-zA-Z0-9]/g, '-') + '">1</span>' +
-                    '<button class="vote-button downvote" data-restaurant-name="' + restaurant.name.replace(/"/g, '&quot;').replace(/'/g, '&#39;') + '" data-vote-type="down" aria-label="Downvote this restaurant"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>' +
+                    '<button class="vote-button downvote" data-restaurant-name="' + restaurant.name.replace(/"/g, '&quot;').replace(/'/g, '&#39;') + '" data-vote-type="down" aria-label="Downvote this adventure"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>' +
                     '</div></div>';
             }).join('');
             
@@ -1345,29 +1375,19 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
-        // Cuisine category mapping for SEO
+        // Adventure category mapping for SEO
         var cuisineCategories = {
-            'pizza': { name: 'Pizza', plural: 'Pizza Restaurants', keywords: ['pizza', 'italian pizza', 'neapolitan'] },
-            'burger': { name: 'Burgers', plural: 'Burger Restaurants', keywords: ['burger', 'burgers', 'hamburger'] },
-            'thai': { name: 'Thai', plural: 'Thai Restaurants', keywords: ['thai', 'thai food'] },
-            'italian': { name: 'Italian', plural: 'Italian Restaurants', keywords: ['italian', 'pasta', 'italy'] },
-            'mexican': { name: 'Mexican', plural: 'Mexican Restaurants', keywords: ['mexican', 'taco', 'tacos', 'burrito', 'mexico'] },
-            'chinese': { name: 'Chinese', plural: 'Chinese Restaurants', keywords: ['chinese', 'china'] },
-            'japanese': { name: 'Japanese', plural: 'Japanese Restaurants', keywords: ['japanese', 'sushi', 'hibachi', 'japan'] },
-            'indian': { name: 'Indian', plural: 'Indian Restaurants', keywords: ['indian', 'india', 'curry'] },
-            'vietnamese': { name: 'Vietnamese', plural: 'Vietnamese Restaurants', keywords: ['vietnamese', 'pho', 'vietnam'] },
-            'seafood': { name: 'Seafood', plural: 'Seafood Restaurants', keywords: ['seafood', 'fish', 'lobster', 'crab'] },
-            'bbq': { name: 'BBQ', plural: 'BBQ Restaurants', keywords: ['bbq', 'barbecue', 'barbeque', 'smokehouse'] },
-            'breakfast': { name: 'Breakfast', plural: 'Breakfast Restaurants', keywords: ['breakfast', 'brunch', 'pancake', 'waffle'] },
-            'coffee': { name: 'Coffee', plural: 'Coffee Shops', keywords: ['coffee', 'cafe', 'café', 'espresso'] },
-            'ice cream': { name: 'Ice Cream', plural: 'Ice Cream Shops', keywords: ['ice cream', 'gelato', 'frozen yogurt'] },
-            'sports bar': { name: 'Sports Bar', plural: 'Sports Bars', keywords: ['sports bar', 'sportsbar', 'bar', 'pub'] },
-            'brewery': { name: 'Brewery', plural: 'Breweries', keywords: ['brewery', 'brew', 'beer', 'brewhouse'] },
-            'steakhouse': { name: 'Steakhouse', plural: 'Steakhouses', keywords: ['steakhouse', 'steak', 'steaks'] },
-            'fine dining': { name: 'Fine Dining', plural: 'Fine Dining Restaurants', keywords: ['fine dining', 'upscale', 'elegant'] }
+            'hiking': { name: 'Hiking', plural: 'Hiking Trails', keywords: ['hike', 'hiking', 'trail', 'trails', 'hiking trail'] },
+            'museum': { name: 'Museum', plural: 'Museums', keywords: ['museum', 'museums', 'exhibit', 'exhibition'] },
+            'beach': { name: 'Beach', plural: 'Beaches', keywords: ['beach', 'beaches', 'shore', 'lake shore'] },
+            'historic': { name: 'Historic Site', plural: 'Historic Sites', keywords: ['historic', 'history', 'landmark', 'heritage'] },
+            'park': { name: 'Park', plural: 'Parks', keywords: ['park', 'parks', 'recreation', 'outdoor'] },
+            'attraction': { name: 'Attraction', plural: 'Attractions', keywords: ['attraction', 'attractions', 'sight', 'sightseeing'] },
+            'scenic': { name: 'Scenic View', plural: 'Scenic Views', keywords: ['scenic', 'view', 'viewpoint', 'overlook'] },
+            'aquarium': { name: 'Aquarium', plural: 'Aquariums', keywords: ['aquarium', 'fish', 'marine', 'water life'] }
         };
         
-        // Detect cuisine category from search term
+        // Detect adventure category from search term
         function detectCuisineCategory(searchTerm) {
             var term = searchTerm.toLowerCase().trim();
             
@@ -1391,9 +1411,9 @@
             var headerDescription = '';
             
             if (category) {
-                // SEO-optimized category page (only for food-related categories)
+                // SEO-optimized category page for adventures
                 pageTitle = 'Locals Guide to 10 Best ' + category.plural + ' in Duluth Minnesota | YourDuluthGuide';
-                pageDescription = 'Discover the top rated ' + category.plural.toLowerCase() + ' in Duluth, Minnesota. Find the best ' + category.name.toLowerCase() + ' restaurants with reviews, ratings, and photos.';
+                pageDescription = 'Discover the top rated ' + category.plural.toLowerCase() + ' in Duluth, Minnesota. Find the best ' + category.name.toLowerCase() + ' adventures with reviews, ratings, and photos.';
                 headerTitle = 'Locals Guide to 10 Best ' + category.plural + ' in Duluth Minnesota';
                 headerDescription = 'Discover the highest-rated ' + category.plural.toLowerCase() + ' with reviews, ratings, and photos';
                 
@@ -1404,18 +1424,18 @@
                     window.history.pushState({ path: newUrl }, '', newUrl);
                 }
             } else if (searchTerm) {
-                // Generic search results - use Locals Guide format
+                // Generic search results - use Locals Guide format for adventures
                 var capitalizedTerm = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1).toLowerCase();
-                pageTitle = 'Locals Guide to 10 Best ' + capitalizedTerm + ' Restaurants in Duluth Minnesota | YourDuluthGuide';
-                pageDescription = 'Discover the top rated ' + searchTerm.toLowerCase() + ' restaurants in Duluth, Minnesota. Find the best ' + searchTerm.toLowerCase() + ' dining options with reviews, ratings, and photos.';
-                headerTitle = 'Locals Guide to 10 Best ' + capitalizedTerm + ' Restaurants in Duluth Minnesota';
-                headerDescription = 'Discover the highest-rated ' + searchTerm.toLowerCase() + ' restaurants with reviews, ratings, and photos';
+                pageTitle = 'Locals Guide to 10 Best ' + capitalizedTerm + ' Adventures in Duluth Minnesota | YourDuluthGuide';
+                pageDescription = 'Discover the top rated ' + searchTerm.toLowerCase() + ' adventures in Duluth, Minnesota. Find the best ' + searchTerm.toLowerCase() + ' places to visit with reviews, ratings, and photos.';
+                headerTitle = 'Locals Guide to 10 Best ' + capitalizedTerm + ' Adventures in Duluth Minnesota';
+                headerDescription = 'Discover the highest-rated ' + searchTerm.toLowerCase() + ' adventures with reviews, ratings, and photos';
             } else {
                 // Default page
-                pageTitle = 'Top 10 Best Restaurants Near Duluth Minnesota | YourDuluthGuide';
-                pageDescription = 'Top 10 best restaurants near Duluth, Minnesota. Discover the highest-rated dining experiences with reviews, ratings, and photos.';
-                headerTitle = 'Top 10 Best Restaurants Near Duluth Minnesota';
-                headerDescription = 'Discover the highest-rated dining experiences with reviews, ratings, and photos from over 100 local restaurants';
+                pageTitle = 'Explore Duluth: Hikes, Museums, Beaches & Attractions | YourDuluthGuide';
+                pageDescription = 'Explore Duluth\'s best hikes, museums, beaches, and attractions. Discover 100+ adventures and places to visit in Duluth, Minnesota.';
+                headerTitle = 'Explore Duluth: Hikes, Museums, Beaches & More';
+                headerDescription = 'Discover the best places to visit in Duluth with 100+ adventures including hikes, museums, beaches, and attractions';
             }
             
             // Update document title and meta
@@ -1450,7 +1470,7 @@
             if (typeof allRestaurants === 'undefined') {
                 var grid = document.getElementById('restaurantsGrid');
                 if (grid) {
-                    grid.innerHTML = '<div class="no-results"><h3>Error: Restaurant data not loaded</h3><p>Please refresh the page.</p></div>';
+                    grid.innerHTML = '<div class="no-results"><h3>Error: Adventure data not loaded</h3><p>Please refresh the page.</p></div>';
                 }
                 return;
             }
@@ -1473,16 +1493,16 @@
                 var term = searchTerm.toLowerCase();
                 
                 if (category) {
-                    // Filter by cuisine category with scoring
+                    // Filter by category with scoring
                     var scoredRestaurants = allRestaurants.map(function(restaurant) {
-                        var cuisineLower = restaurant.cuisine.toLowerCase();
+                        var categoryLower = (restaurant.category || restaurant.cuisine || '').toLowerCase();
                         var nameLower = restaurant.name.toLowerCase();
                         var descLower = restaurant.description.toLowerCase();
                         
                         var score = 0;
                         var matchesCategory = false;
                         
-                        // Check if restaurant matches category keywords
+                        // Check if adventure matches category keywords
                         for (var i = 0; i < category.keywords.length; i++) {
                             var keyword = category.keywords[i].toLowerCase();
                             
@@ -1491,8 +1511,8 @@
                                 score += 600;
                                 matchesCategory = true;
                             }
-                            // Cuisine contains keyword (high priority - 400 points)
-                            if (cuisineLower.indexOf(keyword) !== -1) {
+                            // Category contains keyword (high priority - 400 points)
+                            if (categoryLower.indexOf(keyword) !== -1) {
                                 score += 400;
                                 matchesCategory = true;
                             }
@@ -1538,10 +1558,10 @@
                     });
                 } else {
                     // Regular search with scoring-based ranking
-                    // First, filter and score restaurants
+                    // First, filter and score adventures
                     var scoredRestaurants = allRestaurants.map(function(restaurant) {
                         var nameLower = restaurant.name.toLowerCase();
-                        var cuisineLower = restaurant.cuisine.toLowerCase();
+                        var categoryLower = (restaurant.category || restaurant.cuisine || '').toLowerCase();
                         var locationLower = restaurant.location.toLowerCase();
                         var descLower = restaurant.description.toLowerCase();
                         
@@ -1590,7 +1610,7 @@
                         }
                         
                         // Cuisine contains term (medium-high priority - 200 points)
-                        if (cuisineLower.indexOf(term) !== -1) {
+                        if (categoryLower.indexOf(term) !== -1) {
                             score += 200;
                             matched = true;
                         }

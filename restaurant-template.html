@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKGVX3VGR1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZKGVX3VGR1');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Details - YourDuluthGuide</title>
@@ -1788,15 +1797,15 @@
                     <div class="details-list">
                         <div class="details-info-grid">
                             <div class="details-info-card">
-                                <span class="details-info-label">Cuisine</span>
+                                <span class="details-info-label" id="labelCategory">Cuisine</span>
                                 <span class="details-info-value" id="infoCuisine">Cuisine</span>
                             </div>
                             <div class="details-info-card">
-                                <span class="details-info-label">Reservations</span>
+                                <span class="details-info-label" id="labelTimeNeeded">Reservations</span>
                                 <span class="details-info-value" id="infoReservations">Recommended</span>
                             </div>
                             <div class="details-info-card">
-                                <span class="details-info-label">Price Range</span>
+                                <span class="details-info-label" id="labelCost">Price Range</span>
                                 <span class="details-info-value" id="infoPriceRange">$$</span>
                             </div>
                             <div class="details-info-card">
@@ -1815,7 +1824,7 @@
                                 </a>
                             </div>
                             <div class="popular-dishes-container">
-                                <span class="popular-dishes-label">Most Popular Dishes</span>
+                                <span class="popular-dishes-label" id="labelHighlights">Most Popular Dishes</span>
                                 <div class="popular-dishes-list" id="popularDishesList">
                                     <div class="popular-dish-item">Lemon Herb Walleye</div>
                                     <div class="popular-dish-item">North Shore Wild Rice Bowl</div>
@@ -1947,21 +1956,22 @@
                 backButton.href = backUrl;
             }
             
-            // Get all restaurant data from URL parameters
+            // Get all place data from URL parameters (supports both Restaurant and Adventure)
+            const placeType = urlParams.get('type') || 'restaurant'; // 'restaurant' or 'adventure'
             const restaurantName = urlParams.get('name') || 'Restaurant Name';
             const restaurantNumber = urlParams.get('number') || '1';
             const restaurantRating = parseFloat(urlParams.get('rating')) || 4.5;
             const restaurantReviews = urlParams.get('reviews') || '1,234';
-            const restaurantPrice = urlParams.get('price') || '$$';
-            const restaurantCuisine = urlParams.get('cuisine') || 'Cuisine';
+            const restaurantPrice = urlParams.get('price') || urlParams.get('cost') || '$$';
+            const restaurantCuisine = urlParams.get('cuisine') || urlParams.get('category') || 'Cuisine';
             let restaurantDescription = urlParams.get('description') || '';
             const restaurantImage = urlParams.get('image') || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop';
             const restaurantLocation = urlParams.get('location') || 'Duluth';
             const restaurantPhone = urlParams.get('phone') || null;
-            const restaurantWebsite = urlParams.get('website') || null;
+            const restaurantWebsite = urlParams.get('website') || urlParams.get('websiteUrl') || null;
             const restaurantAddress = urlParams.get('address') || null;
-            const restaurantReservations = urlParams.get('reservations') || null;
-            const restaurantPopularDishes = urlParams.get('popularDishes') ? urlParams.get('popularDishes').split(',') : null;
+            const restaurantReservations = urlParams.get('reservations') || urlParams.get('timeNeeded') || null;
+            const restaurantPopularDishes = urlParams.get('popularDishes') ? urlParams.get('popularDishes').split(',') : (urlParams.get('highlights') ? urlParams.get('highlights').split(',') : null);
             let restaurantHours = null;
             const hoursParam = urlParams.get('hours');
             if (hoursParam) {
@@ -1971,6 +1981,44 @@
                     console.warn('Error parsing hours:', e);
                 }
             }
+            
+            // Update labels dynamically based on type
+            function updateLabelsForType(type) {
+                const isAdventure = type === 'adventure';
+                
+                // Update Category/Cuisine label
+                const labelCategory = document.getElementById('labelCategory');
+                if (labelCategory) {
+                    labelCategory.textContent = isAdventure ? 'Category' : 'Cuisine';
+                }
+                
+                // Update Time Needed/Reservations label
+                const labelTimeNeeded = document.getElementById('labelTimeNeeded');
+                if (labelTimeNeeded) {
+                    labelTimeNeeded.textContent = isAdventure ? 'Time Needed' : 'Reservations';
+                }
+                
+                // Update Cost/Price Range label
+                const labelCost = document.getElementById('labelCost');
+                if (labelCost) {
+                    labelCost.textContent = isAdventure ? 'Cost' : 'Price Range';
+                }
+                
+                // Update Highlights/Most Popular Dishes label
+                const labelHighlights = document.getElementById('labelHighlights');
+                if (labelHighlights) {
+                    labelHighlights.textContent = isAdventure ? 'Don\'t Miss' : 'Most Popular Dishes';
+                }
+                
+                // Update Website button text (if it exists)
+                const websiteText = document.querySelector('#restaurantWebsite .contact-text');
+                if (websiteText) {
+                    websiteText.textContent = isAdventure ? 'Visit Website' : 'Website';
+                }
+            }
+            
+            // Call the function to update labels
+            updateLabelsForType(placeType);
 
             // Get local photos for restaurant (if available)
             const localBannerPhotos = typeof getRestaurantBannerPhotos !== 'undefined' 

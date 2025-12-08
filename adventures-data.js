@@ -1,0 +1,162 @@
+// All Duluth Adventures Data (Explore Section)
+const allAdventures = [
+    // First 5: Real Duluth examples
+    {
+        id: 'explore-1',
+        type: 'adventure',
+        name: 'Aerial Lift Bridge',
+        category: 'Historic Site • Landmark',
+        cost: 'Free',
+        timeNeeded: 'Spend 30-60 Minutes',
+        rating: '4.8',
+        reviews: '12,456',
+        description: 'Duluth\'s iconic landmark, the Aerial Lift Bridge is a must-see. Watch ships pass beneath as the bridge raises to let them enter the harbor. Perfect for photos and a walk along the Canal Park area.',
+        image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800&h=600&fit=crop',
+        location: 'Canal Park',
+        phone: 'N/A',
+        website: 'https://duluthmn.gov/',
+        address: '601 S Lake Ave, Duluth, MN 55802',
+        highlights: ['Bridge lifts every 30 minutes', 'Canal Park walking path', 'Historic photo opportunities', 'Ship watching'],
+        hours: {
+            'Monday': 'Open 24 hours',
+            'Tuesday': 'Open 24 hours',
+            'Wednesday': 'Open 24 hours',
+            'Thursday': 'Open 24 hours',
+            'Friday': 'Open 24 hours',
+            'Saturday': 'Open 24 hours',
+            'Sunday': 'Open 24 hours'
+        }
+    },
+    {
+        id: 'explore-2',
+        type: 'adventure',
+        name: 'Glensheen Mansion',
+        category: 'Museum • Historic Home',
+        cost: '$15-$25 per person',
+        timeNeeded: 'Spend 1-2 Hours',
+        rating: '4.7',
+        reviews: '8,923',
+        description: 'Tour the historic Glensheen Mansion, a 39-room estate on the shores of Lake Superior. Learn about the Congdon family and enjoy the beautiful grounds and gardens.',
+        image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
+        location: 'Congdon Park',
+        phone: '(218) 726-8910',
+        website: 'https://glensheen.org/',
+        address: '3300 London Rd, Duluth, MN 55804',
+        highlights: ['Historic 39-room mansion', 'Lake Superior views', 'Beautiful gardens', 'Guided tours available'],
+        hours: {
+            'Monday': '9:00 AM - 5:00 PM',
+            'Tuesday': '9:00 AM - 5:00 PM',
+            'Wednesday': '9:00 AM - 5:00 PM',
+            'Thursday': '9:00 AM - 5:00 PM',
+            'Friday': '9:00 AM - 5:00 PM',
+            'Saturday': '9:00 AM - 5:00 PM',
+            'Sunday': '9:00 AM - 5:00 PM'
+        }
+    },
+    {
+        id: 'explore-3',
+        type: 'adventure',
+        name: 'Enger Tower',
+        category: 'Historic Site • Scenic View',
+        cost: 'Free',
+        timeNeeded: 'Spend 30-45 Minutes',
+        rating: '4.6',
+        reviews: '6,789',
+        description: 'Climb Enger Tower for panoramic views of Duluth, Lake Superior, and the harbor. The 80-foot stone tower offers some of the best views in the city, especially at sunset.',
+        image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+        location: 'Lester Park',
+        phone: 'N/A',
+        website: 'https://duluthmn.gov/',
+        address: 'Enger Park, Duluth, MN 55806',
+        highlights: ['360-degree city views', 'Best sunset spot', 'Historic stone tower', 'Easy to moderate climb'],
+        hours: {
+            'Monday': '6:00 AM - 10:00 PM',
+            'Tuesday': '6:00 AM - 10:00 PM',
+            'Wednesday': '6:00 AM - 10:00 PM',
+            'Thursday': '6:00 AM - 10:00 PM',
+            'Friday': '6:00 AM - 10:00 PM',
+            'Saturday': '6:00 AM - 10:00 PM',
+            'Sunday': '6:00 AM - 10:00 PM'
+        }
+    },
+    {
+        id: 'explore-4',
+        type: 'adventure',
+        name: 'Park Point Beach',
+        category: 'Beach • Recreation',
+        cost: 'Free',
+        timeNeeded: 'Spend 1-3 Hours',
+        rating: '4.5',
+        reviews: '5,234',
+        description: 'Stretching 7 miles along the Lake Superior shore, Park Point Beach is perfect for swimming, beach walks, picnics, and watching ships. The longest freshwater sandbar in the world.',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop',
+        location: 'Park Point',
+        phone: 'N/A',
+        website: 'https://duluthmn.gov/',
+        address: 'Park Point, Duluth, MN 55802',
+        highlights: ['7-mile sandy beach', 'Great for swimming', 'Ship watching', 'Picnic areas'],
+        hours: {
+            'Monday': 'Open 24 hours',
+            'Tuesday': 'Open 24 hours',
+            'Wednesday': 'Open 24 hours',
+            'Thursday': 'Open 24 hours',
+            'Friday': 'Open 24 hours',
+            'Saturday': 'Open 24 hours',
+            'Sunday': 'Open 24 hours'
+        }
+    },
+    {
+        id: 'explore-5',
+        type: 'adventure',
+        name: 'Great Lakes Aquarium',
+        category: 'Museum • Family Attraction',
+        cost: '$15-$20 per person',
+        timeNeeded: 'Spend 1-2 Hours',
+        rating: '4.4',
+        reviews: '7,891',
+        description: 'The only all-freshwater aquarium in the United States. Explore exhibits showcasing Lake Superior and other Great Lakes, with interactive displays and educational programs for all ages.',
+        image: 'https://images.unsplash.com/photo-1517783999523-9963f9953f73?w=800&h=600&fit=crop',
+        location: 'Canal Park',
+        phone: '(218) 740-3474',
+        website: 'https://glaquarium.org/',
+        address: '353 Harbor Dr, Duluth, MN 55802',
+        highlights: ['All-freshwater exhibits', 'Interactive displays', 'Lake Superior focus', 'Family-friendly'],
+        hours: {
+            'Monday': '10:00 AM - 6:00 PM',
+            'Tuesday': '10:00 AM - 6:00 PM',
+            'Wednesday': '10:00 AM - 6:00 PM',
+            'Thursday': '10:00 AM - 6:00 PM',
+            'Friday': '10:00 AM - 6:00 PM',
+            'Saturday': '10:00 AM - 6:00 PM',
+            'Sunday': '10:00 AM - 6:00 PM'
+        }
+    },
+    // Remaining 95 placeholders
+    ...Array.from({ length: 95 }, (_, i) => ({
+        id: `explore-${i + 6}`,
+        type: 'adventure',
+        name: `Adventure Place ${i + 6}`,
+        category: 'Category',
+        cost: 'Cost',
+        timeNeeded: 'Time Needed',
+        rating: '4.0',
+        reviews: '100',
+        description: 'Description to be filled in.',
+        image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+        location: 'Duluth, MN',
+        phone: 'N/A',
+        website: 'N/A',
+        address: 'Address to be filled in',
+        highlights: ['Highlight 1', 'Highlight 2', 'Highlight 3'],
+        hours: {
+            'Monday': 'Hours vary',
+            'Tuesday': 'Hours vary',
+            'Wednesday': 'Hours vary',
+            'Thursday': 'Hours vary',
+            'Friday': 'Hours vary',
+            'Saturday': 'Hours vary',
+            'Sunday': 'Hours vary'
+        }
+    }))
+];
+

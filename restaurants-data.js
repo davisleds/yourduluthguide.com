@@ -1676,3 +1676,49 @@ allRestaurants.forEach(restaurant => {
     }
 });
 
+// Normalize restaurant data to support both Restaurant and Adventure types
+// This adds new field names while maintaining backward compatibility
+allRestaurants.forEach(function(place) {
+    // Ensure type field exists (defaults to 'restaurant')
+    if (!place.type) {
+        place.type = 'restaurant';
+    }
+    
+    // Map old restaurant fields to new unified field names
+    if (place.type === 'restaurant') {
+        // Rename cuisine to category (but keep both for compatibility)
+        if (!place.category && place.cuisine) {
+            place.category = place.cuisine;
+        }
+        // Rename price to cost (but keep both for compatibility)
+        if (!place.cost && place.price) {
+            place.cost = place.price;
+        }
+        // Rename reservations to timeNeeded (but keep both for compatibility)
+        if (!place.timeNeeded && place.reservations) {
+            place.timeNeeded = place.reservations === 'none' ? 'Walk-ins welcome' : place.reservations;
+        }
+        // Rename popularDishes to highlights (but keep both for compatibility)
+        if (!place.highlights && place.popularDishes) {
+            place.highlights = Array.isArray(place.popularDishes) ? place.popularDishes : [];
+        }
+    }
+});
+
+// Helper function to get normalized place data
+function getPlaceField(place, field) {
+    if (place.type === 'restaurant') {
+        // For restaurants, prefer new field names but fall back to old ones
+        switch(field) {
+            case 'category': return place.category || place.cuisine;
+            case 'cost': return place.cost || place.price;
+            case 'timeNeeded': return place.timeNeeded || place.reservations;
+            case 'highlights': return place.highlights || place.popularDishes || [];
+            default: return place[field];
+        }
+    } else {
+        // For adventures, use new field names only
+        return place[field];
+    }
+}
+
