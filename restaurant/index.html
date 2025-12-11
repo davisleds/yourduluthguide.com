@@ -31,8 +31,151 @@
         })();
     </script>
     
-    <script src="/restaurants-data.js"></script>
-    <script src="/adventures-data.js"></script>
+    <!-- Load data scripts - load with proper callbacks -->
+    <script>
+        (function() {
+            // Determine correct path based on protocol
+            // For file:// protocol, we're in /restaurant/ directory, so need ../ to go up
+            // For http:// protocol, use absolute paths from root
+            var restaurantsPath = window.location.protocol === 'file:' ? '../restaurants-data.js' : '/restaurants-data.js';
+            var adventuresPath = window.location.protocol === 'file:' ? '../adventures-data.js' : '/adventures-data.js';
+            var parksDataPath = window.location.protocol === 'file:' ? '../parks-data.js' : '/parks-data.js';
+            var scriptsLoaded = 0;
+            var totalScripts = 3; // Now loading parks-data.js as a script too
+            
+            // Load parks-data.js as a script (works with both file:// and http://)
+            var parksScript = document.createElement('script');
+            parksScript.src = parksDataPath;
+            parksScript.onload = function() {
+                console.log('✓ parks-data.js loaded');
+                if (typeof window.parksData !== 'undefined' && window.parksData) {
+                    console.log('  Contains', window.parksData.length, 'parks');
+                    if (window.parksData.length > 0) {
+                        console.log('  Sample park:', window.parksData[0].title, '-', window.parksData[0].images.length, 'images');
+                    }
+                    // Trigger credit display if gallery was already generated
+                    if (typeof window.displayCredits === 'function') {
+                        setTimeout(window.displayCredits, 100);
+                    }
+                } else {
+                    console.warn('  window.parksData not set after script load');
+                }
+                checkAllLoaded.call(parksScript);
+            };
+            parksScript.onerror = function() {
+                console.error('Failed to load parks-data.js from:', parksDataPath);
+                checkAllLoaded.call(parksScript); // Still count it to avoid infinite waiting
+            };
+            document.head.appendChild(parksScript);
+            
+            function checkAllLoaded() {
+                scriptsLoaded++;
+                console.log('Script loaded:', scriptsLoaded, 'of', totalScripts, 'from:', this ? this.src : 'unknown');
+                
+                // Check if data is actually available (wait a bit for script execution)
+                var checkData = function() {
+                    var restaurantsReady = typeof allRestaurants !== 'undefined' && allRestaurants && allRestaurants.length > 0;
+                    var adventuresReady = typeof allAdventures !== 'undefined' && allAdventures && allAdventures.length > 0;
+                    var parksDataReady = typeof window.parksData !== 'undefined' && window.parksData && window.parksData.length > 0;
+                    console.log('Data check - allRestaurants:', typeof allRestaurants !== 'undefined' ? (allRestaurants ? allRestaurants.length + ' items' : 'empty') : 'undefined');
+                    console.log('Data check - allAdventures:', typeof allAdventures !== 'undefined' ? (allAdventures ? allAdventures.length + ' items' : 'empty') : 'undefined');
+                    console.log('Data check - parksData:', typeof window.parksData !== 'undefined' ? (window.parksData ? window.parksData.length + ' items' : 'empty') : 'undefined');
+                    
+                    if (scriptsLoaded === totalScripts) {
+                        console.log('All scripts loaded, data ready:', restaurantsReady || adventuresReady);
+                        
+                        // Wait for DOM and then initialize
+                        var initWhenReady = function() {
+                            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                                // Wait a bit more to ensure initPage function is defined and data is ready
+                                setTimeout(function() {
+                                    var dataReady = (typeof allRestaurants !== 'undefined' && allRestaurants && allRestaurants.length > 0) ||
+                                                   (typeof allAdventures !== 'undefined' && allAdventures && allAdventures.length > 0);
+                                    if (dataReady && typeof initPage === 'function') {
+                                        console.log('Calling initPage()...');
+                                        initPage();
+                                    } else {
+                                        if (!dataReady) {
+                                            console.warn('Data not ready yet, retrying...');
+                                        }
+                                        if (typeof initPage !== 'function') {
+                                            console.warn('initPage not yet defined, retrying...');
+                                        }
+                                        setTimeout(initWhenReady, 100);
+                                    }
+                                }, 200);
+                            } else {
+                                document.addEventListener('DOMContentLoaded', initWhenReady);
+                            }
+                        };
+                        initWhenReady();
+                    }
+                };
+                
+                // Give script a moment to execute
+                setTimeout(checkData, 50);
+            }
+            
+            console.log('Loading scripts...');
+            console.log('Protocol:', window.location.protocol);
+            console.log('Restaurants path:', restaurantsPath);
+            console.log('Adventures path:', adventuresPath);
+            
+            // Load restaurants-data.js
+            var script1 = document.createElement('script');
+            script1.src = restaurantsPath;
+            script1.onload = function() {
+                console.log('✓ restaurants-data.js loaded successfully from:', restaurantsPath);
+                // Verify data is available
+                setTimeout(function() {
+                    if (typeof allRestaurants !== 'undefined') {
+                        console.log('✓ allRestaurants variable is available:', allRestaurants ? allRestaurants.length + ' items' : 'empty');
+                    } else {
+                        console.warn('⚠ allRestaurants variable not found after script load');
+                    }
+                }, 100);
+                checkAllLoaded.call(script1);
+            };
+            script1.onerror = function() {
+                console.error('✗ Failed to load restaurants-data.js from:', restaurantsPath);
+                try {
+                    var fullUrl = new URL(restaurantsPath, window.location.href).href;
+                    console.error('  Full URL would be:', fullUrl);
+                } catch (e) {
+                    console.error('  Current location:', window.location.href);
+                }
+                checkAllLoaded.call(script1); // Still count it to avoid infinite waiting
+            };
+            document.head.appendChild(script1);
+            
+            // Load adventures-data.js
+            var script2 = document.createElement('script');
+            script2.src = adventuresPath;
+            script2.onload = function() {
+                console.log('✓ adventures-data.js loaded successfully from:', adventuresPath);
+                // Verify data is available
+                setTimeout(function() {
+                    if (typeof allAdventures !== 'undefined') {
+                        console.log('✓ allAdventures variable is available:', allAdventures ? allAdventures.length + ' items' : 'empty');
+                    } else {
+                        console.warn('⚠ allAdventures variable not found after script load');
+                    }
+                }, 100);
+                checkAllLoaded.call(script2);
+            };
+            script2.onerror = function() {
+                console.error('✗ Failed to load adventures-data.js from:', adventuresPath);
+                try {
+                    var fullUrl = new URL(adventuresPath, window.location.href).href;
+                    console.error('  Full URL would be:', fullUrl);
+                } catch (e) {
+                    console.error('  Current location:', window.location.href);
+                }
+                checkAllLoaded.call(script2); // Still count it to avoid infinite waiting
+            };
+            document.head.appendChild(script2);
+        })();
+    </script>
     <script>
         var restaurantGoogleMapsKey = 'YOUR_API_KEY';
         var restaurantUseGoogleMaps = true;
@@ -107,6 +250,16 @@
         }
     </script>
     <style>
+        :root {
+            --color-navy: #00296B;
+            --color-copper: #C47C48;
+            --color-teal: #4EA5A9;
+            --color-fog-white: #F8F9FA;
+            --color-lake-mist: #E3EEF8;
+            --color-text: #333333;
+            --color-white: #FFFFFF;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -145,6 +298,7 @@
             align-items: center;
             height: 70px;
             position: relative;
+            gap: 1rem;
         }
 
         .nav-logo h1 {
@@ -191,6 +345,83 @@
             font-weight: 500;
             border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
+            margin-left: 1rem;
+            white-space: nowrap;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin-left: auto;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            display: block;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--color-navy);
+            background: #ffffff;
+            font-weight: 700;
+            transform: translateY(-2px);
+        }
+        
+        /* Dropdown Menu Styles */
+        .nav-item-dropdown {
+            position: relative;
+        }
+        
+        .nav-item-dropdown > a {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            min-width: 200px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            list-style: none;
+        }
+        
+        .nav-item-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            margin: 0;
+        }
+        
+        .dropdown-menu a {
+            color: #00296B;
+            padding: 0.75rem 1.5rem;
+            display: block;
+            transition: all 0.2s ease;
+            border-radius: 0;
+        }
+        
+        .dropdown-menu a:hover {
+            background: #f0f4f8;
+            color: #00296B;
+            transform: none;
         }
 
         .back-button:hover {
@@ -994,10 +1225,29 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
+        
         .gallery-photo:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-photo-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: visible;
+        }
+        
+        .photo-credit-badge {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 16px;
+            font-weight: 600;
+            z-index: 100;
+            pointer-events: none;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 0.8);
+            line-height: 1;
         }
 
         /* Photo Lightbox Modal */
@@ -1273,10 +1523,20 @@
 
 
         @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .nav-menu {
+                display: none; /* Hide nav menu on mobile, can be shown with hamburger if needed */
+            }
+            
             .back-button {
                 padding: 0.4rem 0.75rem;
                 font-size: 0;
                 white-space: nowrap;
+                margin-left: 0.5rem;
             }
             
             .back-button::after {
@@ -1749,7 +2009,46 @@
                 <div class="nav-logo">
                     <h1><a href="/index.html">YourDuluthGuide</a></h1>
                 </div>
-                    <a href="/restaurants.html" class="back-button" id="backButton">← Back to Restaurants</a>
+                <a href="#" class="back-button" id="backButton">← Back</a>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item-dropdown">
+                        <a href="#" class="nav-link" data-path="explore.html" title="Attractions, trails, neighborhoods, and sights">Explore</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="nav-link" data-path="explore.html">All Adventures</a></li>
+                            <li><a href="#attractions">Attractions</a></li>
+                            <li><a href="#" class="nav-link" data-path="explore.html" data-params="filter=parks-trails">Parks & Trails</a></li>
+                            <li><a href="#neighborhoods">Neighborhoods</a></li>
+                            <li><a href="#lake-superior">Lake Superior</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#" class="nav-link" data-path="restaurants.html" title="Restaurants, cafés, breweries, and local favorites">Eat & Drink</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="nav-link" data-path="restaurants.html">Top Restaurants</a></li>
+                            <li><a href="#" class="nav-link" data-path="restaurants.html" data-params="cuisine=coffee">Cafés & Coffee</a></li>
+                            <li><a href="#" class="nav-link" data-path="restaurants.html" data-params="cuisine=brewery">Breweries & Bars</a></li>
+                            <li><a href="#" class="nav-link" data-path="restaurants.html" data-params="cuisine=breakfast">Breakfast & Brunch</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#stay" title="Hotels, cabins, and vacation rentals">Stay</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#hotels">Hotels</a></li>
+                            <li><a href="#cabins-lodges">Cabins & Lodges</a></li>
+                            <li><a href="#vacation-rentals">Vacation Rentals</a></li>
+                            <li><a href="#pet-friendly">Pet-Friendly</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item-dropdown">
+                        <a href="#events" title="Festivals, concerts, and seasonal activities">Events</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#this-weekend">This Weekend</a></li>
+                            <li><a href="#festivals">Festivals</a></li>
+                            <li><a href="#live-music">Live Music</a></li>
+                            <li><a href="#seasonal-highlights">Seasonal Highlights</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
@@ -1884,6 +2183,12 @@
                 <div class="photo-gallery-grid" id="photoGalleryGrid">
                     <!-- Photos will be loaded here -->
                 </div>
+                <div id="photoCredits" style="display: none; margin-top: 2rem;">
+                    <h3 style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 1rem;">Image Credits</h3>
+                    <ul id="photoCreditsList" style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.875rem; color: #475569; line-height: 1.6;">
+                        <!-- Credits will be loaded here -->
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -1991,10 +2296,9 @@
             // If still no slug, redirect to restaurants page
             if (!slug) {
                 console.error('No slug found in URL. Path:', window.location.pathname, 'Href:', window.location.href);
-                if (window.location.protocol === 'file:') {
-                    console.warn('URL routing requires a web server. Please use a local server (see README_LOCAL_DEV.md)');
-                }
-                window.location.href = '/restaurants.html';
+                var redirectUrl = (window.location.protocol === 'file:') ? '../restaurants.html' : '/restaurants.html';
+                console.warn('Redirecting to:', redirectUrl);
+                window.location.href = redirectUrl;
                 return;
             }
             
@@ -2008,18 +2312,26 @@
             if (!slug) {
                 const backButton = document.querySelector('.back-button');
                 if (backButton) {
-                    let backUrl = '/restaurants.html';
-                    const backParams = new URLSearchParams();
-                    if (returnPage) {
-                        backParams.set('returnPage', returnPage);
-                    }
-                    if (returnSearch) {
-                        backParams.set('returnSearch', returnSearch);
-                    }
-                    if (backParams.toString()) {
-                        backUrl += '?' + backParams.toString();
-                    }
-                    backButton.href = backUrl;
+                    // Use referrer first (most reliable), then history.back(), then fallback
+                    backButton.onclick = function(e) {
+                        e.preventDefault();
+                        // Check if there's a referrer and it's different from current page
+                        if (document.referrer && document.referrer !== window.location.href && document.referrer.length > 0) {
+                            // Use referrer to go back to the actual previous page
+                            window.location.href = document.referrer;
+                        } else if (window.history.length > 1) {
+                            // Fallback to history.back() if referrer not available
+                            window.history.back();
+                        } else {
+                            // Final fallback to restaurants page
+                            let fallbackUrl = '../restaurants.html';
+                            if (window.location.protocol !== 'file:') {
+                                fallbackUrl = '/restaurants.html';
+                            }
+                            window.location.href = fallbackUrl;
+                        }
+                        return false;
+                    };
                 }
             }
             
@@ -2091,8 +2403,19 @@
                         for (var j = 0; j < Math.min(5, allPlaces.length); j++) {
                             console.log('- ' + createSlugFromRestaurant(allPlaces[j]));
                         }
-                        // Redirect to restaurants page if not found
-                        window.location.href = '/restaurants.html';
+                        // Redirect based on type - try to determine from slug or default to restaurants
+                        // If slug suggests it's an adventure (contains common adventure keywords), redirect to explore
+                        var slugLower = slug.toLowerCase();
+                        var isAdventureSlug = slugLower.includes('park') || slugLower.includes('trail') || 
+                                             slugLower.includes('bridge') || slugLower.includes('aquarium') ||
+                                             slugLower.includes('mansion') || slugLower.includes('beach');
+                        var redirectUrl;
+                        if (window.location.protocol === 'file:') {
+                            redirectUrl = isAdventureSlug ? '../explore.html' : '../restaurants.html';
+                        } else {
+                            redirectUrl = isAdventureSlug ? '/explore.html' : '/restaurants.html';
+                        }
+                        window.location.href = redirectUrl;
                         return;
                     }
                 }
@@ -2159,8 +2482,56 @@
                 // Update Back button text and link
                 const backButton = document.getElementById('backButton');
                 if (backButton) {
-                    backButton.textContent = isAdventure ? '← Back to Exploration' : '← Back to Restaurants';
-                    backButton.href = isAdventure ? '/explore.html' : '/restaurants.html';
+                    backButton.textContent = isAdventure ? '← Back' : '← Back';
+                    
+                    // Get return parameters from URL
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const returnPage = urlParams.get('returnPage');
+                    const returnSearch = urlParams.get('returnSearch');
+                    
+                    // Build back URL with preserved page and search state
+                    backButton.onclick = function(e) {
+                        e.preventDefault();
+                        
+                        // Build URL with preserved state
+                        let backUrl = isAdventure ? '../explore.html' : '../restaurants.html';
+                        if (window.location.protocol !== 'file:') {
+                            backUrl = isAdventure ? '/explore.html' : '/restaurants.html';
+                        }
+                        
+                        // Add parameters if they exist (use returnPage/returnSearch to match existing code)
+                        const backParams = new URLSearchParams();
+                        if (returnPage) {
+                            backParams.set('returnPage', returnPage);
+                        }
+                        if (returnSearch) {
+                            backParams.set('returnSearch', returnSearch);
+                        }
+                        
+                        if (backParams.toString()) {
+                            backUrl += '?' + backParams.toString();
+                        }
+                        
+                        window.location.href = backUrl;
+                        return false;
+                    };
+                    
+                    // Set href as fallback (with parameters)
+                    let fallbackUrl = isAdventure ? '../explore.html' : '../restaurants.html';
+                    if (window.location.protocol !== 'file:') {
+                        fallbackUrl = isAdventure ? '/explore.html' : '/restaurants.html';
+                    }
+                    const fallbackParams = new URLSearchParams();
+                    if (returnPage) {
+                        fallbackParams.set('returnPage', returnPage);
+                    }
+                    if (returnSearch) {
+                        fallbackParams.set('returnSearch', returnSearch);
+                    }
+                    if (fallbackParams.toString()) {
+                        fallbackUrl += '?' + fallbackParams.toString();
+                    }
+                    backButton.href = fallbackUrl;
                 }
                 
                 // Update Category/Cuisine label
@@ -2197,13 +2568,79 @@
             // Call the function to update labels
             updateLabelsForType(placeType);
 
-            // Get local photos for restaurant (if available)
-            const localBannerPhotos = typeof getRestaurantBannerPhotos !== 'undefined' 
-                ? getRestaurantBannerPhotos(restaurantName) 
+            // Helper function to normalize photo paths for protocol compatibility
+            function normalizePhotoPath(photoPath) {
+                if (!photoPath) return photoPath;
+                // If it's already an external URL, leave it alone
+                if (photoPath.startsWith('http://') || photoPath.startsWith('https://')) {
+                    return photoPath;
+                }
+                // For file:// protocol, we're in restaurant/ subdirectory, so need ../ to go up
+                if (window.location.protocol === 'file:' && photoPath.startsWith('/')) {
+                    // Remove leading slash and prepend ../ to go up from restaurant/ to root
+                    var pathWithoutSlash = photoPath.substring(1);
+                    // Handle NaturePhotosPriority folder (at root level)
+                    if (pathWithoutSlash.startsWith('NaturePhotosPriority/')) {
+                        return '../' + pathWithoutSlash;
+                    }
+                    // Handle naturephotos folder (not in public/)
+                    if (pathWithoutSlash.startsWith('naturephotos/')) {
+                        return '../' + pathWithoutSlash;
+                    }
+                    // If path starts with /images/, it's in public/images/, so use ../public/images/
+                    if (pathWithoutSlash.startsWith('images/')) {
+                        return '../public/' + pathWithoutSlash;
+                    }
+                    return '../' + pathWithoutSlash;
+                }
+                // For http/https, ensure leading slash
+                if (window.location.protocol !== 'file:' && !photoPath.startsWith('/')) {
+                    return '/' + photoPath;
+                }
+                return photoPath;
+            }
+            
+            // Make normalizePhotoPath available globally for use in generatePhotoGallery
+            window.normalizePhotoPath = normalizePhotoPath;
+            
+            // Get local photos for restaurant/adventure (if available)
+            var rawBannerPhotos = null;
+            var rawGalleryPhotos = null;
+            
+            if (placeType === 'adventure') {
+                // For adventures, get photos from naturephotos folder (gallery only, not hero/cover)
+                rawGalleryPhotos = typeof getAdventureAllPhotos !== 'undefined' 
+                    ? getAdventureAllPhotos(restaurantName) 
+                    : null;
+                console.log('Adventure photos for', restaurantName, ':', rawGalleryPhotos ? rawGalleryPhotos.length + ' photos' : 'none found');
+                if (rawGalleryPhotos && rawGalleryPhotos.length > 0) {
+                    console.log('First 3 photo paths:', rawGalleryPhotos.slice(0, 3));
+                }
+                // Get priority photos for hero section
+                rawBannerPhotos = typeof getAdventurePriorityPhotos !== 'undefined' 
+                    ? getAdventurePriorityPhotos(restaurantName) 
+                    : null;
+                console.log('Adventure priority photos for', restaurantName, ':', rawBannerPhotos ? rawBannerPhotos.length + ' photos' : 'none found');
+            } else {
+                // For restaurants, get photos from Restaurant Photos folder
+                rawBannerPhotos = typeof getRestaurantBannerPhotos !== 'undefined' 
+                    ? getRestaurantBannerPhotos(restaurantName) 
+                    : null;
+                rawGalleryPhotos = typeof getRestaurantAllPhotos !== 'undefined' 
+                    ? getRestaurantAllPhotos(restaurantName) 
+                    : null;
+            }
+            
+            // Normalize photo paths
+            const localBannerPhotos = rawBannerPhotos && Array.isArray(rawBannerPhotos) 
+                ? rawBannerPhotos.map(normalizePhotoPath)
                 : null;
-            const localGalleryPhotos = typeof getRestaurantAllPhotos !== 'undefined' 
-                ? getRestaurantAllPhotos(restaurantName) 
+            const localGalleryPhotos = rawGalleryPhotos && Array.isArray(rawGalleryPhotos)
+                ? rawGalleryPhotos.map(normalizePhotoPath)
                 : null;
+            
+            // Normalize restaurant image path
+            restaurantImage = normalizePhotoPath(restaurantImage);
             
             // Update page title with first niche keyword if available
             let pageTitle;
@@ -2369,9 +2806,29 @@
             }
             
             // Use real local photos if available, otherwise fall back to sample photos
-            const photoVariations = localBannerPhotos 
-                ? localBannerPhotos
-                : getVariedPhotos(restaurantImage, restaurantName, restaurantCuisine);
+            // For adventures, use priority photos first, then fall back to sample photos
+            // For restaurants, use banner photos first, then fall back to varied photos
+            let photoVariations;
+            if (placeType === 'adventure') {
+                // For adventures, use priority photos if available, otherwise use sample photos
+                if (localBannerPhotos && localBannerPhotos.length > 0) {
+                    // Use priority photos for hero section
+                    photoVariations = localBannerPhotos.slice(0, 3); // Take first 3 priority photos
+                    // If we have less than 3, pad with sample photos
+                    while (photoVariations.length < 3) {
+                        const samplePhotos = getVariedPhotos(restaurantImage, restaurantName, restaurantCuisine);
+                        photoVariations.push(samplePhotos[photoVariations.length]);
+                    }
+                } else {
+                    // Fall back to sample photos if no priority photos
+                    photoVariations = getVariedPhotos(restaurantImage, restaurantName, restaurantCuisine);
+                }
+            } else {
+                // For restaurants, use banner photos if available, otherwise fall back to varied photos
+                photoVariations = localBannerPhotos 
+                    ? localBannerPhotos
+                    : getVariedPhotos(restaurantImage, restaurantName, restaurantCuisine);
+            }
             
             // Special case for Alto Pino: use photos 8, 15, and 10 (indices 7, 14, 9)
             if (restaurantName === 'Alto Pino' && localGalleryPhotos && localGalleryPhotos.length > 14) {
@@ -2388,6 +2845,8 @@
                 setSrcIfExists('photo2', localGalleryPhotos[0]);
                 setSrcIfExists('photo3', localGalleryPhotos[0]);
             } else {
+                // For adventures, use sample photos (not gallery photos) for hero section
+                // For restaurants, use banner photos or sample photos
                 setSrcIfExists('photo1', photoVariations[0]);
                 setSrcIfExists('photo2', photoVariations[1]);
                 
@@ -2412,12 +2871,13 @@
             }
             setTextIfExists('photoCount', photoCount);
             
-            // Generate photo gallery
+            // Generate photo gallery (photos are already normalized above)
             generatePhotoGallery(
                 restaurantName,
                 restaurantCuisine,
                 photoCount,
-                localGalleryPhotos
+                localGalleryPhotos,
+                placeType
             );
             
             // Update other content
@@ -2491,15 +2951,28 @@
             }
             
             const phone = restaurantPhone || getRestaurantPhone(restaurantName);
-            const website = restaurantWebsite || getRestaurantWebsite(restaurantName);
+            // Format website URL - ensure it has http:// or https://
+            let website = restaurantWebsite || getRestaurantWebsite(restaurantName);
+            if (website && website !== 'N/A' && !website.startsWith('http://') && !website.startsWith('https://')) {
+                // If website doesn't start with http, add https://
+                website = 'https://' + website;
+            }
+            // Hide website link if website is N/A or null
+            if (!website || website === 'N/A') {
+                const websiteLink = document.getElementById('restaurantWebsite');
+                if (websiteLink) {
+                    websiteLink.style.display = 'none';
+                }
+            }
             const address = restaurantAddress || getRestaurantAddress(restaurantName, location);
             const directions = getDirectionsLink(restaurantName, location, address);
             const formattedAddress = address;
             
             // Update website
             const websiteLink = document.getElementById('restaurantWebsite');
-            if (websiteLink) {
+            if (websiteLink && website && website !== 'N/A') {
                 websiteLink.href = website;
+                websiteLink.style.display = ''; // Ensure it's visible
                 const websiteTextSpan = websiteLink.querySelector('.contact-text');
                 if (websiteTextSpan) {
                     websiteTextSpan.textContent = 'Website';
@@ -2956,9 +3429,56 @@
         }, 500);
     }
 
+    // Helper function to get photo credit from parks.json
+    function getPhotoCredit(photoPath, adventureName) {
+        // Check if parks.json is loaded
+        if (typeof window.parksData === 'undefined' || !window.parksData) {
+            return null;
+        }
+        
+        // Extract filename from path (handle URL-encoded paths from /naturephotos/)
+        // Path might be: /naturephotos/Aerial%20Lift%20Bridge/aerial_lift_bridge_11.jpg
+        // or: /images/nature/aerial-lift-bridge/aerial_lift_bridge_11.jpg
+        let filename = photoPath.split('/').pop();
+        // Decode URL encoding if present
+        try {
+            filename = decodeURIComponent(filename);
+        } catch(e) {
+            // If decoding fails, use original
+        }
+        
+        // Map Spirit Mountain variants to base name for credit matching
+        let searchName = adventureName;
+        if (adventureName === 'Spirit Mountain - Summer' || adventureName === 'Spirit Mountain - Winter') {
+            searchName = 'Spirit Mountain';
+        }
+        
+        // Find park by matching adventure name to park title
+        const park = window.parksData.find(function(p) {
+            return p.title === searchName || 
+                   p.parkId === searchName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        });
+        
+        if (!park || !park.images) {
+            return null;
+        }
+        
+        // Find image by matching filename (exact match, case-sensitive)
+        const image = park.images.find(function(img) {
+            const imgPath = img.src;
+            const imgFilename = imgPath.split('/').pop();
+            // Try both exact match and decoded match
+            return imgFilename === filename || decodeURIComponent(imgFilename) === filename;
+        });
+        
+        return image && image.credit ? image.credit : null;
+    }
+    
     // Generate photo gallery with sample photos or custom photos
-        function generatePhotoGallery(restaurantName, cuisine, photoCount, customPhotos) {
+        function generatePhotoGallery(restaurantName, cuisine, photoCount, customPhotos, placeType) {
             const galleryContainer = document.getElementById('photoGalleryGrid');
+            const creditsContainer = document.getElementById('photoCredits');
+            const creditsList = document.getElementById('photoCreditsList');
             if (!galleryContainer) return;
             
             // Sample restaurant/food photos
@@ -2986,25 +3506,180 @@
             ];
             
             galleryContainer.innerHTML = '';
+            if (creditsList) creditsList.innerHTML = '';
+            if (creditsContainer) creditsContainer.style.display = 'none';
             
             // Decide which photos to use: custom (for specific restaurants) or the generic samples
             const photosToShow = (customPhotos && Array.isArray(customPhotos) && customPhotos.length > 0)
                 ? customPhotos
                 : samplePhotos;
             
+            // Store credits for adventures
+            const photoCredits = [];
+            
             // Display all chosen photos
+            console.log('Generating photo gallery with', photosToShow.length, 'photos');
+            console.log('Protocol:', window.location.protocol);
+            console.log('First few photo paths:', photosToShow.slice(0, 3));
+            
             photosToShow.forEach((photoUrl, index) => {
+                // Create wrapper div for photo and badge
+                const wrapper = document.createElement('div');
+                wrapper.className = 'gallery-photo-wrapper';
+                
                 const img = document.createElement('img');
-                img.src = photoUrl;
+                // Ensure photo path is normalized (photos should already be normalized, but double-check)
+                let normalizedUrl = photoUrl;
+                if (typeof window.normalizePhotoPath === 'function') {
+                    normalizedUrl = window.normalizePhotoPath(photoUrl);
+                    if (index < 3) {
+                        console.log('Photo', index + 1, '- Original:', photoUrl, 'Normalized:', normalizedUrl);
+                    }
+                } else if (window.location.protocol === 'file:' && photoUrl.startsWith('/')) {
+                    // Fallback normalization if function not available
+                    var pathWithoutSlash = photoUrl.substring(1);
+                    if (pathWithoutSlash.startsWith('images/')) {
+                        normalizedUrl = '../public/' + pathWithoutSlash;
+                    } else {
+                        normalizedUrl = '../' + pathWithoutSlash;
+                    }
+                    if (index < 3) {
+                        console.log('Photo', index + 1, '- Using fallback normalization:', normalizedUrl);
+                    }
+                }
+                img.src = normalizedUrl;
                 img.alt = `${restaurantName} - Photo ${index + 1}`;
                 img.className = 'gallery-photo';
                 img.loading = 'lazy';
                 img.dataset.index = index;
+                
+                // Get credit for adventure photos
+                const photoNumber = index + 1; // Number starts at 1 for all photos
+                if (placeType === 'adventure' && typeof getPhotoCredit === 'function') {
+                    const credit = getPhotoCredit(photoUrl, restaurantName);
+                    if (credit) {
+                        photoCredits.push({
+                            number: photoNumber,
+                            credit: credit
+                        });
+                        if (index < 3) {
+                            console.log('Found credit for photo', photoNumber, ':', credit.author);
+                        }
+                    } else if (index < 3) {
+                        console.log('No credit found for photo', photoNumber, ':', photoUrl);
+                    }
+                }
+                
+                // Add error handler to debug loading issues
+                img.onerror = function() {
+                    console.error('Failed to load photo', index + 1, ':', normalizedUrl);
+                    console.error('  Original path:', photoUrl);
+                    console.error('  Protocol:', window.location.protocol);
+                    console.error('  Current location:', window.location.href);
+                    console.error('  Expected file location: ../public/images/nature/[folder]/[filename]');
+                };
+                img.onload = function() {
+                    if (index < 3) console.log('✓ Successfully loaded photo', index + 1, ':', normalizedUrl);
+                };
+                
                 img.addEventListener('click', function() {
                     openPhotoLightbox(photosToShow, index);
                 });
-                galleryContainer.appendChild(img);
+                
+                // Append image first, then badge (badge needs to be on top)
+                wrapper.appendChild(img);
+                
+                // Add numbered badge for all photos (adventures and restaurants)
+                const badge = document.createElement('div');
+                badge.className = 'photo-credit-badge';
+                badge.textContent = photoNumber.toString();
+                wrapper.appendChild(badge);
+                
+                galleryContainer.appendChild(wrapper);
             });
+            
+            // Display credits for adventures
+            // If parks.json hasn't loaded yet, try to get credits again after a delay
+            // Make this function globally accessible so it can be called after parks.json loads
+            window.displayCredits = function() {
+                console.log('Credits check - placeType:', placeType, 'photoCredits:', photoCredits.length, 'creditsContainer:', !!creditsContainer, 'creditsList:', !!creditsList);
+                if (placeType === 'adventure') {
+                    console.log('Adventure detected, checking credits...');
+                    console.log('  photoCredits.length:', photoCredits.length);
+                    console.log('  creditsContainer exists:', !!creditsContainer);
+                    console.log('  creditsList exists:', !!creditsList);
+                    console.log('  parksData loaded:', typeof window.parksData !== 'undefined' && window.parksData);
+                    
+                    // If parks.json loaded but we didn't get credits, try again
+                    if (photoCredits.length === 0 && typeof window.parksData !== 'undefined' && window.parksData && photosToShow.length > 0) {
+                        console.log('Retrying credit lookup with parks.json data...');
+                        // Retry credit lookup for all photos
+                        photosToShow.forEach(function(photoUrl, index) {
+                            const credit = getPhotoCredit(photoUrl, restaurantName);
+                            if (credit) {
+                                photoCredits.push({
+                                    number: index + 1,
+                                    credit: credit
+                                });
+                            }
+                        });
+                        console.log('Found', photoCredits.length, 'credits after retry');
+                    }
+                    
+                    if (photoCredits.length > 0 && creditsContainer && creditsList) {
+                        console.log('Displaying', photoCredits.length, 'credits');
+                        creditsContainer.style.display = 'block';
+                        creditsList.innerHTML = ''; // Clear any existing credits
+                        photoCredits.forEach(function(item) {
+                            const li = document.createElement('li');
+                            const creditText = `[${item.number}] Photo by ${item.credit.author}`;
+                            
+                            if (item.credit.source) {
+                                const link = document.createElement('a');
+                                link.href = item.credit.source;
+                                link.target = '_blank';
+                                link.rel = 'noopener noreferrer';
+                                link.textContent = creditText;
+                                link.style.textDecoration = 'underline';
+                                link.style.color = 'inherit';
+                                link.addEventListener('mouseenter', function() {
+                                    link.style.color = '#374151';
+                                });
+                                link.addEventListener('mouseleave', function() {
+                                    link.style.color = '#475569';
+                                });
+                                li.appendChild(link);
+                            } else {
+                                li.textContent = creditText;
+                            }
+                            
+                            creditsList.appendChild(li);
+                        });
+                    } else {
+                        console.warn('Credits not displayed - missing requirements');
+                        if (photoCredits.length === 0) {
+                            console.warn('  No credits found - check if parks.json loaded and filenames match');
+                        }
+                    }
+                }
+            }
+            
+            // Try to display credits immediately
+            window.displayCredits();
+            
+            // If parks.json might load later, retry after delays
+            if (placeType === 'adventure' && (typeof window.parksData === 'undefined' || !window.parksData)) {
+                // Retry after delays to catch late-loading parks.json
+                setTimeout(function() {
+                    window.displayCredits();
+                }, 500);
+                setTimeout(function() {
+                    window.displayCredits();
+                }, 1000);
+                setTimeout(function() {
+                    window.displayCredits();
+                }, 2000);
+            }
         }
 
         // Photo Lightbox functionality
@@ -3028,7 +3703,14 @@
             if (img) {
                 img.style.opacity = '0';
                 setTimeout(() => {
-                    img.src = lightboxPhotos[newIndex];
+                    // Normalize photo path for protocol compatibility
+                    let photoPath = lightboxPhotos[newIndex];
+                    if (typeof window.normalizePhotoPath === 'function') {
+                        photoPath = window.normalizePhotoPath(photoPath);
+                    } else if (window.location.protocol === 'file:' && photoPath.startsWith('/')) {
+                        photoPath = '../' + photoPath.substring(1);
+                    }
+                    img.src = photoPath;
                     img.alt = `Photo ${newIndex + 1} of ${lightboxPhotos.length}`;
                     img.style.opacity = '1';
                 }, 150);
@@ -3499,38 +4181,115 @@
         }
 
         // Load data when page loads - wait for script to load first
-        function initPage() {
-            // Wait for both DOM and data scripts to be ready
-            var checkReady = setInterval(function() {
-                var restaurantsReady = typeof allRestaurants !== 'undefined';
-                var adventuresReady = typeof allAdventures !== 'undefined';
-                var dataReady = restaurantsReady || adventuresReady; // At least one should be loaded
-                
-                if (dataReady && document.readyState === 'complete') {
-                    clearInterval(checkReady);
-                    console.log('Page and data ready, loading restaurant...');
-                    loadRestaurantData();
-                }
-            }, 50);
+        // Set navigation links based on protocol
+        function setupNavigationLinks() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const isFileProtocol = window.location.protocol === 'file:';
             
-            // Timeout after 5 seconds
-            setTimeout(function() {
-                clearInterval(checkReady);
-                var restaurantsReady = typeof allRestaurants !== 'undefined';
-                var adventuresReady = typeof allAdventures !== 'undefined';
-                if (!restaurantsReady && !adventuresReady) {
-                    console.error('Failed to load data files after 5 seconds');
-                    alert('Failed to load restaurant data. Please refresh the page.');
-                } else {
-                    loadRestaurantData();
+            navLinks.forEach(function(link) {
+                const path = link.getAttribute('data-path');
+                const params = link.getAttribute('data-params');
+                
+                if (path) {
+                    let href = isFileProtocol ? '../' + path : '/' + path;
+                    if (params) {
+                        href += '?' + params;
+                    }
+                    link.href = href;
                 }
-            }, 5000);
+            });
         }
         
+        // Setup navigation links when DOM is ready
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initPage);
+            document.addEventListener('DOMContentLoaded', setupNavigationLinks);
         } else {
-            initPage();
+            setupNavigationLinks();
+        }
+        
+        function initPage() {
+            console.log('initPage() called');
+            console.log('Current state - allRestaurants:', typeof allRestaurants !== 'undefined' ? (allRestaurants ? allRestaurants.length + ' items' : 'empty') : 'undefined');
+            console.log('Current state - allAdventures:', typeof allAdventures !== 'undefined' ? (allAdventures ? allAdventures.length + ' items' : 'empty') : 'undefined');
+            console.log('Document ready state:', document.readyState);
+            
+            // Check if already initialized (prevent multiple calls)
+            if (window.pageInitialized) {
+                console.log('Page already initialized, skipping...');
+                return;
+            }
+            
+            var checkCount = 0;
+            var maxChecks = 100; // 10 seconds max (100 * 100ms)
+            
+            // Wait for both DOM and data scripts to be ready
+            var checkReady = setInterval(function() {
+                checkCount++;
+                var restaurantsReady = typeof allRestaurants !== 'undefined' && allRestaurants && Array.isArray(allRestaurants) && allRestaurants.length > 0;
+                var adventuresReady = typeof allAdventures !== 'undefined' && allAdventures && Array.isArray(allAdventures) && allAdventures.length > 0;
+                var dataReady = restaurantsReady || adventuresReady; // At least one should be loaded
+                var domReady = document.readyState === 'complete' || document.readyState === 'interactive';
+                
+                if (checkCount % 10 === 0) { // Log every second
+                    console.log('Check #' + checkCount + ' - Data ready:', dataReady, 'DOM ready:', domReady);
+                    console.log('  Restaurants:', restaurantsReady ? allRestaurants.length : 'not ready');
+                    console.log('  Adventures:', adventuresReady ? allAdventures.length : 'not ready');
+                }
+                
+                if (dataReady && domReady) {
+                    clearInterval(checkReady);
+                    window.pageInitialized = true;
+                    console.log('Page and data ready, loading restaurant...');
+                    console.log('Restaurants loaded:', restaurantsReady ? allRestaurants.length : 0);
+                    console.log('Adventures loaded:', adventuresReady ? allAdventures.length : 0);
+                    loadRestaurantData();
+                } else if (checkCount >= maxChecks) {
+                    clearInterval(checkReady);
+                    var restaurantsReadyFinal = typeof allRestaurants !== 'undefined' && allRestaurants && Array.isArray(allRestaurants) && allRestaurants.length > 0;
+                    var adventuresReadyFinal = typeof allAdventures !== 'undefined' && allAdventures && Array.isArray(allAdventures) && allAdventures.length > 0;
+                    if (!restaurantsReadyFinal && !adventuresReadyFinal) {
+                        console.error('Failed to load data files after 10 seconds');
+                        console.error('allRestaurants:', typeof allRestaurants, Array.isArray(allRestaurants) ? allRestaurants.length : 'not an array');
+                        console.error('allAdventures:', typeof allAdventures, Array.isArray(allAdventures) ? allAdventures.length : 'not an array');
+                        console.error('Protocol:', window.location.protocol);
+                        console.error('Current path:', window.location.pathname);
+                        console.error('Current href:', window.location.href);
+                        alert('Failed to load restaurant data. Please refresh the page. If using file:// protocol, please use a local server (see LOCAL_DEV_SETUP.md).');
+                    } else {
+                        console.log('Data loaded after timeout, calling loadRestaurantData...');
+                        window.pageInitialized = true;
+                        loadRestaurantData();
+                    }
+                }
+            }, 100);
+        }
+        
+        // Don't call initPage here - let the script loader call it when scripts are ready
+        // But ensure DOM is ready first
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                // Script loader will call initPage() when scripts are loaded
+                // But if scripts already loaded, call it now
+                setTimeout(function() {
+                    if ((typeof allRestaurants !== 'undefined' && allRestaurants && allRestaurants.length > 0) ||
+                        (typeof allAdventures !== 'undefined' && allAdventures && allAdventures.length > 0)) {
+                        if (typeof initPage === 'function') {
+                            initPage();
+                        }
+                    }
+                }, 200);
+            });
+        } else {
+            // DOM already ready, but scripts might still be loading
+            // Script loader will call initPage() when ready
+            setTimeout(function() {
+                if ((typeof allRestaurants !== 'undefined' && allRestaurants && allRestaurants.length > 0) ||
+                    (typeof allAdventures !== 'undefined' && allAdventures && allAdventures.length > 0)) {
+                    if (typeof initPage === 'function') {
+                        initPage();
+                    }
+                }
+            }, 200);
         }
     </script>
 </body>

@@ -31,10 +31,9 @@
         })();
     </script>
     
-    <script src="restaurants-data.js"></script>
-    <script src="adventures-data.js"></script>
     <script>
         // REDIRECT OLD URLS TO NEW SLUG FORMAT (301 redirect for SEO)
+        // MUST RUN BEFORE ANY OTHER SCRIPTS TO PREVENT ERRORS
         (function() {
             var urlParams = new URLSearchParams(window.location.search);
             var hasOldParams = urlParams.has('name') && urlParams.has('rating');
@@ -91,6 +90,8 @@
             }
         })();
     </script>
+    <script src="/restaurants-data.js"></script>
+    <script src="/adventures-data.js"></script>
     <script>
         var restaurantGoogleMapsKey = 'YOUR_API_KEY';
         var restaurantUseGoogleMaps = true;
@@ -1805,9 +1806,9 @@
         <nav class="nav">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <h1><a href="index.html">YourDuluthGuide</a></h1>
+                    <h1><a href="/index.html">YourDuluthGuide</a></h1>
                 </div>
-                <a href="restaurants.html" class="back-button" id="backButton">← Back to Restaurants</a>
+                <a href="/restaurants.html" class="back-button" id="backButton">← Back to Restaurants</a>
             </div>
         </nav>
     </header>
@@ -2012,7 +2013,7 @@
             // Load restaurant data if not already loaded (for slug-based routing)
             if (typeof allRestaurants === 'undefined') {
                 var script = document.createElement('script');
-                script.src = 'restaurants-data.js';
+                script.src = '/restaurants-data.js';
                 script.onload = function() {
                     // Retry loading after data is loaded
                     setTimeout(loadRestaurantData, 100);
@@ -2028,7 +2029,7 @@
             // Update back button to preserve page and search
             const backButton = document.querySelector('.back-button');
             if (backButton) {
-                let backUrl = 'restaurants.html';
+                let backUrl = '/restaurants.html';
                 const backParams = new URLSearchParams();
                 if (returnPage) {
                     backParams.set('returnPage', returnPage);
@@ -2158,7 +2159,7 @@
                 const backButton = document.getElementById('backButton');
                 if (backButton) {
                     backButton.textContent = isAdventure ? '← Back to Exploration' : '← Back to Restaurants';
-                    backButton.href = isAdventure ? 'explore.html' : 'restaurants.html';
+                    backButton.href = isAdventure ? '/explore.html' : '/restaurants.html';
                 }
                 
                 // Update Category/Cuisine label

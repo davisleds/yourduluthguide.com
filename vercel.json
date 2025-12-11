@@ -4,6 +4,13 @@
       "source": "/restaurant/(.*)",
       "destination": "/restaurant/index.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/restaurant-template.html",
+      "destination": "/restaurants.html",
+      "permanent": true
+    }
   ]
 }
 

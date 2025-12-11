@@ -754,7 +754,7 @@
         </div>
     </footer>
 
-    <script src="adventures-data.js"></script>
+    <script src="adventures-data.js?v=9"></script>
     <script>
         // Pagination state
         var currentPage = 1;
@@ -763,6 +763,11 @@
         
         // Map adventures data to use same variable name as restaurants for compatibility
         if (typeof allAdventures !== 'undefined') {
+            console.log('DEBUG: allAdventures.length =', allAdventures.length);
+            console.log('DEBUG: allAdventures =', allAdventures);
+            if (allAdventures.length > 0) {
+                console.error('ERROR: allAdventures should be empty but has', allAdventures.length, 'items!');
+            }
             var allRestaurants = allAdventures.map(function(adventure) {
                 // Map adventure fields to restaurant field names for compatibility
                 return {
@@ -789,6 +794,8 @@
                     highlights: adventure.highlights || []
                 };
             });
+        } else {
+            console.error('DEBUG: allAdventures is undefined!');
         }
         
         // Map instance
@@ -1094,7 +1101,7 @@
             // Update results count
             var showingStart = startIndex + 1;
             var showingEnd = Math.min(endIndex, allFilteredRestaurants.length);
-            resultsCount.innerHTML = 'Showing <strong>' + showingStart + '-' + showingEnd + '</strong> of <strong>' + allFilteredRestaurants.length + '</strong> adventures';
+            resultsCount.innerHTML = 'Showing pages <strong>' + showingStart + '-' + showingEnd + '</strong> of <strong>' + allFilteredRestaurants.length + '</strong> adventures';
             
             grid.style.display = 'block';
             noResults.style.display = 'none';
@@ -1138,8 +1145,60 @@
                 var placeType = restaurant.type || 'restaurant';
                 var hoursParam = restaurant.hours ? '\'' + encodeURIComponent(JSON.stringify(restaurant.hours)).replace(/'/g, "\\'") + '\'' : 'null';
                 
-                // Use restaurant image directly (paths are already properly formatted)
-                var imagePath = restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop';
+                // Use restaurant image - ensure correct paths for protocol
+                // For adventures, ALWAYS use first gallery photo (never use the image field which may be a map/placeholder)
+                var imagePath = null;
+                
+                if (placeType === 'adventure') {
+                    // For adventures, always try to get first gallery photo
+                    if (typeof getAdventureAllPhotos !== 'undefined') {
+                        var adventurePhotos = getAdventureAllPhotos(restaurant.name);
+                        if (adventurePhotos && adventurePhotos.length > 0) {
+                            // Special cases: Use image 3 (index 2) for specific adventures
+                            if ((restaurant.name === 'Seven Bridges Road' || restaurant.name === 'Enger Park' || restaurant.name === 'Lake Superior Zoo') && adventurePhotos.length > 2) {
+                                imagePath = adventurePhotos[2];
+                            } else {
+                                // Use first photo from gallery
+                                imagePath = adventurePhotos[0];
+                            }
+                        }
+                    }
+                    // If no adventure photos found, use a fallback (but not the restaurant.image which might be a map)
+                    if (!imagePath) {
+                        imagePath = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop';
+                    }
+                } else {
+                    // For restaurants, use restaurant.image
+                    imagePath = restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop';
+                }
+                
+                // Handle paths based on protocol (file:// vs http://)
+                if (imagePath && !imagePath.startsWith('http')) {
+                    // Remove any file:// prefix that might have been added
+                    imagePath = imagePath.replace(/^file:\/\/+/, '');
+                    // Remove leading slash to get base path
+                    var basePath = imagePath.replace(/^\/+/, '');
+                    
+                    // For file:// protocol, use relative paths (photos are in same directory as HTML)
+                    // For http/https protocol, use absolute paths starting with /
+                    if (window.location.protocol === 'file:') {
+                        // Handle NaturePhotosPriority folder (at root level)
+                        if (basePath.startsWith('NaturePhotosPriority/')) {
+                            imagePath = basePath;
+                        }
+                        // Handle images folder (in public/)
+                        else if (basePath.startsWith('images/')) {
+                            imagePath = 'public/' + basePath;
+                        }
+                        // On file://, use relative path (since both HTML and photos are in root)
+                        else {
+                            imagePath = basePath;
+                        }
+                    } else {
+                        // On http/https, use absolute path starting with /
+                        imagePath = '/' + basePath;
+                    }
+                }
                 
                 return '<div class="restaurant-card" onclick="openRestaurant(\'' +
                     name.replace(/'/g, "\\'") + '\',' +
@@ -1535,13 +1594,50 @@
                 return;
             }
             
-            // Reset to page 1 when searching (unless we're restoring a page)
-            if (!skipPageReset) {
-            currentPage = 1;
+            // Check for URL parameters - page, search, and filter (do this FIRST)
+            var urlParams = new URLSearchParams(window.location.search);
+            
+            // Restore page number from URL if present (do this early, before filtering)
+            // Check both 'returnPage' (from back button) and 'page' (direct navigation)
+            var pageParam = urlParams.get('returnPage') || urlParams.get('page');
+            var restoredPage = false;
+            if (pageParam) {
+                var pageNum = parseInt(pageParam, 10);
+                if (!isNaN(pageNum) && pageNum > 0) {
+                    currentPage = pageNum;
+                    restoredPage = true;
+                    console.log('doSearch: Restored page to', currentPage, 'from URL param:', pageParam);
+                }
+            }
+            // If skipPageReset is true, treat it as restored
+            if (skipPageReset && !restoredPage && currentPage > 1) {
+                restoredPage = true;
+                console.log('doSearch: Preserving page', currentPage, 'because skipPageReset is true');
             }
             
-            // Check for filter parameter in URL (e.g., parks-trails) - check this FIRST
-            var urlParams = new URLSearchParams(window.location.search);
+            // Restore search query from URL if present
+            // Check both 'returnSearch' (from back button) and 'search' (direct navigation)
+            var searchParam = urlParams.get('returnSearch') || urlParams.get('search');
+            var restoredSearch = false;
+            if (searchParam) {
+                var searchInput = document.getElementById('restaurantSearch');
+                if (searchInput) {
+                    searchInput.value = searchParam;
+                    restoredSearch = true;
+                }
+            }
+            
+            // Reset to page 1 when searching (unless we're restoring a page from URL)
+            // IMPORTANT: If skipPageReset is true, NEVER reset the page
+            if (skipPageReset) {
+                console.log('doSearch: skipPageReset is true, preserving currentPage:', currentPage);
+            } else if (!restoredPage) {
+                console.log('doSearch: Resetting to page 1 (skipPageReset:', skipPageReset, 'restoredPage:', restoredPage, ')');
+                currentPage = 1;
+            } else {
+                console.log('doSearch: Preserving restored page:', currentPage);
+            }
+            
             var filterParam = urlParams.get('filter');
             
             // If filter is parks-trails, automatically filter to parks and trails
@@ -1600,6 +1696,7 @@
             // Filter restaurants
             if (!searchTerm) {
                 allFilteredRestaurants = allRestaurants.slice();
+                console.log('DEBUG: allFilteredRestaurants.length after slice =', allFilteredRestaurants.length);
             } else {
                 var term = searchTerm.toLowerCase();
                 
@@ -2227,13 +2324,41 @@
         
         // Restaurant detail page function - uses query parameter (works everywhere)
         window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image, location, phone, website, address, reservations, popularDishes, hours, type) {
-            // Create short slug URL
-            var slug = createRestaurantSlug(name, location);
-            
-            // Use query parameter format - reliable and works on all servers
-            var url = '/restaurant/index.html?slug=' + encodeURIComponent(slug);
-            
-            window.location.href = url;
+            try {
+                // Create short slug URL
+                var slug = createRestaurantSlug(name, location);
+                
+                // Preserve current page and search state in URL
+                var params = new URLSearchParams();
+                params.set('slug', slug);
+                
+                // Add current page number if available
+                if (typeof currentPage !== 'undefined' && currentPage > 1) {
+                    params.set('returnPage', currentPage);
+                }
+                
+                // Add search query if available
+                var searchInput = document.getElementById('restaurantSearch');
+                if (searchInput && searchInput.value && searchInput.value.trim()) {
+                    params.set('returnSearch', searchInput.value.trim());
+                }
+                
+                // Handle URL based on protocol (file:// vs http://)
+                var url;
+                if (window.location.protocol === 'file:') {
+                    // On file:// protocol, use relative path
+                    url = 'restaurant/index.html?' + params.toString();
+                } else {
+                    // On http/https protocol, use absolute path
+                    url = '/restaurant/index.html?' + params.toString();
+                }
+                
+                console.log('Navigating to:', url, 'for adventure:', name);
+                window.location.href = url;
+            } catch (error) {
+                console.error('Error in openRestaurant:', error);
+                alert('Error navigating to adventure page. Please try again.');
+            }
         };
         
         // Initialize page when DOM is ready
@@ -2291,7 +2416,8 @@
             
             // Check for URL parameters
             var urlParams = new URLSearchParams(window.location.search);
-            var searchParam = urlParams.get('search');
+            // Check both 'returnSearch' (from back button) and 'search' (direct navigation)
+            var searchParam = urlParams.get('returnSearch') || urlParams.get('search');
             var cuisineParam = urlParams.get('cuisine');
             var filterParam = urlParams.get('filter'); // Check for filter parameter (e.g., parks-trails)
             var returnPage = urlParams.get('returnPage');
@@ -2305,19 +2431,34 @@
                 }
             }
             
-            // Restore page number if returning from restaurant detail page
+            // Restore page number if returning from restaurant detail page (do this FIRST, before any doSearch calls)
             var isRestoringPage = false;
             if (returnPage) {
                 var pageNum = parseInt(returnPage, 10);
                 if (pageNum > 0) {
                     currentPage = pageNum;
                     isRestoringPage = true;
+                    console.log('initRestaurantsPage: Restored page from returnPage URL:', currentPage);
                 }
             }
+            
+            // Also check for page parameter (for direct navigation)
+            var pageParam = urlParams.get('page');
+            if (pageParam && !isRestoringPage) {
+                var pageNum = parseInt(pageParam, 10);
+                if (pageNum > 0) {
+                    currentPage = pageNum;
+                    isRestoringPage = true;
+                    console.log('initRestaurantsPage: Restored page from page param:', currentPage);
+                }
+            }
+            
+            console.log('initRestaurantsPage: Final currentPage:', currentPage, 'isRestoringPage:', isRestoringPage);
             
             if (returnSearch) {
                 // Restore search term and page when returning from restaurant detail
                 searchInput.value = returnSearch;
+                console.log('Restoring search and page:', returnSearch, currentPage);
                 doSearch(true); // Skip page reset since we're restoring
             } else if (filterParam === 'parks-trails') {
                 // Handle parks-trails filter - don't set search input, filter is handled in doSearch
@@ -2341,7 +2482,16 @@
                 doSearch(isRestoringPage); // Preserve page if restoring
             } else {
                 // Initial render - show all restaurants sorted by rating
-                doSearch(isRestoringPage); // Preserve page if restoring
+                if (isRestoringPage) {
+                    // Page is already restored, filter and render without resetting page
+                    console.log('Rendering with restored page:', currentPage);
+                    // Need to filter restaurants first, then render
+                    allFilteredRestaurants = allRestaurants.slice(); // Copy all restaurants
+                    allFilteredRestaurants = sortRestaurantsByRating(allFilteredRestaurants);
+                    renderRestaurants();
+                } else {
+                    doSearch(false); // Normal initial render
+                }
             }
         }
         

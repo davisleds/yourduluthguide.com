@@ -168,10 +168,10 @@
                 <h2>Featured Restaurants</h2>
             </div>
             <div class="stays-grid">
-                <a href="/restaurant/index.html?slug=northern-waters-smokehaus-canal-park" class="stay-card-link">
+                <a href="restaurant/index.html?slug=northern-waters-smokehaus-canal-park" class="stay-card-link" id="home-link-1">
                     <article class="stay-card reveal">
                         <div class="stay-image">
-                            <img src="Restaurant Photos/64. northern-waters-smokehaus/Storefront+Patio+06-2024.webp" alt="Northern Waters Smokehaus storefront" loading="lazy">
+                            <img src="" alt="Northern Waters Smokehaus storefront" loading="lazy" id="home-photo-1">
                         </div>
                         <div class="stay-body">
                             <div class="stay-top">
@@ -187,10 +187,10 @@
                         </div>
                     </article>
                 </a>
-                <a href="/restaurant/index.html?slug=duluth-grill-lincoln-park" class="stay-card-link">
+                <a href="restaurant/index.html?slug=duluth-grill-lincoln-park" class="stay-card-link" id="home-link-2">
                     <article class="stay-card reveal">
                         <div class="stay-image">
-                            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Duluth Grill interior" loading="lazy" referrerpolicy="no-referrer">
+                            <img src="" alt="Duluth Grill interior" loading="lazy" id="home-photo-2">
                         </div>
                         <div class="stay-body">
                             <div class="stay-top">
@@ -206,10 +206,10 @@
                         </div>
                     </article>
                 </a>
-                <a href="/restaurant/index.html?slug=va-bene-canal-park" class="stay-card-link">
+                <a href="restaurant/index.html?slug=va-bene-canal-park" class="stay-card-link" id="home-link-3">
                     <article class="stay-card reveal">
                         <div class="stay-image">
-                            <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Va Bene pasta and wine" loading="lazy" referrerpolicy="no-referrer">
+                            <img src="" alt="Va Bene pasta and wine" loading="lazy" id="home-photo-3">
                         </div>
                         <div class="stay-body">
                             <div class="stay-top">
@@ -236,24 +236,24 @@
     <section class="explore-duluth" id="explore">
         <div class="container">
             <div class="section-header">
-                <h2>Explore Duluth Like a Local</h2>
-                <p class="section-subtext">Find restaurants, trails, and attractions just minutes from your stay.</p>
+                <h2>Explore Duluth: Hikes, Museums, Beaches & More</h2>
+                <p class="section-subtext">Discover the best places to visit in Duluth with 100+ adventures including hikes, museums, beaches, and attractions</p>
             </div>
             <div class="explore-grid">
                 <article class="explore-card reveal">
-                    <h3>Best Restaurants</h3>
-                    <p>Tastiest dining spots in town</p>
-                    <a href="#" class="btn-link">View Guides →</a>
+                    <h3>Search Adventures</h3>
+                    <p>Search adventures by name, category, or location...</p>
+                    <a href="explore.html" class="btn-link">View All Adventures →</a>
                 </article>
                 <article class="explore-card reveal">
                     <h3>Outdoor Adventures</h3>
                     <p>Hiking, paddling, and more</p>
-                    <a href="#" class="btn-link">View Guides →</a>
+                    <a href="explore.html" class="btn-link">View Guides →</a>
                 </article>
                 <article class="explore-card reveal">
-                    <h3>Neighborhood Guides</h3>
-                    <p>Explore different areas of Duluth</p>
-                    <a href="#" class="btn-link">View Guides →</a>
+                    <h3>Museums & Attractions</h3>
+                    <p>Explore Duluth's cultural sites</p>
+                    <a href="explore.html" class="btn-link">View Guides →</a>
                 </article>
             </div>
         </div>
@@ -373,6 +373,9 @@
 
     <script src="script.js"></script>
     
+    <!-- Load restaurants data for featured restaurant photos -->
+    <script src="restaurants-data.js"></script>
+    
     <!-- Privacy-friendly analytics by Plausible -->
     <script async src="https://plausible.io/js/pa-wvDhmJq4VcKBRk2YnOSQi.js"></script>
     <script>
@@ -385,6 +388,81 @@
         method: "POST",
         body: "🔔 New visitor on yourduluthguide.com!"
     });
+    
+    // Fix restaurant links and photo paths for protocol compatibility (file:// vs http://)
+    (function() {
+        var protocol = window.location.protocol;
+        
+        // Fix restaurant links
+        if (protocol !== 'file:') {
+            // On http/https, convert relative paths to absolute
+            var links = document.querySelectorAll('a[href^="restaurant/index.html"]');
+            links.forEach(function(link) {
+                var href = link.getAttribute('href');
+                if (href && !href.startsWith('/')) {
+                    link.setAttribute('href', '/' + href);
+                }
+            });
+        }
+        
+        // Fix photo paths - normalize absolute paths for file:// protocol
+        function normalizePhotoPath(path) {
+            if (!path) return path;
+            // If it's already an external URL, leave it alone
+            if (path.startsWith('http://') || path.startsWith('https://')) {
+                return path;
+            }
+            // For file:// protocol, remove leading slash to make it relative
+            if (protocol === 'file:' && path.startsWith('/')) {
+                return path.substring(1);
+            }
+            // For http/https, ensure leading slash
+            if (protocol !== 'file:' && !path.startsWith('/')) {
+                return '/' + path;
+            }
+            return path;
+        }
+        
+        // Load restaurant photos for featured restaurants
+        function setFeaturedRestaurantPhoto(photoId, restaurantName) {
+            var photo = document.getElementById(photoId);
+            if (!photo) return;
+            
+            // Wait for restaurants-data.js to load
+            function trySetPhoto() {
+                if (typeof getRestaurantPhotoPath !== 'undefined') {
+                    var photoPath = getRestaurantPhotoPath(restaurantName);
+                    if (photoPath) {
+                        photo.src = normalizePhotoPath(photoPath);
+                    } else {
+                        // Fallback to restaurant image if photo path not found
+                        if (typeof getRestaurantImage !== 'undefined') {
+                            var imgPath = getRestaurantImage(restaurantName, '');
+                            if (imgPath) {
+                                photo.src = normalizePhotoPath(imgPath);
+                            }
+                        }
+                    }
+                } else {
+                    // Retry after a short delay if restaurants-data.js hasn't loaded yet
+                    setTimeout(trySetPhoto, 100);
+                }
+            }
+            trySetPhoto();
+        }
+        
+        // Set photos for featured restaurants
+        setFeaturedRestaurantPhoto('home-photo-1', 'Northern Waters Smokehaus');
+        setFeaturedRestaurantPhoto('home-photo-2', 'Duluth Grill');
+        setFeaturedRestaurantPhoto('home-photo-3', 'Va Bene');
+        
+        // Fallback for Northern Waters Smokehaus (in case restaurants-data.js takes time)
+        var photo1 = document.getElementById('home-photo-1');
+        if (photo1 && !photo1.src) {
+            var photoPath = normalizePhotoPath('/Restaurant Photos/64. northern-waters-smokehaus/Storefront+Patio+06-2024.webp');
+            photo1.src = photoPath;
+        }
+    })();
     </script>
 </body>
 </html>

@@ -1,0 +1,2237 @@
+// Parks data for photo credits
+// This file is auto-generated from src/data/parks.json
+window.parksData = [
+  {
+    "parkId": "aerial-lift-bridge",
+    "title": "Aerial Lift Bridge",
+    "images": [
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_8.jpg",
+        "credit": {
+          "author": "McGhiever",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Aerial_Lift_Bridge_centered.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_9.jpg",
+        "credit": {
+          "author": "Cedar Tree",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Underside_of_Aerial_Lift_Bridge.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_11.jpg",
+        "credit": {
+          "author": "Jonathunder",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:AerialLiftBridgeNight.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_10.jpg",
+        "credit": {
+          "author": "Tony Webster from Minneapolis, Minnesota",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Aerial_Lift_Bridge_(18349732465).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_12.jpg",
+        "credit": {
+          "author": "Chris857",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Aerial_Lift_Bridge_-_Duluth,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_13.jpg",
+        "credit": {
+          "author": "Chris Light",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Aerial_Lift_Bridge_down.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_14.jpg",
+        "credit": {
+          "author": "Brian Zinnel",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Minnesota-Aerial_Lift_Bridge-20051006103235.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_15.jpg",
+        "credit": {
+          "author": "Mfield, Matthew Field, http://www.photography.mattfield.com",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Aerial_lift_bridge_duluth_mn.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_2.jpg",
+        "credit": {
+          "author": "Misterhrd",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_MN_Aerial_Lift_Bridge_31_December_2023.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_3.jpg",
+        "credit": {
+          "author": "Jet Lowe",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Aerial_Lift_Bridge_1990.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_1.jpg",
+        "credit": {
+          "author": "Detroit Publishing Co., publisher.",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Aerial_bridge,_Duluth,_Minnesota_det.4a12863u.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_4.jpg",
+        "credit": {
+          "author": "Education Prof",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:Aerial_Lift_Bridge_in_Duluth,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_5.jpg",
+        "credit": {
+          "author": "Stevie Twining",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Aerial_Lift_Bridge.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_7.jpg",
+        "credit": {
+          "author": "Bspor.88",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Aerial_Lift_Bridge-aerial,_August_2024.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/aerial-lift-bridge/aerial_lift_bridge_6.jpg",
+        "credit": {
+          "author": "Bspor.88",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth,_MN_-_Aerial_Lift_Bridge_and_harbor,_aerial,_August_2024.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "brewer-park",
+    "title": "Brewer Park",
+    "images": [
+      {
+        "src": "/images/nature/brewer-park/brewer_park_8.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_006.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_9.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_007.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_10.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_008.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_11.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_009.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_13.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_012.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_12.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_011.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_15.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_014.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_14.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_013.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_2.jpg",
+        "credit": {
+          "author": "Melissa Bower",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:David_Brewer_Park_bench.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_3.jpg",
+        "credit": {
+          "author": "Melissa Bower",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:David_Brewer_Park.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_1.jpg",
+        "credit": {
+          "author": "Dmitri Lytov",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:The_four_colours_of_the_Canadian_fall_-_at_Brewer_Park,_Ottawa,_ON.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_4.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_001.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_5.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_002.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_7.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_005.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brewer-park/brewer_park_6.jpg",
+        "credit": {
+          "author": "Thomas R Machnitzki (thomasmachnitzki.com)",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dixon-Brewer_Park_Bartlett_TN_2013-07-31_004.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "brighton-beach",
+    "title": "Brighton Beach",
+    "images": [
+      {
+        "src": "/images/nature/brighton-beach/brighton_beach_10.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Brighton_Beach,_Duluth_(9694641145).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brighton-beach/brighton_beach_1.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Rocky_Brighton_Beach,_Duluth_(35881790741).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brighton-beach/brighton_beach_2.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Sunrise,_Brighton_Beach,_Duluth_(34553401935).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brighton-beach/brighton_beach_3.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Brighton_Beach,_Duluth_(34372991682).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brighton-beach/brighton_beach_7.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Brighton_Beach,_Duluth_(34513368375).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brighton-beach/brighton_beach_4.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Brighton_Beach,_Duluth_(33034454262).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/brighton-beach/brighton_beach_5.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Weeds,_Brighton_Beach,_Duluth_(28127196082).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "canal-park",
+    "title": "Canal Park",
+    "images": [
+      {
+        "src": "/images/nature/canal-park/canal_park_3.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Canal_Park,_Duluth_(24610480230).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/canal-park/canal_park_2.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Canal_Park,_Duluth_(36789024446).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/canal-park/canal_park_1.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Frozen_Canal_Park,_Duluth_(32445671324).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/canal-park/canal_park_6.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Canal_Park,_Duluth_(19844182084).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/canal-park/canal_park_7.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Breakers,_Canal_Park,_Duluth_(26901444062).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/canal-park/canal_park_8.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Canal_Park,_Duluth_(33773076735).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/canal-park/canal_park_13.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Canal_Park,_Duluth_(33688324144).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/canal-park/canal_park_11.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Canal_Park,_Duluth_(6134339345).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "chester-park",
+    "title": "Chester Park",
+    "images": [
+      {
+        "src": "/images/nature/chester-park/chester_park_2.jpg",
+        "credit": {
+          "author": "Unknown",
+          "license": "Unknown"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/chester-park/chester_park_1.jpg",
+        "credit": {
+          "author": "Unknown",
+          "license": "Unknown"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/chester-park/chester_park_6.jpg",
+        "credit": {
+          "author": "Unknown",
+          "license": "Unknown"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/chester-park/chester_park_7.jpg",
+        "credit": {
+          "author": "Unknown",
+          "license": "Unknown"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/chester-park/chester_park_8.jpg",
+        "credit": {
+          "author": "Unknown",
+          "license": "Unknown"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "congdon-park",
+    "title": "Congdon Park",
+    "images": [
+      {
+        "src": "/images/nature/congdon-park/congdon_park_5.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Progression_(1448091076).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/congdon-park/congdon_park_7.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Tischer_Creek,_Duluth_(34031332235).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/congdon-park/congdon_park_15.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Ice_and_Flow,_Tischer_Creek,_Duluth_(382666924).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/congdon-park/congdon_park_14.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Tischer_Creek_Waterfall,_Duluth_(33742991172).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/congdon-park/congdon_park_6.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Rock_Water,_Tischer_Creek,_Duluth_(30686585884).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/congdon-park/congdon_park_2.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Convergence_(1448098778).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/congdon-park/congdon_park_1.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Black_and_Red_(1448103416).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/congdon-park/congdon_park_13.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Burble_(1447287755).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/congdon-park/congdon_park_12.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Leafy_Trunk_(266828743).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/congdon-park/congdon_park_8.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Water%27s_Edge_(2741333494).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "ely-s-peak",
+    "title": "Ely's Peak",
+    "images": [
+      {
+        "src": "/images/nature/ely-s-peak/ely's_peak_6.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:Ely%27s_Peak_DWP_Trail_Tunnel,_Aug_2023_2.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/ely-s-peak/ely's_peak_7.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:View_near_Ely%27s_Peak,_Aug_2023.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/ely-s-peak/ely's_peak_5.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:View_from_DWP_Trail_near_Ely%27s_Peak,_Aug_2023.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/ely-s-peak/ely's_peak_4.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:Ely%27s_Peak_DWP_Trail_Tunnel,_Aug_2023_1.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/ely-s-peak/ely's_peak_1.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:DWP_Trail,_Ely%27s_Peak,_Aug_2023_3.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/ely-s-peak/ely's_peak_3.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:DWP_Trail,_Ely%27s_Peak_MN_Aug_2023_2.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/ely-s-peak/ely's_peak_2.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:DWP_Trail,_Ely%27s_Peak_MN_Aug_2023_1.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "enger-park",
+    "title": "Enger Park",
+    "images": [
+      {
+        "src": "/images/nature/enger-park/enger_park_9.jpg",
+        "credit": {
+          "author": "Ferahgo the Assassin",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Enger_Hill_park%27s_flower_garden.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_8.jpg",
+        "credit": {
+          "author": "August Schwerdfeger",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Enger_Observation_Tower_at_night_2017-11-26_-_1.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_11.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Canal_Park,_View_from_Enger_Park,_Duluth_(34288629544).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_10.jpg",
+        "credit": {
+          "author": "August Schwerdfeger",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Enger_Observation_Tower_2014-10-06_-_4.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_12.jpg",
+        "credit": {
+          "author": "Ferahgo the Assassin",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Enger_Tower_side_view.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_13.jpg",
+        "credit": {
+          "author": "Ferahgo the Assassin",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Enger_tower_front.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_14.jpg",
+        "credit": {
+          "author": "August Schwerdfeger",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Enger_Observation_Tower_2013-05-27.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_15.jpg",
+        "credit": {
+          "author": "August Schwerdfeger",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Enger_Observation_Tower_2014-10-06_-_2.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_3.jpg",
+        "credit": {
+          "author": "Tony Webster from San Francisco, California",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Fall_Colors_at_Enger_Park,_Duluth,_Minnesota_(25010489549).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_2.jpg",
+        "credit": {
+          "author": "Tony Webster from San Francisco, California",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Fall_Colors_from_Enger_Tower_(22708466622).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_1.jpg",
+        "credit": {
+          "author": "August Schwerdfeger",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Blatnik_Bridge_from_Enger_Park_2017-08-18.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_5.jpg",
+        "credit": {
+          "author": "Pete Markham from Loretto, USA",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Trip_-_May_2015_-_Tug_Joyce_L._VanEnkevort_and_Barge_Great_Lakes_Trader_(17803935141).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_4.jpg",
+        "credit": {
+          "author": "Pete Markham from Loretto, USA",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Trip_-_May_2015_-_Tug_Joyce_L._VanEnkevort_and_Barge_Great_Lakes_Trader_(17803463035).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_6.jpg",
+        "credit": {
+          "author": "August Schwerdfeger",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Enger_Observation_Tower_2014-10-06.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/enger-park/enger_park_7.jpg",
+        "credit": {
+          "author": "August Schwerdfeger",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Enger_Observation_Tower_at_night_2017-11-26_-_2.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "fairmont-park",
+    "title": "Fairmont Park",
+    "images": [
+      {
+        "src": "/images/nature/fairmont-park/fairmont_park_1.jpg",
+        "credit": {
+          "author": "Dulufoto",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:FairmontParkDuluthMN.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "gichi-ode-akiing",
+    "title": "Gichi-ode\u2019 Akiing",
+    "images": [
+      {
+        "src": "/images/nature/gichi-ode-akiing/gichi-ode\u2019_akiing_3.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:Gichi-ode%27_Akiing,_Duluth_MN_Aug_2023_03.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/gichi-ode-akiing/gichi-ode\u2019_akiing_2.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:Gichi-ode%27_Akiing,_Duluth_MN_Aug_2023_02.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/gichi-ode-akiing/gichi-ode\u2019_akiing_1.jpg",
+        "credit": {
+          "author": "Thomson200",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:Gichi-ode%27_Akiing,_Duluth_MN_Aug_2023_01.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "glensheen-mansion",
+    "title": "Glensheen Mansion",
+    "images": [
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_1.jpg",
+        "credit": {
+          "author": "Robyn Richardson",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_Historic_Estate.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_2.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_Mansion_at_night.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_3.jpg",
+        "credit": {
+          "author": "Joel Dueck",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_entrance.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_7.jpg",
+        "credit": {
+          "author": "Dr Umm",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_fountain_and_garden.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_6.jpg",
+        "credit": {
+          "author": "Dr Umm",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_Mansion_boathouse,_looking_toward_Lake_Superior.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_4.jpg",
+        "credit": {
+          "author": "Dr Umm",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Boathouse_at_Glensheen_Historic_Estate.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_5.jpg",
+        "credit": {
+          "author": "Dr Umm",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_Historic_Estate_-_Looking_toward_Lake_Superior.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_8.jpg",
+        "credit": {
+          "author": "Dr Umm",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_tour_guide.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_9.jpg",
+        "credit": {
+          "author": "Brendan Riley",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_Historic_Estate_carriage_house.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_14.jpg",
+        "credit": {
+          "author": "Learjet at English Wikipedia",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen.JPG"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_15.jpg",
+        "credit": {
+          "author": "Derek Hatfield",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_01.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_11.jpg",
+        "credit": {
+          "author": "Brandreaus2017",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen-Terrace_from_breakfast_room.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_10.jpg",
+        "credit": {
+          "author": "vofuth",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen_Historic_Estate_museum.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_12.jpg",
+        "credit": {
+          "author": "Brandreaus2017",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen-billiards_room.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/glensheen-mansion/glensheen_mansion_13.jpg",
+        "credit": {
+          "author": "Jonathunder",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Glensheen.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "great-lakes-aquarium",
+    "title": "Great Lakes Aquarium",
+    "images": [
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_13.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_42.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_12.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_34.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_8.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_24.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_10.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_27.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_11.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_28.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_9.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_25.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_15.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_49.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_14.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_46.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_2.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_07.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_3.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_08.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_1.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_03.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_4.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_13.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_5.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_14.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_7.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_22.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/great-lakes-aquarium/great_lakes_aquarium_6.jpg",
+        "credit": {
+          "author": "Crown Star Images",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Great_Lakes_Aquarium_DSC04058_20.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "hawk-ridge",
+    "title": "Hawk Ridge",
+    "images": [
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_2.jpg",
+        "credit": {
+          "author": "Corey Coyle",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Black_Hawk_Ridge_-_panoramio.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_3.jpg",
+        "credit": {
+          "author": "Richard Hoeg richardhoeg",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:Hawk_Ridge,_Duluth,_United_States_(Unsplash).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_1.jpg",
+        "credit": {
+          "author": "Northfielder",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:View_from_Hawk_Ridge,_Duluth,_MN_(29964026922).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_4.jpg",
+        "credit": {
+          "author": "Andy Witchger",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Peregrine_Falcon_-_Hawk_Ridge_Bird_Observatory_-_Duluth_Minnesota_(48805597326).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_7.jpg",
+        "credit": {
+          "author": "Northfielder",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Hawk_Ridge,_Duluth,_MN_(29994576171).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_10.jpg",
+        "credit": {
+          "author": "Northfielder",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Hawk_Ridge_(30077958125).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_11.jpg",
+        "credit": {
+          "author": "Randen Pederson",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:View_From_Hawk_Ridge,_photograph_by_Randen_Pederson.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_8.jpg",
+        "credit": {
+          "author": "Northfielder",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:View_from_Hawk_Ridge,_Duluth,_MN_(29994591101).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_9.jpg",
+        "credit": {
+          "author": "Northfielder",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:View_from_Hawk_Ridge,_Duluth,_MN_(30077959235).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/hawk-ridge/hawk_ridge_12.jpg",
+        "credit": {
+          "author": "Northfielder",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:View_from_Hawk_Ridge_in_Duluth,_MN_(30078311455).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "jay-cooke-state-park",
+    "title": "Jay Cooke State Park",
+    "images": [
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_8.jpg",
+        "credit": {
+          "author": "Lorie Shaull",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Fall_foliage_in_Jay_Cooke_State_Park,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_1.jpg",
+        "credit": {
+          "author": "Tony Webster from Minneapolis, Minnesota, United States",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:St._Louis_River,_Jay_Cooke_State_Park,_Minnesota_(43381894404).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_2.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Falls_and_Shadows,_Jay_Cooke_State_Park_(183990072).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_3.jpg",
+        "credit": {
+          "author": "Jewish Historical Society of the Upper Midwest",
+          "license": "No restrictions",
+          "source": "https://commons.wikimedia.org/wiki/File:Temple_Emanuel_choir_picnic_at_Jay_Cooke_State_Park_outside_Cloquet_(4419477358).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_7.jpg",
+        "credit": {
+          "author": "Lorie Shaull",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:A_visitor_takes_video_of_the_flooded_St_Louis_River_at_Jay_Cooke_State_Park_in_Carlton,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_6.jpg",
+        "credit": {
+          "author": "Lorie Shaull",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:A_visitor_at_Jay_Cooke_State_park_taking_photos_of_the_flooded_St_Louis_River_in_Carlton,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_5.jpg",
+        "credit": {
+          "author": "Lorie Shaull",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:The_St_Louis_River_at_Jay_Cooke_State_Park_in_Carlton,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_13.jpg",
+        "credit": {
+          "author": "Lorie Shaull",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:The_St_Louis_River_and_fall_tree_colors_at_Jay_Cooke_State_Park_in_Carlton,_Minnesota_-_53272982078.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_12.jpg",
+        "credit": {
+          "author": "Lorie Shaull",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:The_St._Louis_River_and_surrounding_hills_in_Jay_Cooke_State_Park,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_11.jpg",
+        "credit": {
+          "author": "Lorie Shaull",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:The_St._Louis_River_and_fall_foliage_in_Jay_Cooke_State_Park,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_15.jpg",
+        "credit": {
+          "author": "Lorie Shaull",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Visitors_at_Jay_Cooke_State_park_take_photos_of_the_flooded_St_Louis_River_in_Carlton,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/jay-cooke-state-park/jay_cooke_state_park_14.jpg",
+        "credit": {
+          "author": "Lorie Shaull",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:The_St_Louis_River_running_high_at_Jay_Cooke_State_Park_in_Carlton,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "lake-superior-maritime-visitor-center",
+    "title": "Lake Superior Maritime Visitor Center",
+    "images": [
+      {
+        "src": "/images/nature/lake-superior-maritime-visitor-center/lake_superior_maritime_visitor_center_6.jpg",
+        "credit": {
+          "author": "U.S. Army Corps of Engineers Detroit District",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:150516-A-CE999-002_(18163943592).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-maritime-visitor-center/lake_superior_maritime_visitor_center_12.jpg",
+        "credit": {
+          "author": "U.S. Army Corps of Engineers Detroit District",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:150516-A-CE999-009_(17544923204).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-maritime-visitor-center/lake_superior_maritime_visitor_center_5.jpg",
+        "credit": {
+          "author": "Pete Markham from Loretto, USA",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Trip_-_May_2015_-_Duluth_North_Pier_Lighthouse_(16806750983).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-maritime-visitor-center/lake_superior_maritime_visitor_center_4.jpg",
+        "credit": {
+          "author": "U.S. Army Corps of Engineers Detroit District",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:American_Integrity_at_Duluth.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-maritime-visitor-center/lake_superior_maritime_visitor_center_11.jpg",
+        "credit": {
+          "author": "U.S. Army Corps of Engineers Detroit District",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:150516-A-CE999-007_(17981292559).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-maritime-visitor-center/lake_superior_maritime_visitor_center_3.jpg",
+        "credit": {
+          "author": "Pete Markham from Loretto, USA",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Trip_-_May_2015_-_Duluth_North_Pier_Lighthouse_(17239243038).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-maritime-visitor-center/lake_superior_maritime_visitor_center_2.jpg",
+        "credit": {
+          "author": "Pete Markham from Loretto, USA",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Trip_-_May_2015_-_Duluth_North_Pier_Lighthouse_(17426624031).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "lake-superior-zoo",
+    "title": "Lake Superior Zoo",
+    "images": [
+      {
+        "src": "/images/nature/lake-superior-zoo/lake_superior_zoo_2.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Scales_of_Color_(1448026564).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-zoo/lake_superior_zoo_3.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Stalk_(1448019692).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-zoo/lake_superior_zoo_1.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Pride_(1447178799).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-zoo/lake_superior_zoo_5.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Emu_(2929316790).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lake-superior-zoo/lake_superior_zoo_6.jpg",
+        "credit": {
+          "author": "U.S. Fish and Wildlife Service - Midwest Region",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Screech_Owl_(5853150956).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "lakewalk",
+    "title": "Lakewalk",
+    "images": [
+      {
+        "src": "/images/nature/lakewalk/lakewalk_9.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Lakewalk,_Duluth_(33752773851).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lakewalk/lakewalk_11.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Lakewalk,_Duluth_(33068803463).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lakewalk/lakewalk_7.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Lakewalk,_Duluth_(19517917224).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "leif-erikson-park",
+    "title": "Leif Erikson Park",
+    "images": [
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_15.jpeg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Leif_Erikson_Park,_Duluth_10_25_17_-lakesuperior_-fall_(37932331222).jpeg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_8.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Leif_Erikson_Park,_Duluth_2_21_18_-lakesuperior_-winter_-trees_-ice_(40418091841).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_9.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Leif_Erikson_Park,_Duluth_10_25_17_-lakesuperior_-stonestructure_-waves_(37276956484).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_12.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Leif_Erikson_Park,_Duluth_10_25_17_-lakesuperior_-leaves_-fall_-waves_-rockyshore_(37328352934).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_13.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Ice_Block_at_the_Shore,_Leif_Erikson_Park,_Duluth_3_12_18_-lakesuperior_(26954236498).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_14.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Boulder,_Leif_Erikson_Park,_Duluth_(33117062043).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_7.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Leif_Erikson_Park,_Duluth_1_8_18_-winter_-ice_-lakesuperior_(38690640815).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_6.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Stone_Structure,_Leif_Erikson_Park,_Duluth_10_25_17_-lakesuperior_-rockyshore_(24091589818).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_1.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Ice_Shore,_Leif_Erikson_Park,_Duluth_3_12_18_-lakesuperior_(40147480964).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_2.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Leif_Erikson_Park,_Duluth_10_25_17_-lakesuperior_-liftbridge_(24167540058).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/leif-erikson-park/leif_erikson_park_3.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Leif_Erikson_Park,_Duluth_2_15_18_-lakesuperior_-winter_-ice_-liftbridge_(40253017322).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "lester-park",
+    "title": "Lester Park",
+    "images": [
+      {
+        "src": "/images/nature/lester-park/lester_park_8.jpg",
+        "credit": {
+          "author": "Elkman",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Lester_River_bridge.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lester-park/lester_park_4.jpg",
+        "credit": {
+          "author": "Detroit Publishing Co.",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:A_Swimming_hole,_Lester_Park,_Duluth,_Minn.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lester-park/lester_park_6.jpg",
+        "credit": {
+          "author": "Randen Pederson",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:View_From_Hawk_Ridge,_photograph_by_Randen_Pederson.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lester-park/lester_park_2.jpg",
+        "credit": {
+          "author": "James St. John",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Lester_River_%26_Japp_Hole_Falls_(Lester_Park,_Minnesota,_USA)_(22294211225).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lester-park/lester_park_3.jpg",
+        "credit": {
+          "author": "Jonathunder",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:7BridgesDuluthMN.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/lester-park/lester_park_1.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Lester_River,_Duluth_7_4_21_(51297141234).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "memorial-park",
+    "title": "Memorial Park",
+    "images": [
+      {
+        "src": "/images/nature/memorial-park/memorial_park_3.jpeg",
+        "credit": {
+          "author": "Department of Defense. American Forces Information Service. Defense Visual Information Center. 1994",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:The_Northland_Vietnam_Veterans%27_Association_memorial_which_was_dedicated_on_May_30,_1992,_at_Duluth%27s_Lake_walk,_Duluth,_MN.,_on_Sept._17,_2004.(U.S._Air_Force_PHOTO_by_STAFF_SGT._B_-_DPLA_-_cd54fdf6cd09da0cfe98b2572c4d6dc7.jpeg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_8.jpg",
+        "credit": {
+          "author": "Myotus",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Veterans_Memorial_Park,_Clearwater,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_9.jpg",
+        "credit": {
+          "author": "Myotus",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dick_Baas_Memorial_Park,_Pease,_Minnesota-05.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_13.jpg",
+        "credit": {
+          "author": "Myotus",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Don_Beerbower_Memorial_Park,_Hill_City,_MN_04.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_12.jpg",
+        "credit": {
+          "author": "Myotus",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Don_Beerbower_Memorial_Park,_Hill_City,_MN_03.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_10.jpg",
+        "credit": {
+          "author": "Myotus",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dick_Baas_Memorial_Park,_Pease,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_11.jpg",
+        "credit": {
+          "author": "Myotus",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Dick_Baas_Memorial_Park,_Pease,_Minnesota-02.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_15.jpg",
+        "credit": {
+          "author": "Myotus",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Don_Beerbower_Memorial_Park-Veterans_Memorial,_Aitkin,_MN.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_14.jpg",
+        "credit": {
+          "author": "Myotus",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Don_Beerbower_Memorial_Park,_Hill_City,_MN_01.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_7.jpg",
+        "credit": {
+          "author": "Myotus",
+          "license": "CC BY 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Veterans_Memorial_Park,_Cambridge,_Minnesota.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_4.jpg",
+        "credit": {
+          "author": "Tom Mackay",
+          "license": "CC BY 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:070430_BM1_Culbertson_Memorial.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_5.jpg",
+        "credit": {
+          "author": "Tony Webster",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Veteran%27s_Memorial_Park,_Long_Prairie,_Minnesota_-_Vietnam_War.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_1.jpg",
+        "credit": {
+          "author": "Kevin Rofidal",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:BM1_Edgar_Culbertson_(1).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/memorial-park/memorial_park_2.jpg",
+        "credit": {
+          "author": "Kevin Rofidal",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:BM1_Culbertson.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "north-shore-scenic-railroad",
+    "title": "North Shore Scenic Railroad",
+    "images": [
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_6.jpg",
+        "credit": {
+          "author": "James St. John",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Basalt_lava_flows_(North_Shore_Volcanic_Group,_Mesoproterozoic,_~1.1_Ga;_Lake_Superior_shoreline_exposure_along_the_North_Shore_Scenic_Railroad_line,_just_northeast_of_Duluth,_Minnesota,_USA)_3_(22327858671).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_7.jpg",
+        "credit": {
+          "author": "KAM32296",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:DMIR332.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_5.jpg",
+        "credit": {
+          "author": "pmarkham",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Soo_Line_2719_Steams_from_Duluth_to_Two_Harbors,_MN_-_September_2009_-_03.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_4.jpg",
+        "credit": {
+          "author": "Pete Markham",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Soo_Line_2719_Steams_from_Duluth_to_Two_Harbors,_MN.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_1.jpg",
+        "credit": {
+          "author": "SoftwareSimian",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Soo_Line_2719_steam_locomotive_4-6-2_on_North_Shore_Scenic_Railroad_at_Lake_Superior_Railroad_Museum.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_3.jpg",
+        "credit": {
+          "author": "James St. John",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Basalt_lava_flow_(North_Shore_Volcanic_Group,_Mesoproterozoic,_~1.1_Ga;_Lake_Superior_shoreline_exposure_along_the_North_Shore_Scenic_Railroad_line,_just_northeast_of_Duluth,_Minnesota,_USA)_4_(22291214206).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_2.jpg",
+        "credit": {
+          "author": "Gary Lee Todd, Ph.D.",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:North_Shore_Scenic_Railroad-_DM%26IR_EMD_SD-18_No._193_-_35305859804.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_12.jpg",
+        "credit": {
+          "author": "Jonathunder",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:OldTownHallNewLondonDuluthMN.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_13.jpg",
+        "credit": {
+          "author": "Keon McGarvey",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:DMIR_316_Duluth.JPG"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_11.jpg",
+        "credit": {
+          "author": "pmarkham",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Soo_Line_2719_Steams_from_Duluth_to_Two_Harbors,_MN_-_September_2009_-_06.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_10.jpg",
+        "credit": {
+          "author": "Gary Lee Todd, Ph.D.",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:North_Shore_Scenic_Railroad-_DM%26IR_EMD_SD-18_No._193.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_9.jpg",
+        "credit": {
+          "author": "Unknown authorUnknown author or not provided",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:North_Shore_Scenic_Drive_-_North_Shore_Scenic_Railroad_-_NARA_-_7720699.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_14.jpg",
+        "credit": {
+          "author": "Jonathunder",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:FrenchRiverNorthShoreScenicRR.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_15.jpg",
+        "credit": {
+          "author": "pmarkham",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Soo_Line_2719_Steams_from_Duluth_to_Two_Harbors,_MN_-_September_2009_-_04.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/north-shore-scenic-railroad/north_shore_scenic_railroad_8.jpg",
+        "credit": {
+          "author": "James St. John",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Basalt_lava_flows_(North_Shore_Volcanic_Group,_Mesoproterozoic,_~1.1_Ga;_Lake_Superior_shoreline_exposure_along_the_North_Shore_Scenic_Railroad_line,_just_northeast_of_Duluth,_Minnesota,_USA)_2_(22129543978).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "park-point",
+    "title": "Park Point",
+    "images": [
+      {
+        "src": "/images/nature/park-point/park_point_14.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Park_Point,_Duluth,_Minnesota13.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/park-point/park_point_3.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Park_Point,_Duluth,_Minnesota4.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/park-point/park_point_6.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Park_Point,_Duluth,_Minnesota21.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/park-point/park_point_5.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Park_Point,_Duluth,_Minnesota5.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/park-point/park_point_4.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Park_Point,_Duluth,_Minnesota48.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "s-s-william-a-irvin",
+    "title": "S.S. William A. Irvin",
+    "images": [
+      {
+        "src": "/images/nature/s-s-william-a-irvin/s.s._william_a._irvin_6.jpg",
+        "credit": {
+          "author": "Steve Moses",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:William_Irvin_Boat_Tour_1987_(Duluth).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/s-s-william-a-irvin/s.s._william_a._irvin_7.jpg",
+        "credit": {
+          "author": "Blackfist",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:William_A_Irvin_hatch_number_2.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/s-s-william-a-irvin/s.s._william_a._irvin_5.jpg",
+        "credit": {
+          "author": "Jonathunder",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:SS_William_A._Irvin,_April_2010.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/s-s-william-a-irvin/s.s._william_a._irvin_4.jpg",
+        "credit": {
+          "author": "Bspor.88",
+          "license": "CC0",
+          "source": "https://commons.wikimedia.org/wiki/File:SS_William_A._Irvin_aerial,_August_2024.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/s-s-william-a-irvin/s.s._william_a._irvin_2.jpg",
+        "credit": {
+          "author": "Pete Markham from Loretto, USA",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:SS_William_A._Irvin_(7572607284).jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "seven-bridges-road",
+    "title": "Seven Bridges Road",
+    "images": [
+      {
+        "src": "/images/nature/seven-bridges-road/seven_bridges_road_1.jpg",
+        "credit": {
+          "author": "Jonathunder",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:7BridgesDuluthMN.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "skyline-parkway",
+    "title": "Skyline Parkway",
+    "images": [
+      {
+        "src": "/images/nature/skyline-parkway/skyline_parkway_3.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Skyline_Parkway,_Duluth_6_21_21_(51272080186).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/skyline-parkway/skyline_parkway_2.jpg",
+        "credit": {
+          "author": "Tony Webster from Minneapolis, Minnesota, United States",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Duluth_Superior_from_Skyline_Parkway_(27002864884).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/skyline-parkway/skyline_parkway_1.jpg",
+        "credit": {
+          "author": "Sharon Mollerus",
+          "license": "CC BY 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Skyline_Parkway,_Duluth_6-12-21_-_Flickr_-_Sharon_Mollerus.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "spirit-mountain",
+    "title": "Spirit Mountain",
+    "images": [
+      {
+        "src": "/images/nature/spirit-mountain/spirit_mountain_3.jpg",
+        "credit": {
+          "author": "Midnightcomm",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Spirit_Mountain_ski_area_aerial.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/spirit-mountain/spirit_mountain_5.jpg",
+        "credit": {
+          "author": "Randen Pederson from Superior",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Bridges_in_Duluth_cross_the_Saint_Louis_River_(82326510).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/spirit-mountain/spirit_mountain_4.jpg",
+        "credit": {
+          "author": "Elkman at English Wikipedia",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Spirit_Mountain_Ski_Area.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/spirit-mountain/spirit_mountain_15.jpg",
+        "credit": {
+          "author": "Stan Shebs",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Spirit_Mountain_ascent_4.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "wade-stadium",
+    "title": "Wade Stadium",
+    "images": [
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_11.jpg",
+        "credit": {
+          "author": "Greenstrat at English Wikipedia",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Wallace_Wade_Stadium.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_4.jpg",
+        "credit": {
+          "author": "PCN02WPS",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Davis_Wade_Stadium,_Arkansas_vs._Mississippi_State,_10-26-2024.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_10.jpg",
+        "credit": {
+          "author": "Jrcla2",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Wallace_Wade_Stadium_02.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_7.jpg",
+        "credit": {
+          "author": "Nateb2003",
+          "license": "CC BY-SA 3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:DavisWadeStadiumExpansion.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_13.jpg",
+        "credit": {
+          "author": "GooseMSU07 at English Wikipedia",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:DavisWade.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_2.jpg",
+        "credit": {
+          "author": "User:B",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Wallace_Wade_Stadium_panoramic_2014.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_14.jpg",
+        "credit": {
+          "author": "Brian Carlson from Overland Park, USA",
+          "license": "CC BY-SA 2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Wallace_Wade_Stadium_(351119669).jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_15.jpg",
+        "credit": {
+          "author": "User:B",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Wallace_Wade_Stadium_2005_Virginia_Tech_at_Duke.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_1.jpg",
+        "credit": {
+          "author": "User:B",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Wallace_Wade_Stadium_2018_panoramic.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_9.jpg",
+        "credit": {
+          "author": "Jrcla2",
+          "license": "Public domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Wallace_Wade_Stadium_01.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/wade-stadium/wade_stadium_8.jpg",
+        "credit": {
+          "author": "B",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Wallace_Wade_Stadium_Blue_Devil_Tower_under_construction.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  },
+  {
+    "parkId": "web-woods",
+    "title": "Web Woods",
+    "images": [
+      {
+        "src": "/images/nature/web-woods/web_woods_2.jpg",
+        "credit": {
+          "author": "Yinan Chen",
+          "license": "Public Domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Gfp-minnesota-valley-state-park-woods-and-scrubs.jpg"
+        },
+        "priority": "gallery"
+      },
+      {
+        "src": "/images/nature/web-woods/web_woods_3.jpg",
+        "credit": {
+          "author": "Yinan Chen",
+          "license": "Public Domain",
+          "source": "https://commons.wikimedia.org/wiki/File:Gfp-minnesota-voyaguers-national-park-short-trail.jpg"
+        },
+        "priority": "gallery"
+      }
+    ]
+  }
+];

@@ -756,6 +756,84 @@
 
     <script src="restaurants-data.js"></script>
     <script>
+        // ============================================
+        // CRITICAL: These functions MUST be defined FIRST
+        // before any code that renders restaurant cards
+        // ============================================
+        
+        // Helper function to create URL-friendly slug from restaurant name and location
+        function createRestaurantSlug(name, location) {
+            // Clean the name
+            var slug = name.toLowerCase();
+            
+            // Handle location suffixes in parentheses
+            var locationSuffix = '';
+            if (name.includes('(Miller Hill)')) {
+                locationSuffix = '-miller-hill';
+                slug = slug.replace(/\s*\(miller hill\)\s*/g, '');
+            } else if (name.includes('(Canal Park)')) {
+                locationSuffix = '-canal-park';
+                slug = slug.replace(/\s*\(canal park\)\s*/g, '');
+            } else if (name.includes('(Central Entrance)')) {
+                locationSuffix = '-central-entrance';
+                slug = slug.replace(/\s*\(central entrance\)\s*/g, '');
+            } else if (name.includes('(London Road)')) {
+                locationSuffix = '-london-road';
+                slug = slug.replace(/\s*\(london road\)\s*/g, '');
+            } else {
+                // Add location to slug if not in name
+                if (location && location !== 'Duluth, MN' && location !== 'Duluth') {
+                    var locSlug = location.toLowerCase()
+                        .replace(/\s+/g, '-')
+                        .replace(/[^a-z0-9-]/g, '')
+                        .replace(/-+/g, '-')
+                        .replace(/^-|-$/g, '');
+                    if (locSlug) {
+                        locationSuffix = '-' + locSlug;
+                    }
+                }
+            }
+            
+            // Remove special characters, keep only letters, numbers, spaces, and hyphens
+            slug = slug.replace(/[^a-z0-9 -]/g, '');
+            // Replace spaces with hyphens
+            slug = slug.replace(/\s+/g, '-');
+            // Remove multiple consecutive hyphens
+            slug = slug.replace(/-+/g, '-');
+            // Remove leading/trailing hyphens
+            slug = slug.replace(/^-|-$/g, '');
+            
+            return slug + locationSuffix;
+        }
+        
+        // Restaurant detail page function - MUST BE DEFINED BEFORE CARDS ARE RENDERED
+        window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image, location, phone, website, address, reservations, popularDishes, hours, type, nicheKeywords) {
+            try {
+                // Create short slug URL
+                var slug = createRestaurantSlug(name, location);
+                
+                // Handle URL based on protocol (file:// vs http://)
+                var url;
+                if (window.location.protocol === 'file:') {
+                    // On file:// protocol, use relative path
+                    url = 'restaurant/index.html?slug=' + encodeURIComponent(slug);
+                } else {
+                    // On http/https protocol, use absolute path
+                    url = '/restaurant/index.html?slug=' + encodeURIComponent(slug);
+                }
+                
+                console.log('Navigating to:', url, 'for restaurant:', name);
+                window.location.href = url;
+            } catch (error) {
+                console.error('Error in openRestaurant:', error);
+                alert('Error navigating to restaurant page. Please try again.');
+            }
+        };
+        
+        // ============================================
+        // End of critical function definitions
+        // ============================================
+        
         // Pagination state
         var currentPage = 1;
         var restaurantsPerPage = 10;
@@ -1109,8 +1187,42 @@
                 var placeType = restaurant.type || 'restaurant';
                 var hoursParam = restaurant.hours ? '\'' + encodeURIComponent(JSON.stringify(restaurant.hours)).replace(/'/g, "\\'") + '\'' : 'null';
                 
-                // Use restaurant image directly (paths are already properly formatted)
+                // Use restaurant image - ensure correct paths for protocol
+                // For Duluth Grill, use first gallery photo if available
                 var imagePath = restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop';
+                
+                // For Duluth Grill, try to get first gallery photo
+                if (restaurant.name === 'Duluth Grill' && typeof getRestaurantAllPhotos !== 'undefined') {
+                    var restaurantPhotos = getRestaurantAllPhotos(restaurant.name);
+                    if (restaurantPhotos && restaurantPhotos.length > 0) {
+                        // Use first photo from gallery
+                        imagePath = restaurantPhotos[0];
+                    }
+                }
+                
+                // Handle paths based on protocol (file:// vs http://)
+                if (imagePath && !imagePath.startsWith('http')) {
+                    // Remove any file:// prefix that might have been added
+                    imagePath = imagePath.replace(/^file:\/\/+/, '');
+                    // Remove leading slash to get base path
+                    var basePath = imagePath.replace(/^\/+/, '');
+                    
+                    // For file:// protocol, use relative paths (photos are in same directory as HTML)
+                    // For http/https protocol, use absolute paths starting with /
+                    if (window.location.protocol === 'file:') {
+                        // Handle images folder (in public/)
+                        if (basePath.startsWith('images/')) {
+                            imagePath = 'public/' + basePath;
+                        }
+                        // On file://, use relative path (since both HTML and photos are in root)
+                        else {
+                            imagePath = basePath;
+                        }
+                    } else {
+                        // On http/https, use absolute path starting with /
+                        imagePath = '/' + basePath;
+                    }
+                }
                 
                 return '<div class="restaurant-card" onclick="openRestaurant(\'' +
                     name.replace(/'/g, "\\'") + '\',' +
@@ -1771,9 +1883,17 @@
                 initLeafletMap(mapContainer);
                 refreshMapMarkers();
             } else {
-                console.error('No map library available');
-                // Retry after a delay
-                setTimeout(initMap, 500);
+                // Map library not loaded yet - this is normal on first load
+                // Only log as warning, not error, and retry
+                console.warn('Map library not yet available, retrying...');
+                // Retry after a delay (will only retry a few times)
+                var retryCount = window._mapInitRetryCount || 0;
+                if (retryCount < 3) {
+                    window._mapInitRetryCount = retryCount + 1;
+                    setTimeout(initMap, 500);
+                } else {
+                    console.warn('Map initialization failed after retries. Map functionality disabled.');
+                }
             }
         }
         
@@ -2122,63 +2242,7 @@
         // Make doSearch globally accessible
         window.doSearch = doSearch;
         
-        // Helper function to create URL-friendly slug from restaurant name and location
-        function createRestaurantSlug(name, location) {
-            // Clean the name
-            var slug = name.toLowerCase();
-            
-            // Handle location suffixes in parentheses
-            var locationSuffix = '';
-            if (name.includes('(Miller Hill)')) {
-                locationSuffix = '-miller-hill';
-                slug = slug.replace(/\s*\(miller hill\)\s*/g, '');
-            } else if (name.includes('(Canal Park)')) {
-                locationSuffix = '-canal-park';
-                slug = slug.replace(/\s*\(canal park\)\s*/g, '');
-            } else if (name.includes('(Central Entrance)')) {
-                locationSuffix = '-central-entrance';
-                slug = slug.replace(/\s*\(central entrance\)\s*/g, '');
-            } else if (name.includes('(London Road)')) {
-                locationSuffix = '-london-road';
-                slug = slug.replace(/\s*\(london road\)\s*/g, '');
-            } else {
-                // Add location to slug if not in name
-                if (location && location !== 'Duluth, MN' && location !== 'Duluth') {
-                    var locSlug = location.toLowerCase()
-                        .replace(/\s+/g, '-')
-                        .replace(/[^a-z0-9-]/g, '')
-                        .replace(/-+/g, '-')
-                        .replace(/^-|-$/g, '');
-                    if (locSlug) {
-                        locationSuffix = '-' + locSlug;
-                    }
-                }
-            }
-            
-            // Remove special characters, keep only letters, numbers, spaces, and hyphens
-            slug = slug.replace(/[^a-z0-9 -]/g, '');
-            // Replace spaces with hyphens
-            slug = slug.replace(/\s+/g, '-');
-            // Remove multiple consecutive hyphens
-            slug = slug.replace(/-+/g, '-');
-            // Remove leading/trailing hyphens
-            slug = slug.replace(/^-|-$/g, '');
-            
-            return slug + locationSuffix;
-        }
-        
-        // Restaurant detail page function - uses query parameter (works everywhere)
-        window.openRestaurant = function(name, number, rating, reviews, price, cuisine, description, image, location, phone, website, address, reservations, popularDishes, hours, type, nicheKeywords) {
-            // Create short slug URL
-            var slug = createRestaurantSlug(name, location);
-            
-            // Use query parameter format - reliable and works on all servers
-            // Format: /restaurant/index.html?slug=restaurant-slug
-            // This avoids Vercel rewrite issues and works everywhere
-            var url = '/restaurant/index.html?slug=' + encodeURIComponent(slug);
-            
-            window.location.href = url;
-        };
+        // createRestaurantSlug and openRestaurant are already defined at the top of the script
         
         // Initialize page when DOM is ready
         function initRestaurantsPage() {
